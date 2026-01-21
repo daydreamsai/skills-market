@@ -210,7 +210,7 @@ agent.entrypoints.add({
   key: 'greet',
   input: z.object({ name: z.string() }),
   async handler({ input }) {
-    return { output: { message: `Hello, ${input.name}!` } };
+    return { output: { message: `Hello, ${input.name}` } };
   },
 });
 ```
