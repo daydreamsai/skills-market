@@ -1,0 +1,15 @@
+{
+  "name": "daydreams",
+  "description": "Unified command hub for all Daydreams AI agent tools - xgate queries, Lucid SDK, Client API, agent creation, and agent factory",
+  "version": "2.0.0",
+  "author": {
+    "name": "Daydreams AI",
+    "email": "ponderingdemocritus@protonmail.com"
+  },
+  "homepage": "https://github.com/daydreamsai/skills-market",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": ["daydreams", "lucid-agents", "xgate", "agents", "sdk", "api", "claude-code"],
+  "commands": "./commands",
+  "skills": "./skills"
+}

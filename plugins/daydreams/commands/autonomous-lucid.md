@@ -3,6 +3,6 @@ description: Research a domain and generate a monorepo of 10 production Lucid Ag
 allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion, TaskCreate, TaskUpdate, TaskList]
 ---
 
-Use the Skill tool to invoke the "autonomous-lucid" skill, then follow its instructions to create an agent suite.
+Use the Skill tool to invoke the "daydreams:autonomous-lucid" skill, then follow its instructions to create an agent suite.
 
 User request: $ARGUMENTS

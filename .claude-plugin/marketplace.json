@@ -5,68 +5,20 @@
     "email": "ponderingdemocritus@protonmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for working with Daydreams AI infrastructure",
-    "version": "1.2.0",
+    "description": "Claude Code plugin for Daydreams AI infrastructure",
+    "version": "2.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "xgate-server",
-      "source": "./plugins/xgate-server",
-      "description": "Query xgate-server API for X402 services, ERC-8004 agents, and on-chain token transfers",
-      "version": "1.2.0",
+      "name": "daydreams",
+      "source": "./plugins/daydreams",
+      "description": "Complete toolkit for Daydreams AI - xgate queries, Lucid SDK, Client API, agent creation, and agent factory",
+      "version": "2.0.0",
       "author": {
         "name": "Daydreams AI"
       },
-      "keywords": ["xgate", "x402", "erc-8004", "agents", "blockchain", "api"],
-      "category": "api-tools",
-      "license": "MIT"
-    },
-    {
-      "name": "lucid-agents-sdk",
-      "source": "./plugins/lucid-agents-sdk",
-      "description": "Skill for working with the Lucid Agents SDK - a TypeScript framework for building and monetizing AI agents",
-      "version": "1.2.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "sdk", "agents", "typescript", "ai", "payments", "identity", "a2a"],
-      "category": "sdk",
-      "license": "MIT"
-    },
-    {
-      "name": "lucid-client-api",
-      "source": "./plugins/lucid-client-api",
-      "description": "Skill for interacting with the Lucid Client API (multi-agent runtime) - manage agents, invoke entrypoints, handle payments",
-      "version": "1.2.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-client", "api", "runtime", "agents", "multi-agent"],
-      "category": "api-tools",
-      "license": "MIT"
-    },
-    {
-      "name": "paid-agent",
-      "source": "./plugins/paid-agent",
-      "description": "End-to-end Lucid Agent creation, testing, and deployment pipeline with Ralph Wiggum, code review, and automated publishing",
-      "version": "1.2.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "deployment", "ralph-wiggum", "code-review", "testing", "railway", "github"],
-      "category": "development",
-      "license": "MIT"
-    },
-    {
-      "name": "autonomous-lucid",
-      "source": "./plugins/autonomous-lucid",
-      "description": "Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents",
-      "version": "1.2.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "autonomous", "monorepo", "parallel", "agent-factory", "research"],
+      "keywords": ["daydreams", "lucid-agents", "xgate", "x402", "erc-8004", "agents", "sdk", "api", "payments", "a2a", "claude-code"],
       "category": "development",
       "license": "MIT"
     }
