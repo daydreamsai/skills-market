@@ -1,6 +1,6 @@
 ---
 name: xgate-server
-description: This skill should be used when the user asks about "xgate", "xgate-server", "X402 services", "ERC-8004 agents", "search xgate", "query xgate", "find agents on xgate", "token transfers", "blockchain agents", "on-chain data", or mentions the xgate.run API.
+description: This skill should be used when the user asks about "xgate", "xgate-server", "X402 services", "ERC-8004 agents", "search xgate", "query xgate", "find agents on xgate", "token transfers", "blockchain agents", "on-chain data", or mentions the api.xgate.run API.
 allowed-tools: [Bash, Read, Write, WebFetch]
 ---
 
@@ -19,11 +19,11 @@ Query the xgate-server API for X402 services, ERC-8004 agents, and on-chain toke
 
 ## API Base URL
 
-`https://xgate.run`
+`https://api.xgate.run`
 
 Check health first:
 ```bash
-curl -s https://xgate.run/health | jq
+curl -s https://api.xgate.run/health | jq
 ```
 
 ## Quick Reference
@@ -32,16 +32,16 @@ curl -s https://xgate.run/health | jq
 
 ```bash
 # Basic search
-curl -s "https://xgate.run/services?q=QUERY&limit=10" | jq
+curl -s "https://api.xgate.run/services?q=QUERY&limit=10" | jq
 
 # With filters
-curl -s "https://xgate.run/services?q=QUERY&network=ethereum,base&asset=USDC&limit=10" | jq
+curl -s "https://api.xgate.run/services?q=QUERY&network=ethereum,base&asset=USDC&limit=10" | jq
 
 # Get specific service
-curl -s "https://xgate.run/services/SERVICE_ID" | jq
+curl -s "https://api.xgate.run/services/SERVICE_ID" | jq
 
 # Debug mode (scoring info)
-curl -s "https://xgate.run/services?q=QUERY&debug=true" | jq
+curl -s "https://api.xgate.run/services?q=QUERY&debug=true" | jq
 ```
 
 **Service Query Parameters:**
@@ -61,19 +61,19 @@ curl -s "https://xgate.run/services?q=QUERY&debug=true" | jq
 
 ```bash
 # Basic search
-curl -s "https://xgate.run/agents?q=QUERY&limit=10" | jq
+curl -s "https://api.xgate.run/agents?q=QUERY&limit=10" | jq
 
 # Filter by protocol
-curl -s "https://xgate.run/agents?protocols=MCP&limit=10" | jq
+curl -s "https://api.xgate.run/agents?protocols=MCP&limit=10" | jq
 
 # Filter by chain
-curl -s "https://xgate.run/agents?chain_id=11155111&limit=10" | jq
+curl -s "https://api.xgate.run/agents?chain_id=11155111&limit=10" | jq
 
 # Multiple filters
-curl -s "https://xgate.run/agents?protocols=MCP,A2A&min_score=0.5&validation_status=completed&limit=10" | jq
+curl -s "https://api.xgate.run/agents?protocols=MCP,A2A&min_score=0.5&validation_status=completed&limit=10" | jq
 
 # Debug mode (rank breakdown)
-curl -s "https://xgate.run/agents?q=QUERY&debug=true" | jq
+curl -s "https://api.xgate.run/agents?q=QUERY&debug=true" | jq
 ```
 
 **Agent Query Parameters:**
@@ -103,16 +103,16 @@ curl -s "https://xgate.run/agents?q=QUERY&debug=true" | jq
 
 ```bash
 # All transfers for facilitator
-curl -s "https://xgate.run/onchain/token-transfers?facilitator_id=base&chain_id=8453&limit=100" | jq
+curl -s "https://api.xgate.run/onchain/token-transfers?facilitator_id=base&chain_id=8453&limit=100" | jq
 
 # Transfers for specific address
-curl -s "https://xgate.run/onchain/token-transfers?wallet_address=0xADDRESS&chain_id=1" | jq
+curl -s "https://api.xgate.run/onchain/token-transfers?wallet_address=0xADDRESS&chain_id=1" | jq
 
 # Resource transfers
-curl -s "https://xgate.run/services/resource/0xADDRESS/transfers?chain_id=1" | jq
+curl -s "https://api.xgate.run/services/resource/0xADDRESS/transfers?chain_id=1" | jq
 
 # With totals
-curl -s "https://xgate.run/onchain/token-transfers?facilitator_id=base&include_totals=true" | jq
+curl -s "https://api.xgate.run/onchain/token-transfers?facilitator_id=base&include_totals=true" | jq
 ```
 
 **Transfer Query Parameters:**
@@ -137,20 +137,20 @@ curl -s "https://xgate.run/onchain/token-transfers?facilitator_id=base&include_t
 
 ```bash
 # Query transfer-with-authorization events
-curl -s "https://xgate.run/base/events/transfer-with-authorization?token_address=0xTOKEN&limit=50" | jq
+curl -s "https://api.xgate.run/base/events/transfer-with-authorization?token_address=0xTOKEN&limit=50" | jq
 ```
 
 ### Utility Endpoints
 
 ```bash
 # Health check
-curl -s https://xgate.run/health | jq
+curl -s https://api.xgate.run/health | jq
 
 # Usage statistics
-curl -s https://xgate.run/services/usage | jq
+curl -s https://api.xgate.run/services/usage | jq
 
 # OpenAPI spec
-curl -s https://xgate.run/doc | jq
+curl -s https://api.xgate.run/doc | jq
 ```
 
 ## Common Workflows
@@ -158,29 +158,29 @@ curl -s https://xgate.run/doc | jq
 ### Find MCP-Compatible Agents with High Reputation
 
 ```bash
-curl -s "https://xgate.run/agents?protocols=MCP&min_score=0.8&validation_status=completed&limit=20" | jq '.results[] | {name, agentId, reputationScore, mcp}'
+curl -s "https://api.xgate.run/agents?protocols=MCP&min_score=0.8&validation_status=completed&limit=20" | jq '.results[] | {name, agentId, reputationScore, mcp}'
 ```
 
 ### Search Services by Network and Extract URLs
 
 ```bash
-curl -s "https://xgate.run/services?network=base&limit=20" | jq '.results[] | {id, resource, networks, assets}'
+curl -s "https://api.xgate.run/services?network=base&limit=20" | jq '.results[] | {id, resource, networks, assets}'
 ```
 
 ### Get Recent Token Transfers with USD Values
 
 ```bash
-curl -s "https://xgate.run/onchain/token-transfers?chain_id=8453&order=desc&limit=20&include_totals=true" | jq '{totals: .meta.totals, transfers: [.data[] | {tx_hash, from: .from_address, to: .to_address, value_usd}]}'
+curl -s "https://api.xgate.run/onchain/token-transfers?chain_id=8453&order=desc&limit=20&include_totals=true" | jq '{totals: .meta.totals, transfers: [.data[] | {tx_hash, from: .from_address, to: .to_address, value_usd}]}'
 ```
 
 ### Paginate Through All Agents
 
 ```bash
 # First page
-curl -s "https://xgate.run/agents?limit=50&offset=0" | jq
+curl -s "https://api.xgate.run/agents?limit=50&offset=0" | jq
 
 # Next page
-curl -s "https://xgate.run/agents?limit=50&offset=50" | jq
+curl -s "https://api.xgate.run/agents?limit=50&offset=50" | jq
 ```
 
 ## Response Format

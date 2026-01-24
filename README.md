@@ -39,14 +39,14 @@ Query the xgate-server API for X402 services, ERC-8004 agents, and on-chain toke
 
 # The skill includes a CLI that Claude will invoke via curl commands
 # Example queries the skill will run:
-curl -s "https://xgate.run/health" | jq
-curl -s "https://xgate.run/services?q=token&network=ethereum" | jq
-curl -s "https://xgate.run/agents?protocols=MCP&min_score=0.8" | jq
+curl -s "https://api.xgate.run/health" | jq
+curl -s "https://api.xgate.run/services?q=token&network=ethereum" | jq
+curl -s "https://api.xgate.run/agents?protocols=MCP&min_score=0.8" | jq
 ```
 
 **Environment:**
 ```bash
-export XGATE_URL=https://xgate.run  # Default API endpoint
+export XGATE_URL=https://api.xgate.run  # Default API endpoint
 ```
 
 ### lucid-agents-sdk

@@ -4,7 +4,7 @@
 
 set -e
 
-XGATE_URL="${XGATE_URL:-https://xgate.run}"
+XGATE_URL="${XGATE_URL:-https://api.xgate.run}"
 
 usage() {
     cat << EOF
@@ -55,7 +55,7 @@ Examples:
   xgate resource-transfers 0x1234... -c 1
 
 Environment:
-  XGATE_URL    API base URL (default: https://xgate.run)
+  XGATE_URL    API base URL (default: https://api.xgate.run)
 EOF
 }
 
