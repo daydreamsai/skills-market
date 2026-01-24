@@ -1,7 +1,7 @@
 {
   "name": "autonomous-lucid",
   "description": "Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
@@ -10,5 +10,6 @@
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
   "keywords": ["lucid-agents", "autonomous", "monorepo", "parallel", "agent-factory", "research", "claude-code"],
-  "skills": "./skills"
+  "skills": "./skills",
+  "commands": "./commands"
 }

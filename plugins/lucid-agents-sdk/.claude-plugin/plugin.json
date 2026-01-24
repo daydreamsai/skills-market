@@ -1,7 +1,7 @@
 {
   "name": "lucid-agents-sdk",
   "description": "Skill for working with the Lucid Agents SDK - a TypeScript framework for building and monetizing AI agents",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
@@ -10,5 +10,6 @@
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
   "keywords": ["lucid-agents", "sdk", "agents", "typescript", "ai", "payments", "identity", "a2a", "claude-code"],
-  "skills": "./skills"
+  "skills": "./skills",
+  "commands": "./commands"
 }
