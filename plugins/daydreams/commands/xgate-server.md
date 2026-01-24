@@ -1,8 +1,11 @@
 ---
 description: Query xgate-server API for services, agents, and on-chain data
-allowed-tools: [Skill, Bash, Read, Write, WebFetch]
+argument-hint: [query] [--agents] [--services] [--transfers]
+allowed-tools: Skill, Bash, Read, Write, WebFetch
 ---
 
-Use the Skill tool to invoke the "daydreams:xgate-server" skill, then follow its instructions to help the user with their xgate query.
+Load the xgate-server skill and execute the query against the xgate API at https://api.xgate.run.
 
-User request: $ARGUMENTS
+**User request:** $ARGUMENTS
+
+If no specific request provided, check API health and show available endpoints.

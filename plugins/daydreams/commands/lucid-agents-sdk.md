@@ -1,8 +1,11 @@
 ---
 description: Work with the Lucid Agents SDK for building AI agents
-allowed-tools: [Skill, Bash, Read, Write, Edit, Glob, Grep]
+argument-hint: [task] [--adapter=hono|express|tanstack]
+allowed-tools: Skill, Bash, Read, Write, Edit, Glob, Grep
 ---
 
-Use the Skill tool to invoke the "daydreams:lucid-agents-sdk" skill, then follow its instructions to help the user.
+Load the lucid-agents-sdk skill and assist with the requested task.
 
-User request: $ARGUMENTS
+**User request:** $ARGUMENTS
+
+If working in a lucid-agents repository, analyze the codebase structure first. For new agents, recommend the Hono adapter unless specified otherwise.

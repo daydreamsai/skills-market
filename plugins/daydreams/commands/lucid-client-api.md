@@ -1,8 +1,11 @@
 ---
 description: Interact with the Lucid Client API (multi-agent runtime)
-allowed-tools: [Skill, Bash, Read, Write, WebFetch]
+argument-hint: [operation] [--agent-id=ID] [--endpoint=URL]
+allowed-tools: Skill, Bash, Read, Write, WebFetch
 ---
 
-Use the Skill tool to invoke the "daydreams:lucid-client-api" skill, then follow its instructions to help the user.
+Load the lucid-client-api skill and execute the requested API operation.
 
-User request: $ARGUMENTS
+**User request:** $ARGUMENTS
+
+Handle 402 Payment Required responses by explaining the x402 payment flow. For authenticated endpoints, remind user about session cookie requirements.

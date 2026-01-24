@@ -14,7 +14,7 @@
       "name": "daydreams",
       "source": "./plugins/daydreams",
       "description": "Complete toolkit for Daydreams AI - xgate queries, Lucid SDK, Client API, agent creation, and agent factory",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "Daydreams AI"
       },
