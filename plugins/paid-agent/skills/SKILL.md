@@ -1,7 +1,12 @@
 ---
 name: paid-agent
-description: End-to-end Lucid Agent creation, testing, and deployment pipeline
+description: This skill should be used when the user asks to "create a paid agent", "build a lucid agent", "deploy an agent", "make a monetized agent", "publish agent to GitHub", "deploy to Railway", "agent development pipeline", or wants end-to-end agent creation with testing and deployment.
 allowed-tools: [Skill, Bash, Read, Write, AskUserQuestion]
+requires:
+  - ralph-wiggum:ralph-loop
+  - feature-dev:code-reviewer
+  - commit
+  - railway
 ---
 
 # Paid Agent Pipeline

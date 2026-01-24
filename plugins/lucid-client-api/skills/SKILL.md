@@ -1,13 +1,7 @@
 ---
 name: lucid-client-api
-description: |
-  Skill for interacting with the Lucid Client API (multi-agent runtime).
-  The API is hosted in the lucid-client codebase and provides endpoints for
-  managing agents, invoking entrypoints, handling payments, and more.
-
-  Activate when: user wants to interact with the Lucid Client API, manage agents,
-  invoke agent entrypoints, or work with the multi-agent runtime system.
-
+description: This skill should be used when the user asks about "lucid client", "lucid-client", "lucid client API", "multi-agent runtime", "agent management API", "invoke agent entrypoints", "agent secrets", "agent analytics", "agent rankings", or mentions the lucid-client repository or API endpoints.
+allowed-tools: [Bash, Read, Write, WebFetch]
 see-also:
   - https://github.com/daydreamsai/lucid-client/blob/master/AGENTS.md: Full documentation of the lucid-client architecture
   - https://github.com/daydreamsai/lucid-client/blob/master/CLAUDE.md: Development guide for lucid-client

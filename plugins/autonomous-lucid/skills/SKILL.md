@@ -1,7 +1,14 @@
 ---
 name: autonomous-lucid
-description: Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents
-allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion, TodoWrite]
+description: This skill should be used when the user asks to "build agents for a domain", "create agent suite", "generate autonomous agents", "build monorepo of agents", "10 agents for X", "agent factory", "parallel agent creation", or wants to research a domain and generate multiple production Lucid Agents.
+allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion, TaskCreate, TaskUpdate, TaskList]
+requires:
+  - research-agent
+  - paid-agent
+  - commit
+  - railway
+see-also:
+  - ./references/ARCHITECTURE.md: Detailed architecture and data flow diagrams
 ---
 
 # Autonomous Lucid Agent Factory

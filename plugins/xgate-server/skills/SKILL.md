@@ -1,7 +1,7 @@
 ---
 name: xgate-server
-description: Query xgate-server API for services, agents, and on-chain data
-allowed-tools: [Bash, Read, Write]
+description: This skill should be used when the user asks about "xgate", "xgate-server", "X402 services", "ERC-8004 agents", "search xgate", "query xgate", "find agents on xgate", "token transfers", "blockchain agents", "on-chain data", or mentions the xgate.run API.
+allowed-tools: [Bash, Read, Write, WebFetch]
 ---
 
 # xgate-server CLI

@@ -34,19 +34,19 @@ Query the xgate-server API for X402 services, ERC-8004 agents, and on-chain toke
 
 **Usage:**
 ```bash
-# After installing, use the skill
-/xgate-server
+# After installing, the skill auto-activates when you mention xgate
+# Example: "Search for MCP agents on xgate"
 
-# Or use the CLI directly
-xgate health
-xgate services -q "token" -n ethereum
-xgate agents -p MCP --min-score 0.8
-xgate transfers -c 8453 --totals
+# The skill includes a CLI that Claude will invoke via curl commands
+# Example queries the skill will run:
+curl -s "https://xgate.run/health" | jq
+curl -s "https://xgate.run/services?q=token&network=ethereum" | jq
+curl -s "https://xgate.run/agents?protocols=MCP&min_score=0.8" | jq
 ```
 
 **Environment:**
 ```bash
-export XGATE_URL=https://xgate.run  # or http://localhost:9000
+export XGATE_URL=https://xgate.run  # Default API endpoint
 ```
 
 ### lucid-agents-sdk
@@ -100,6 +100,12 @@ Automatically activates when:
 
 End-to-end Lucid Agent creation, testing, and deployment pipeline.
 
+**Required Plugins (from other sources):**
+- `ralph-wiggum` - Iterative development loops
+- `feature-dev` - Code review capabilities
+- `commit` skill - Git operations
+- `railway` - Deployment (optional)
+
 **Features:**
 - Iterative agent development using Ralph Wiggum loops
 - Automated code review for quality and security
@@ -147,6 +153,13 @@ The skill will:
 ### autonomous-lucid
 
 Autonomous agent factory that researches a domain and generates a complete monorepo of 10 production-ready Lucid Agents.
+
+**Required Plugins (from other sources):**
+- `research-agent` - Domain research and analysis
+- `ralph-wiggum` - Iterative development loops (via paid-agent)
+- `feature-dev` - Code review capabilities (via paid-agent)
+- `commit` skill - Git operations
+- `railway` - Deployment (optional)
 
 **Features:**
 - Deep domain research using research-agent skill
