@@ -26,7 +26,7 @@ Use this skill when the user wants to create Lucid agents with inline JavaScript
 
 - Code runs as `(async () => { ${code} })()` in a VM sandbox
 - **Globals available**:
-  - `input`: The request payload (JSON object)
+  - `input`: The request body’s `input` field (the entrypoint payload). Clients must POST `{ "input": <payload> }`; that `<payload>` is what handlers see as `input`.
   - `console`: Standard console object for logging
   - `fetch`: Only available if `handlerConfig.network.allowedHosts` is set
 - **Not available**: `require`, `import`, `process`, Node.js APIs, or any other Node modules
@@ -53,11 +53,21 @@ When your handler needs to make outbound HTTP requests:
 
 **Important**: If `allowedHosts` is not set, `fetch` will not be available in the handler code.
 
+### Common mistakes
+
+- **Do not use `ctx`**. Only `input` exists in the sandbox. Use `input` (e.g. `input.text`), not `ctx.input`.
+- **Do not return `{ output, usage }`**. Return only the output value. The platform sets `output` and `usage` automatically.
+
 ### Examples
 
 **Simple echo handler**:
 ```javascript
 return { echoed: input };
+```
+
+**Echo a specific field**:
+```javascript
+return { text: input.text };
 ```
 
 **Handler with fetch**:
@@ -155,6 +165,16 @@ You can pass `identityConfig` for ERC-8004 identity:
 
 3. **Return**:
    - Tool returns agent object with `id`, `slug`, `name`, `description`, `invokeUrl`, and other fields
+
+### Invoking created agents
+
+POST to `invokeUrl` (or `POST /agents/{agentId}/entrypoints/{key}/invoke`). Request body **must** wrap the entrypoint payload in `input`:
+
+```json
+{ "input": { "text": "Hello" } }
+```
+
+Optional: `sessionId`, `metadata`. The handler receives the `input` value as the `input` global.
 
 ### Error Handling
 
