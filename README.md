@@ -16,6 +16,7 @@ Then install the plugins you want:
 /plugin install xgate-server@daydreams-skills
 /plugin install lucid-agents-sdk@daydreams-skills
 /plugin install lucid-client-api@daydreams-skills
+/plugin install lucid-js-handlers@daydreams-skills
 /plugin install paid-agent@daydreams-skills
 /plugin install autonomous-lucid@daydreams-skills
 ```
@@ -95,6 +96,26 @@ Automatically activates when:
 **Resources:**
 - [Lucid Client Repository](https://github.com/daydreamsai/lucid-client)
 - [API Documentation](https://github.com/daydreamsai/lucid-client/blob/master/AGENTS.md)
+
+### lucid-js-handlers
+
+Create Lucid agents with inline JavaScript handler code using the `create_lucid_agent` MCP tool. Agents are hosted on the Lucid platform (no self-hosting).
+
+**Features:**
+- JS handler code contract (sandboxed runtime, input/return expectations)
+- Fetch allowlist via `handlerConfig.network.allowedHosts`
+- Timeout controls via `handlerConfig.timeoutMs`
+- PaymentsConfig requirements for paid agents
+- Optional identityConfig (ERC-8004)
+
+**Usage:**
+Automatically activates when:
+- Creating Lucid agents with inline JS handlers
+- Working with `create_lucid_agent`
+- Setting paid entrypoints or identity config
+
+**Resources:**
+- [Guide](plugins/lucid-js-handlers/skills/GUIDE.md)
 
 ### paid-agent
 
