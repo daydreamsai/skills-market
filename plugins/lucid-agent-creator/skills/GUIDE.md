@@ -27,13 +27,18 @@ Add the xgate MCP server to your AI client's MCP config. You get the **MCP URL**
 
 **If you're not using the frontend** (e.g. local or custom flow), you can run SIWE via the xgate API (start → challenge → sign → verify) and use the returned `sessionToken` and `walletSlug` to build the MCP URL and auth. Prefer the frontend when available.
 
-### 3. Install the Skill
+### 3. Install the skill
 
-Install the **lucid-agent-creator** skill plugin (from skills-market). The skill teaches the agent:
-- The JS handler code contract (what to write, scope, return value, default timeout, `allowedHosts`)
-- How to use the `create_lucid_agent` MCP tool
-- PaymentsConfig requirements for paid agents
-- Optional identityConfig (ERC-8004)
+**Claude (Claude Code / Claude CLI):** Add the marketplace if needed, then run:
+
+```bash
+/plugin marketplace add daydreamsai/skills-market
+/plugin install lucid-agent-creator@daydreams-skills
+```
+
+**Cursor:** Copy the skill into your project — e.g. `mkdir -p .claude/skills/lucid-agent-creator` and copy `plugins/lucid-agent-creator/skills/SKILL.md` (and optionally `GUIDE.md`) from the [skills-market](https://github.com/daydreamsai/skills-market) repo into that folder.
+
+The skill teaches the agent the JS handler code contract, `create_lucid_agent` usage, PaymentsConfig for paid agents, and optional identityConfig (ERC-8004).
 
 ### 4. Prompt Your Agent to Make an Agent
 
