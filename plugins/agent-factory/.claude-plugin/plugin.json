@@ -1,0 +1,14 @@
+{
+  "name": "agent-factory",
+  "description": "End-to-end pipeline for discovering trends, building paid Lucid Agents with x402, and deploying them",
+  "version": "1.0.0",
+  "author": {
+    "name": "langoustine69",
+    "email": "master-claud@agentmail.to"
+  },
+  "homepage": "https://github.com/daydreamsai/skills-market",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "agent-builder", "deployment", "railway", "trending", "defi", "crypto", "automation"],
+  "skills": "./skills"
+}
