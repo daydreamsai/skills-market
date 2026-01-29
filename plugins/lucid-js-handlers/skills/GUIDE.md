@@ -49,12 +49,12 @@ The agent will:
 
 ### 5. Result
 
-You get a **hosted agent** on the Lucid platform:
-- Agent `id`
-- Agent `slug`
-- Invoke URL (e.g., `https://lucid-dev.daydreams.systems/agents/{slug}/invoke/{entrypointKey}`)
+The **create_lucid_agent** tool returns the created agent as its result. You get:
+- **`id`** – agent ID (e.g. `ag_771fc5c2081e`)
+- **`slug`** – agent slug (e.g. `test-echo-fixed`)
+- **`invokeUrl`** – full URL to invoke the first entrypoint (e.g. `https://lucid-dev.daydreams.systems/agents/{id}/entrypoints/{key}/invoke`)
 
-No extra deploy or hosting step required.
+Plus the rest of the agent object (`name`, `description`, `entrypoints`, etc.). The AI sees this tool result and can share it with you. No extra deploy or hosting step.
 
 ## Summary
 
