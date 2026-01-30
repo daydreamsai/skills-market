@@ -1,0 +1,23 @@
+{
+  "name": "cult-film-curtis",
+  "description": "Cult Film Curtis - A movie-loving connoisseur that provides paid cult film recommendations via x402 micropayments",
+  "version": "1.0.0",
+  "author": {
+    "name": "SecretiveBot",
+    "email": "secretivebot@agentmail.to"
+  },
+  "homepage": "https://github.com/daydreamsai/skills-market",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "x402",
+    "cult-films",
+    "movies",
+    "recommendations",
+    "entertainment",
+    "micropayments",
+    "base"
+  ],
+  "skills": "./skills"
+}
