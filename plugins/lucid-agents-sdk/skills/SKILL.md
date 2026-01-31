@@ -361,6 +361,345 @@ const agent = await createAgent({
 // Identity automatically handles ERC-8004 registration
 ```
 
+## ERC-8004 Identity Registration (CRITICAL)
+
+Per the **ERC-8004 specification**, all agents MUST be registered with a proper `agentURI` that points to hosted metadata.
+
+### ⚠️ MANDATORY REQUIREMENTS
+
+1. **agentURI MUST be a URL** - NOT inline JSON data
+2. **URL MUST point to hosted metadata** - Typically `/.well-known/agent.json`
+3. **Metadata MUST be accessible** - The URL must return valid JSON
+
+### ❌ WRONG (Inline JSON)
+```typescript
+// DO NOT DO THIS - violates ERC-8004 spec
+const agentURI = JSON.stringify({
+  name: "My Agent",
+  description: "...",
+  url: "https://my-agent.example.com"
+});
+
+await walletClient.writeContract({
+  address: REGISTRY,
+  abi,
+  functionName: 'register',
+  args: [agentURI]  // ❌ WRONG - inline JSON, not a URL
+});
+```
+
+### ✅ CORRECT (Hosted ERC-8004 Registration File)
+```typescript
+// CORRECT - URL pointing to ERC-8004 registration file
+const agentURI = 'https://my-agent.example.com/.well-known/erc8004.json';
+
+await walletClient.writeContract({
+  address: REGISTRY,
+  abi,
+  functionName: 'register',
+  args: [agentURI]  // ✅ CORRECT - URL to ERC-8004 registration file
+});
+```
+
+### ERC-8004 Registration File Format
+
+The `agentURI` MUST resolve to a registration file with this structure:
+
+```json
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "my-agent",
+  "description": "A natural language description of what the agent does, pricing, and interaction methods",
+  "image": "https://my-agent.example.com/icon.png",
+  "services": [
+    {
+      "name": "web",
+      "endpoint": "https://my-agent.example.com/"
+    },
+    {
+      "name": "A2A",
+      "endpoint": "https://my-agent.example.com/.well-known/agent.json",
+      "version": "0.3.0"
+    },
+    {
+      "name": "MCP",
+      "endpoint": "https://my-agent.example.com/mcp",
+      "version": "2025-06-18"
+    }
+  ],
+  "x402Support": true,
+  "active": true,
+  "registrations": [
+    {
+      "agentId": 12345,
+      "agentRegistry": "eip155:1:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    }
+  ],
+  "supportedTrust": ["reputation"]
+}
+```
+
+**Required Fields:**
+- `type` - MUST be `"https://eips.ethereum.org/EIPS/eip-8004#registration-v1"`
+- `name` - Agent name (ERC-721 compatible)
+- `description` - Natural language description
+- `image` - Agent icon URL (ERC-721 compatible, 512x512 PNG recommended)
+- `services` - Array of endpoints (A2A, MCP, web, etc.)
+- `x402Support` - Boolean indicating x402 payment support
+- `active` - Boolean indicating agent is active
+- `registrations` - Array of on-chain registrations
+
+**Image Requirements:**
+- URL must be publicly accessible (e.g., `https://agent.example.com/icon.png`)
+- Recommended size: 512x512px (minimum 256x256)
+- Format: PNG with transparency preferred
+- Style: Simple, recognizable icon representing the agent's purpose
+- No text in the icon (won't be legible at small sizes)
+
+**URI Schemes Allowed:**
+- `https://` - Standard HTTPS URL
+- `ipfs://` - IPFS CID (e.g., `ipfs://bafybeig...`)
+- `data:` - Base64-encoded on-chain (e.g., `data:application/json;base64,...`)
+
+### Hosting the Registration File
+
+Option 1: Add endpoint to your agent at `/.well-known/erc8004.json`:
+
+```typescript
+app.get('/.well-known/erc8004.json', (c) => {
+  return c.json({
+    type: "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+    name: agent.name,
+    description: agent.description,
+    image: `${baseUrl}/icon.png`,
+    services: [
+      { name: "web", endpoint: baseUrl },
+      { name: "A2A", endpoint: `${baseUrl}/.well-known/agent.json`, version: "0.3.0" }
+    ],
+    x402Support: true,
+    active: true,
+    registrations: [
+      { agentId: tokenId, agentRegistry: "eip155:1:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432" }
+    ],
+    supportedTrust: ["reputation"]
+  });
+});
+```
+
+Option 2: Host on IPFS for immutable metadata
+
+Option 3: Use base64 data: URI for fully on-chain metadata
+
+### Generating Agent Icons
+
+Use Gemini (nano-banana-pro) or other image gen to create agent icons:
+
+```typescript
+// Generate icon via Gemini API
+const response = await fetch(
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${GEMINI_API_KEY}`,
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{
+          text: `Create a simple, modern app icon for an AI agent that ${agentDescription}. Style: flat design, minimal, single focal element, vibrant colors, 512x512px. No text.`
+        }]
+      }],
+      generationConfig: { responseModalities: ['image', 'text'] }
+    })
+  }
+);
+
+const data = await response.json();
+const imageBase64 = data.candidates[0].content.parts.find(p => p.inlineData)?.inlineData?.data;
+const iconBuffer = Buffer.from(imageBase64, 'base64');
+await Bun.write('./public/icon.png', iconBuffer);
+```
+
+Serve the icon:
+
+```typescript
+app.get('/icon.png', async (c) => {
+  const file = Bun.file('./public/icon.png');
+  return new Response(file, {
+    headers: { 'Content-Type': 'image/png' }
+  });
+});
+```
+
+### Note: A2A Agent Card vs ERC-8004 Registration File
+
+These are **different formats** for different purposes:
+- `/.well-known/agent.json` - A2A protocol agent card (skills, capabilities)
+- ERC-8004 registration file - Identity/discovery (services, registrations, trust)
+
+### Registration Flow
+
+1. **Deploy agent** to Railway/hosting (e.g., `https://my-agent-production.up.railway.app`)
+2. **Verify metadata endpoint** works: `curl https://my-agent-production.up.railway.app/.well-known/agent.json`
+3. **Register on-chain** with the metadata URL as `agentURI`
+
+```typescript
+const { createWalletClient, createPublicClient, http, parseAbi } = require('viem');
+const { mainnet } = require('viem/chains');
+const { privateKeyToAccount } = require('viem/accounts');
+
+const REGISTRY = '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432';
+const RPC_URL = 'https://ethereum-rpc.publicnode.com';
+
+const abi = parseAbi([
+  'function register(string _uri) external returns (uint256)'
+]);
+
+async function registerAgent(privateKey, agentBaseUrl) {
+  const account = privateKeyToAccount(privateKey);
+  
+  const walletClient = createWalletClient({
+    account,
+    chain: mainnet,
+    transport: http(RPC_URL)
+  });
+
+  const publicClient = createPublicClient({
+    chain: mainnet,
+    transport: http(RPC_URL)
+  });
+
+  // MUST use the hosted ERC-8004 registration file URL, not inline JSON
+  const agentURI = `${agentBaseUrl}/.well-known/erc8004.json`;
+  
+  console.log('Registering with agentURI:', agentURI);
+  
+  const hash = await walletClient.writeContract({
+    address: REGISTRY,
+    abi,
+    functionName: 'register',
+    args: [agentURI]
+  });
+
+  console.log('TX:', hash);
+  
+  const receipt = await publicClient.waitForTransactionReceipt({ hash });
+  console.log('Status:', receipt.status);
+  console.log('Etherscan: https://etherscan.io/tx/' + hash);
+  
+  return hash;
+}
+
+// Usage:
+// registerAgent('0xYourPrivateKey', 'https://my-agent-production.up.railway.app');
+```
+
+### ERC-8004 Registries
+
+| Network | Registry Address |
+|---------|-----------------|
+| Ethereum Mainnet | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` |
+| Base | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` |
+
+### Updating agentURI After Registration
+
+If you registered with wrong data (e.g., inline JSON), you can fix it:
+
+```typescript
+const abi = parseAbi([
+  'function setAgentURI(uint256 agentId, string newURI) external'
+]);
+
+// Get your agentId from the registration TX logs or Etherscan
+const agentId = 12345n;
+const newURI = 'https://my-agent.example.com/.well-known/erc8004.json';
+
+const hash = await walletClient.writeContract({
+  address: REGISTRY,
+  abi,
+  functionName: 'setAgentURI',
+  args: [agentId, newURI]
+});
+```
+
+### Agent Wallet
+
+The `agentWallet` key is reserved for payment address:
+- Initially set to owner's address on registration
+- To change: call `setAgentWallet()` with EIP-712 signature proving control
+- Automatically cleared on NFT transfer (new owner must re-verify)
+
+```typescript
+// Read agent wallet
+const abi = parseAbi([
+  'function getAgentWallet(uint256 agentId) external view returns (address)'
+]);
+
+const wallet = await publicClient.readContract({
+  address: REGISTRY,
+  abi,
+  functionName: 'getAgentWallet',
+  args: [agentId]
+});
+```
+
+### Registration with Metadata
+
+```typescript
+const abi = parseAbi([
+  'function register(string agentURI, (string metadataKey, bytes metadataValue)[] metadata) external returns (uint256 agentId)'
+]);
+
+const hash = await walletClient.writeContract({
+  address: REGISTRY,
+  abi,
+  functionName: 'register',
+  args: [
+    'https://my-agent.example.com/.well-known/erc8004.json',
+    [
+      { metadataKey: 'version', metadataValue: '0x' + Buffer.from('1.0.0').toString('hex') }
+    ]
+  ]
+});
+```
+
+### Reputation Registry (Feedback)
+
+ERC-8004 includes a Reputation Registry for agent feedback:
+
+```typescript
+const reputationAbi = parseAbi([
+  'function giveFeedback(uint256 agentId, int128 value, uint8 valueDecimals, string tag1, string tag2, string endpoint, string feedbackURI, bytes32 feedbackHash) external'
+]);
+
+// Give feedback to an agent (value is fixed-point, e.g., 4.5 = 45 with decimals=1)
+await walletClient.writeContract({
+  address: REPUTATION_REGISTRY,
+  abi: reputationAbi,
+  functionName: 'giveFeedback',
+  args: [
+    agentId,
+    45n,           // value (4.5 as fixed-point)
+    1,             // valueDecimals
+    'quality',     // tag1 (optional)
+    'fast',        // tag2 (optional)
+    '/entrypoints/lookup/invoke',  // endpoint (optional)
+    '',            // feedbackURI (optional, use IPFS)
+    '0x0000000000000000000000000000000000000000000000000000000000000000'  // feedbackHash
+  ]
+});
+```
+
+**Feedback restrictions:**
+- Agent owner cannot give feedback to their own agent
+- valueDecimals must be 0-18
+
+### Why This Matters
+
+Per ERC-8004 spec:
+- `agentURI` resolves to the agent's **registration file**
+- Other agents use this to discover capabilities, verify identity, and establish trust
+- Inline JSON breaks discoverability - the URI should be fetchable by any client
+- Reputation feedback enables trust scoring across the agent ecosystem
+
 ### A2A Extension
 
 ```typescript
@@ -443,7 +782,7 @@ bunx @lucid-agents/cli my-agent \
   --AGENT_DESCRIPTION="AI-powered assistant" \
   --OPENAI_API_KEY=your_api_key_here \
   --PAYMENTS_RECEIVABLE_ADDRESS=0xYourAddress \
-  --NETWORK=ethereum \
+  --NETWORK=base-sepolia \
   --DEFAULT_PRICE=1000
 ```
 
@@ -521,6 +860,131 @@ Use bun's linking feature for testing local changes:
 5. Create `AGENTS.md` with comprehensive examples
 6. Test: `bunx ./packages/cli/dist/index.js test-agent --template=my-template`
 
+## Critical Requirements
+
+### Zod v4 Required (NOT v3!)
+
+The Lucid Agents SDK requires **Zod v4** for the `toJSONSchema` function used in entrypoint schema generation.
+
+```json
+{
+  "dependencies": {
+    "zod": "^4.0.0"
+  }
+}
+```
+
+**Common Error with Zod v3:**
+```
+TypeError: z.toJSONSchema is not a function
+```
+
+**Fix:** Update to Zod v4: `bun add zod@4`
+
+### Required Environment Variables
+
+When using the payments extension, these environment variables are **mandatory**:
+
+```bash
+# Your wallet address to receive payments (required)
+PAYMENTS_RECEIVABLE_ADDRESS=0xYourWalletAddress
+
+# x402 facilitator URL (required)
+FACILITATOR_URL=https://x402.org/facilitator
+
+# Network for payments (required)
+NETWORK=base  # or base-sepolia, ethereum, solana, etc.
+```
+
+**Common Error without env vars:**
+```
+error: Payment configuration error: PAYMENTS_RECEIVABLE_ADDRESS environment variable is not set.
+error: Payment configuration error: FACILITATOR_URL is not set.
+```
+
+### Bun Server Export Format
+
+For Bun runtime, use this export format:
+
+```typescript
+// Correct - Bun auto-serves this
+export default {
+  port: Number(process.env.PORT ?? 3000),
+  fetch: app.fetch,
+};
+```
+
+**Do NOT** call `Bun.serve()` explicitly - Bun's runtime auto-detects the export and serves it. Calling both causes:
+```
+error: Failed to start server. Is port in use?
+code: "EADDRINUSE"
+```
+
+### Minimal Working Example
+
+```typescript
+import { createAgent } from '@lucid-agents/core';
+import { http } from '@lucid-agents/http';
+import { createAgentApp } from '@lucid-agents/hono';
+import { payments, paymentsFromEnv } from '@lucid-agents/payments';
+import { z } from 'zod';  // Must be zod v4!
+
+const agent = await createAgent({
+  name: 'my-agent',
+  version: '1.0.0',
+  description: 'My agent',
+})
+  .use(http())
+  .use(payments({ config: paymentsFromEnv() }))
+  .build();
+
+const { app, addEntrypoint } = await createAgentApp(agent);
+
+addEntrypoint({
+  key: 'hello',
+  description: 'Say hello',
+  input: z.object({ name: z.string() }),
+  price: { amount: 0 },  // Free endpoint
+  handler: async (ctx) => {
+    return { output: { message: `Hello, ${ctx.input.name}!` } };
+  },
+});
+
+const port = Number(process.env.PORT ?? 3000);
+console.log(`Agent running on port ${port}`);
+
+export default { port, fetch: app.fetch };
+```
+
+### Minimal package.json
+
+```json
+{
+  "name": "my-agent",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@lucid-agents/core": "latest",
+    "@lucid-agents/http": "latest",
+    "@lucid-agents/hono": "latest",
+    "@lucid-agents/payments": "latest",
+    "hono": "^4.0.0",
+    "zod": "^4.0.0"
+  }
+}
+```
+
+### Entrypoint Path Convention
+
+Lucid SDK creates endpoints at:
+- **Invoke:** `POST /entrypoints/{key}/invoke`
+- **Stream:** `POST /entrypoints/{key}/stream`
+- **Health:** `GET /health`
+- **Landing:** `GET /` (HTML page)
+
 ## Troubleshooting
 
 ### "Module not found" errors
@@ -538,6 +1002,15 @@ Use bun's linking feature for testing local changes:
 2. Verify all imports are resolvable
 3. Check for circular dependencies
 4. Run `bun install` again
+
+### `z.toJSONSchema is not a function`
+Update Zod to v4: `bun add zod@4`
+
+### `PAYMENTS_RECEIVABLE_ADDRESS is not set`
+Set the required environment variables (see Critical Requirements above)
+
+### `EADDRINUSE` port conflict
+Don't call `Bun.serve()` explicitly - just use `export default { port, fetch }`
 
 ## Key Files
 
