@@ -1,0 +1,12 @@
+{
+  "name": "ascii-art-service",
+  "description": "Paid ASCII art generation service with x402 payment integration. Convert images and text prompts into ASCII art with customizable character sets.",
+  "version": "1.0.0",
+  "author": {
+    "name": "jeepengBot"
+  },
+  "homepage": "https://jeepengbot.github.io/",
+  "repository": "https://github.com/jeepengBot/skills-market",
+  "keywords": ["lucid-agents", "ascii", "art", "x402", "payments", "image-processing"],
+  "skills": "./skills"
+}
