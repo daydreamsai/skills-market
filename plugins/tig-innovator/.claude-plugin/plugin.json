@@ -1,0 +1,159 @@
+{
+  "name": "tig-innovator",
+  "version": "1.0.0",
+  "description": "AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.",
+  "author": "OpenClaw",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Calclawd/tig-innovator"
+  },
+  "homepage": "https://tig.foundation",
+  "keywords": [
+    "tig",
+    "algorithm",
+    "optimization",
+    "rust",
+    "wasm",
+    "cryptocurrency",
+    "ai-agent",
+    "earnings",
+    "daydreams",
+    "openclaw"
+  ],
+  "category": "productivity",
+  "tags": ["crypto", "optimization", "earnings", "rust", "blockchain"],
+  "skills": "./skills",
+  "environmentVariables": {
+    "ANTHROPIC_API_KEY": {
+      "required": true,
+      "description": "API key for Claude (used for code analysis and optimization)"
+    },
+    "TIG_NETWORK": {
+      "required": false,
+      "default": "testnet",
+      "description": "Network to use: mainnet or testnet"
+    },
+    "TIG_WALLET_ADDRESS": {
+      "required": false,
+      "description": "TIG wallet address (required for mainnet submissions)"
+    },
+    "TIG_PRIVATE_KEY": {
+      "required": false,
+      "description": "Wallet private key (required for mainnet submissions)"
+    }
+  },
+  "commands": [
+    {
+      "name": "challenges",
+      "description": "List available TIG challenges with optimization potential"
+    },
+    {
+      "name": "list",
+      "description": "List algorithms for a specific challenge",
+      "usage": "tig-innovator list <challenge>",
+      "options": {
+        "--network": "mainnet or testnet",
+        "--limit": "Max algorithms to show",
+        "--sort": "Sort by adoption or score"
+      }
+    },
+    {
+      "name": "analyze",
+      "description": "Analyze an algorithm for optimization opportunities",
+      "usage": "tig-innovator analyze <algorithm-id>",
+      "options": {
+        "--challenge": "Challenge type",
+        "--detailed": "Show detailed analysis"
+      }
+    },
+    {
+      "name": "optimize",
+      "description": "Generate optimized version of an algorithm",
+      "usage": "tig-innovator optimize <algorithm-id>",
+      "options": {
+        "--challenge": "Challenge type",
+        "--output": "Output file path",
+        "--iterations": "Number of optimization iterations",
+        "--focus": "Focus area: loop, memory, simd, cache, branch, all"
+      }
+    },
+    {
+      "name": "test",
+      "description": "Benchmark optimized code against baseline",
+      "usage": "tig-innovator test <algorithm-id>",
+      "options": {
+        "--optimized": "Path to optimized code file",
+        "--samples": "Number of test samples",
+        "--skip-docker": "Skip Docker benchmark"
+      }
+    },
+    {
+      "name": "submit",
+      "description": "Submit optimized algorithm to TIG network",
+      "usage": "tig-innovator submit <algorithm-id>",
+      "options": {
+        "--code": "Path to optimized code file",
+        "--network": "mainnet or testnet",
+        "--dry-run": "Validate without submitting"
+      }
+    },
+    {
+      "name": "status",
+      "description": "Show submission status and earnings",
+      "options": {
+        "--network": "mainnet or testnet"
+      }
+    }
+  ],
+  "requirements": {
+    "docker": {
+      "optional": true,
+      "description": "Required for local benchmarking. Install from https://docker.com"
+    },
+    "bun": {
+      "optional": true,
+      "version": ">=1.0.0",
+      "description": "Recommended runtime. Install from https://bun.sh"
+    },
+    "node": {
+      "version": ">=20.0.0",
+      "description": "Alternative to Bun"
+    }
+  },
+  "installation": {
+    "steps": [
+      "git clone https://github.com/Calclawd/tig-innovator",
+      "cd tig-innovator",
+      "bun install",
+      "bun run build",
+      "export ANTHROPIC_API_KEY=your-key"
+    ]
+  },
+  "quickStart": {
+    "steps": [
+      "tig-innovator challenges",
+      "tig-innovator list vector_search",
+      "tig-innovator analyze <algorithm-id>",
+      "tig-innovator optimize <algorithm-id>",
+      "tig-innovator test <algorithm-id> --optimized ./optimized.rs",
+      "tig-innovator submit <algorithm-id> --code ./optimized.rs --network testnet"
+    ]
+  },
+  "economics": {
+    "costs": {
+      "inference": "$0.05-0.20 per optimization cycle",
+      "submission": "10 TIG (~$1 per submission)"
+    },
+    "revenue": {
+      "model": "15% of block rewards * adoption percentage",
+      "breakeven": "1-2 successful submissions per week",
+      "upside": "Recurring revenue from adopted algorithms"
+    }
+  },
+  "support": {
+    "documentation": "https://github.com/Calclawd/tig-innovator",
+    "tig_docs": "https://docs.tig.foundation",
+    "issues": "https://github.com/Calclawd/tig-innovator/issues"
+  }
+}

@@ -81,6 +81,18 @@
       "keywords": ["lucid-agents", "autonomous", "monorepo", "parallel", "agent-factory", "research"],
       "category": "development",
       "license": "MIT"
+    },
+    {
+      "name": "tig-innovator",
+      "source": "./plugins/tig-innovator",
+      "description": "AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Calclawd"
+      },
+      "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency", "earnings", "ai-agent"],
+      "category": "productivity",
+      "license": "MIT"
     }
   ]
 }
