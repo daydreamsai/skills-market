@@ -69,7 +69,7 @@ const agent = await createAgent({
   .use(identity({ config: identityFromEnv() }))
   .use(a2a())
   .build();
-```
+```text
 
 **Available Extensions:**
 - **http** - HTTP request/response handling, streaming, SSE
@@ -136,7 +136,7 @@ Keep it simple until you actually need the complexity. YAGNI (You Aren't Gonna N
 
 ## Monorepo Structure
 
-```
+```text
 /
 ├── packages/
 │   ├── core/               # Protocol-agnostic runtime
@@ -153,7 +153,7 @@ Keep it simple until you actually need the complexity. YAGNI (You Aren't Gonna N
 │   └── cli/                # CLI scaffolding tool
 ├── scripts/
 └── package.json            # Workspace config
-```
+```text
 
 ## Common Commands
 
@@ -173,7 +173,7 @@ bun run release:version
 
 # Publish packages
 bun run release:publish
-```
+```text
 
 ### Package-Level
 ```bash
@@ -187,7 +187,7 @@ bun test
 
 # Type check
 bunx tsc --noEmit
-```
+```text
 
 ## API Quick Reference
 
@@ -213,7 +213,7 @@ agent.entrypoints.add({
     return { output: { message: `Hello, ${input.name}` } };
   },
 });
-```
+```text
 
 ### Hono Adapter
 
@@ -244,7 +244,7 @@ export default {
   port: Number(process.env.PORT ?? 3000),
   fetch: app.fetch,
 };
-```
+```text
 
 ### Express Adapter
 
@@ -264,7 +264,7 @@ const { app, addEntrypoint } = await createAgentApp(agent);
 
 // Express apps need to listen on a port
 const server = app.listen(process.env.PORT ?? 3000);
-```
+```text
 
 ### TanStack Adapter
 
@@ -287,7 +287,7 @@ tanStackRuntime.addEntrypoint({ ... });
 
 // Export for TanStack routes
 export { runtime: tanStackRuntime, handlers };
-```
+```text
 
 ### Payments Extension
 
@@ -319,7 +319,7 @@ const agent = await createAgent({
     })
   )
   .build();
-```
+```text
 
 ### Analytics Extension
 
@@ -341,7 +341,7 @@ const summary = await getSummary(agent.analytics.paymentTracker, 86400000);
 
 // Export to CSV for accounting
 const csv = await exportToCSV(agent.analytics.paymentTracker);
-```
+```text
 
 ### Identity Extension
 
@@ -359,7 +359,7 @@ const agent = await createAgent({
   .build();
 
 // Identity automatically handles ERC-8004 registration
-```
+```text
 
 ## ERC-8004 Identity Registration (CRITICAL)
 
@@ -386,7 +386,7 @@ await walletClient.writeContract({
   functionName: 'register',
   args: [agentURI]  // ❌ WRONG - inline JSON, not a URL
 });
-```
+```text
 
 ### ✅ CORRECT (Hosted ERC-8004 Registration File)
 ```typescript
@@ -399,7 +399,7 @@ await walletClient.writeContract({
   functionName: 'register',
   args: [agentURI]  // ✅ CORRECT - URL to ERC-8004 registration file
 });
-```
+```text
 
 ### ERC-8004 Registration File Format
 
@@ -437,7 +437,7 @@ The `agentURI` MUST resolve to a registration file with this structure:
   ],
   "supportedTrust": ["reputation"]
 }
-```
+```text
 
 **Required Fields:**
 - `type` - MUST be `"https://eips.ethereum.org/EIPS/eip-8004#registration-v1"`
@@ -484,7 +484,7 @@ app.get('/.well-known/erc8004.json', (c) => {
     supportedTrust: ["reputation"]
   });
 });
-```
+```text
 
 Option 2: Host on IPFS for immutable metadata
 
@@ -516,7 +516,7 @@ const data = await response.json();
 const imageBase64 = data.candidates[0].content.parts.find(p => p.inlineData)?.inlineData?.data;
 const iconBuffer = Buffer.from(imageBase64, 'base64');
 await Bun.write('./public/icon.png', iconBuffer);
-```
+```text
 
 Serve the icon:
 
@@ -527,7 +527,7 @@ app.get('/icon.png', async (c) => {
     headers: { 'Content-Type': 'image/png' }
   });
 });
-```
+```text
 
 ### Note: A2A Agent Card vs ERC-8004 Registration File
 
@@ -542,9 +542,9 @@ These are **different formats** for different purposes:
 3. **Register on-chain** with the metadata URL as `agentURI`
 
 ```typescript
-const { createWalletClient, createPublicClient, http, parseAbi } = require('viem');
-const { mainnet } = require('viem/chains');
-const { privateKeyToAccount } = require('viem/accounts');
+import { createWalletClient, createPublicClient, http, parseAbi } from 'viem';
+import { mainnet } from 'viem/chains';
+import { privateKeyToAccount } from 'viem/accounts';
 
 const REGISTRY = '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432';
 const RPC_URL = 'https://ethereum-rpc.publicnode.com';
@@ -590,7 +590,7 @@ async function registerAgent(privateKey, agentBaseUrl) {
 
 // Usage:
 // registerAgent('0xYourPrivateKey', 'https://my-agent-production.up.railway.app');
-```
+```text
 
 ### ERC-8004 Registries
 
@@ -618,7 +618,7 @@ const hash = await walletClient.writeContract({
   functionName: 'setAgentURI',
   args: [agentId, newURI]
 });
-```
+```text
 
 ### Agent Wallet
 
@@ -639,7 +639,7 @@ const wallet = await publicClient.readContract({
   functionName: 'getAgentWallet',
   args: [agentId]
 });
-```
+```text
 
 ### Registration with Metadata
 
@@ -659,7 +659,7 @@ const hash = await walletClient.writeContract({
     ]
   ]
 });
-```
+```text
 
 ### Reputation Registry (Feedback)
 
@@ -686,7 +686,7 @@ await walletClient.writeContract({
     '0x0000000000000000000000000000000000000000000000000000000000000000'  // feedbackHash
   ]
 });
-```
+```text
 
 **Feedback restrictions:**
 - Agent owner cannot give feedback to their own agent
@@ -721,7 +721,7 @@ const result = await agent.a2a.client.invoke(
   'skillId',
   { input: 'data' }
 );
-```
+```text
 
 ### Streaming Entrypoints
 
@@ -748,14 +748,14 @@ addEntrypoint({
     };
   },
 });
-```
+```text
 
 ## CLI Usage
 
 ### Interactive Mode
 ```bash
 bunx @lucid-agents/cli my-agent
-```
+```text
 
 ### With Adapter Selection
 ```bash
@@ -770,7 +770,7 @@ bunx @lucid-agents/cli my-agent --adapter=tanstack-ui
 
 # TanStack Headless (API only)
 bunx @lucid-agents/cli my-agent --adapter=tanstack-headless
-```
+```text
 
 ### Non-Interactive Mode
 ```bash
@@ -784,7 +784,7 @@ bunx @lucid-agents/cli my-agent \
   --PAYMENTS_RECEIVABLE_ADDRESS=0xYourAddress \
   --NETWORK=base-sepolia \
   --DEFAULT_PRICE=1000
-```
+```text
 
 ## Coding Standards
 
@@ -872,12 +872,12 @@ The Lucid Agents SDK requires **Zod v4** for the `toJSONSchema` function used in
     "zod": "^4.0.0"
   }
 }
-```
+```text
 
 **Common Error with Zod v3:**
-```
+```text
 TypeError: z.toJSONSchema is not a function
-```
+```text
 
 **Fix:** Update to Zod v4: `bun add zod@4`
 
@@ -894,13 +894,13 @@ FACILITATOR_URL=https://x402.org/facilitator
 
 # Network for payments (required)
 NETWORK=base  # or base-sepolia, ethereum, solana, etc.
-```
+```text
 
 **Common Error without env vars:**
-```
+```text
 error: Payment configuration error: PAYMENTS_RECEIVABLE_ADDRESS environment variable is not set.
 error: Payment configuration error: FACILITATOR_URL is not set.
-```
+```text
 
 ### Bun Server Export Format
 
@@ -912,13 +912,13 @@ export default {
   port: Number(process.env.PORT ?? 3000),
   fetch: app.fetch,
 };
-```
+```text
 
 **Do NOT** call `Bun.serve()` explicitly - Bun's runtime auto-detects the export and serves it. Calling both causes:
-```
+```text
 error: Failed to start server. Is port in use?
 code: "EADDRINUSE"
-```
+```text
 
 ### Minimal Working Example
 
@@ -954,7 +954,7 @@ const port = Number(process.env.PORT ?? 3000);
 console.log(`Agent running on port ${port}`);
 
 export default { port, fetch: app.fetch };
-```
+```text
 
 ### Minimal package.json
 
@@ -975,7 +975,7 @@ export default { port, fetch: app.fetch };
     "zod": "^4.0.0"
   }
 }
-```
+```text
 
 ### Entrypoint Path Convention
 
