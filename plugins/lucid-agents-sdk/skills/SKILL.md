@@ -361,394 +361,44 @@ const agent = await createAgent({
 // Identity automatically handles ERC-8004 registration
 ```text
 
-## ERC-8004 Identity Registration (CRITICAL)
 
-Per the **ERC-8004 specification**, all agents MUST be registered with a proper `agentURI` that points to hosted metadata.
+## ERC-8004 Identity Registration
 
-### ⚠️ MANDATORY REQUIREMENTS
+> ⚠️ **CRITICAL**: Per ERC-8004 spec, `agentURI` MUST be a URL to hosted metadata, NOT inline JSON.
 
-1. **agentURI MUST be a URL** - NOT inline JSON data
-2. **URL MUST point to hosted metadata** - Typically `/.well-known/agent.json`
-3. **Metadata MUST be accessible** - The URL must return valid JSON
+### Quick Start
 
-### ❌ WRONG (Inline JSON)
+1. **Host registration file** at `/.well-known/erc8004.json`
+2. **Generate agent icon** (512x512 PNG)  
+3. **Register on-chain** with the hosted URL
+
+### ❌ WRONG
 ```typescript
-// DO NOT DO THIS - violates ERC-8004 spec
-const agentURI = JSON.stringify({
-  name: "My Agent",
-  description: "...",
-  url: "https://my-agent.example.com"
-});
+// DO NOT pass inline JSON
+const agentURI = JSON.stringify({ name: "Agent", ... });
+```
 
-await walletClient.writeContract({
-  address: REGISTRY,
-  abi,
-  functionName: 'register',
-  args: [agentURI]  // ❌ WRONG - inline JSON, not a URL
-});
-```text
-
-### ✅ CORRECT (Hosted ERC-8004 Registration File)
+### ✅ CORRECT
 ```typescript
-// CORRECT - URL pointing to ERC-8004 registration file
+// Pass URL to hosted registration file
 const agentURI = 'https://my-agent.example.com/.well-known/erc8004.json';
+```
 
-await walletClient.writeContract({
-  address: REGISTRY,
-  abi,
-  functionName: 'register',
-  args: [agentURI]  // ✅ CORRECT - URL to ERC-8004 registration file
-});
-```text
+### Registry Addresses
 
-### ERC-8004 Registration File Format
-
-The `agentURI` MUST resolve to a registration file with this structure:
-
-```json
-{
-  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
-  "name": "my-agent",
-  "description": "A natural language description of what the agent does, pricing, and interaction methods",
-  "image": "https://my-agent.example.com/icon.png",
-  "services": [
-    {
-      "name": "web",
-      "endpoint": "https://my-agent.example.com/"
-    },
-    {
-      "name": "A2A",
-      "endpoint": "https://my-agent.example.com/.well-known/agent.json",
-      "version": "0.3.0"
-    },
-    {
-      "name": "MCP",
-      "endpoint": "https://my-agent.example.com/mcp",
-      "version": "2025-06-18"
-    }
-  ],
-  "x402Support": true,
-  "active": true,
-  "registrations": [
-    {
-      "agentId": 12345,
-      "agentRegistry": "eip155:1:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
-    }
-  ],
-  "supportedTrust": ["reputation"]
-}
-```text
-
-**Required Fields:**
-- `type` - MUST be `"https://eips.ethereum.org/EIPS/eip-8004#registration-v1"`
-- `name` - Agent name (ERC-721 compatible)
-- `description` - Natural language description
-- `image` - Agent icon URL (ERC-721 compatible, 512x512 PNG recommended)
-- `services` - Array of endpoints (A2A, MCP, web, etc.)
-- `x402Support` - Boolean indicating x402 payment support
-- `active` - Boolean indicating agent is active
-- `registrations` - Array of on-chain registrations
-
-**Image Requirements:**
-- URL must be publicly accessible (e.g., `https://agent.example.com/icon.png`)
-- Recommended size: 512x512px (minimum 256x256)
-- Format: PNG with transparency preferred
-- Style: Simple, recognizable icon representing the agent's purpose
-- No text in the icon (won't be legible at small sizes)
-
-**URI Schemes Allowed:**
-- `https://` - Standard HTTPS URL
-- `ipfs://` - IPFS CID (e.g., `ipfs://bafybeig...`)
-- `data:` - Base64-encoded on-chain (e.g., `data:application/json;base64,...`)
-
-### Hosting the Registration File
-
-Option 1: Add endpoint to your agent at `/.well-known/erc8004.json`:
-
-```typescript
-app.get('/.well-known/erc8004.json', (c) => {
-  return c.json({
-    type: "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
-    name: agent.name,
-    description: agent.description,
-    image: `${baseUrl}/icon.png`,
-    services: [
-      { name: "web", endpoint: baseUrl },
-      { name: "A2A", endpoint: `${baseUrl}/.well-known/agent.json`, version: "0.3.0" }
-    ],
-    x402Support: true,
-    active: true,
-    registrations: [
-      { agentId: tokenId, agentRegistry: "eip155:1:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432" }
-    ],
-    supportedTrust: ["reputation"]
-  });
-});
-```text
-
-Option 2: Host on IPFS for immutable metadata
-
-Option 3: Use base64 data: URI for fully on-chain metadata
-
-### Generating Agent Icons
-
-Use Gemini (nano-banana-pro) or other image gen to create agent icons:
-
-```typescript
-// Generate icon via Gemini API
-const response = await fetch(
-  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${GEMINI_API_KEY}`,
-  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{
-        parts: [{
-          text: `Create a simple, modern app icon for an AI agent that ${agentDescription}. Style: flat design, minimal, single focal element, vibrant colors, 512x512px. No text.`
-        }]
-      }],
-      generationConfig: { responseModalities: ['image', 'text'] }
-    })
-  }
-);
-
-const data = await response.json();
-const imageBase64 = data.candidates[0].content.parts.find(p => p.inlineData)?.inlineData?.data;
-const iconBuffer = Buffer.from(imageBase64, 'base64');
-await Bun.write('./public/icon.png', iconBuffer);
-```text
-
-Serve the icon:
-
-```typescript
-app.get('/icon.png', async (c) => {
-  const file = Bun.file('./public/icon.png');
-  return new Response(file, {
-    headers: { 'Content-Type': 'image/png' }
-  });
-});
-```text
-
-### Note: A2A Agent Card vs ERC-8004 Registration File
-
-These are **different formats** for different purposes:
-- `/.well-known/agent.json` - A2A protocol agent card (skills, capabilities)
-- ERC-8004 registration file - Identity/discovery (services, registrations, trust)
-
-### Registration Flow
-
-1. **Deploy agent** to Railway/hosting (e.g., `https://my-agent-production.up.railway.app`)
-2. **Verify metadata endpoint** works: `curl https://my-agent-production.up.railway.app/.well-known/agent.json`
-3. **Register on-chain** with the metadata URL as `agentURI`
-
-```typescript
-import { createWalletClient, createPublicClient, http, parseAbi } from 'viem';
-import { mainnet } from 'viem/chains';
-import { privateKeyToAccount } from 'viem/accounts';
-
-const REGISTRY = '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432';
-const RPC_URL = 'https://ethereum-rpc.publicnode.com';
-
-const abi = parseAbi([
-  'function register(string _uri) external returns (uint256)'
-]);
-
-async function registerAgent(privateKey, agentBaseUrl) {
-  const account = privateKeyToAccount(privateKey);
-  
-  const walletClient = createWalletClient({
-    account,
-    chain: mainnet,
-    transport: http(RPC_URL)
-  });
-
-  const publicClient = createPublicClient({
-    chain: mainnet,
-    transport: http(RPC_URL)
-  });
-
-  // MUST use the hosted ERC-8004 registration file URL, not inline JSON
-  const agentURI = `${agentBaseUrl}/.well-known/erc8004.json`;
-  
-  console.log('Registering with agentURI:', agentURI);
-  
-  const hash = await walletClient.writeContract({
-    address: REGISTRY,
-    abi,
-    functionName: 'register',
-    args: [agentURI]
-  });
-
-  console.log('TX:', hash);
-  
-  const receipt = await publicClient.waitForTransactionReceipt({ hash });
-  console.log('Status:', receipt.status);
-  console.log('Etherscan: https://etherscan.io/tx/' + hash);
-  
-  return hash;
-}
-
-// Usage:
-// registerAgent('0xYourPrivateKey', 'https://my-agent-production.up.railway.app');
-```text
-
-### ERC-8004 Registries
-
-| Network | Registry Address |
-|---------|-----------------|
+| Network | Address |
+|---------|---------|
 | Ethereum Mainnet | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` |
 | Base | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` |
 
-### Updating agentURI After Registration
+📖 **Full Reference:** [ERC8004_REFERENCE.md](./references/ERC8004_REFERENCE.md)
 
-If you registered with wrong data (e.g., inline JSON), you can fix it:
-
-```typescript
-const abi = parseAbi([
-  'function setAgentURI(uint256 agentId, string newURI) external'
-]);
-
-// Get your agentId from the registration TX logs or Etherscan
-const agentId = 12345n;
-const newURI = 'https://my-agent.example.com/.well-known/erc8004.json';
-
-const hash = await walletClient.writeContract({
-  address: REGISTRY,
-  abi,
-  functionName: 'setAgentURI',
-  args: [agentId, newURI]
-});
-```text
-
-### Agent Wallet
-
-The `agentWallet` key is reserved for payment address:
-- Initially set to owner's address on registration
-- To change: call `setAgentWallet()` with EIP-712 signature proving control
-- Automatically cleared on NFT transfer (new owner must re-verify)
-
-```typescript
-// Read agent wallet
-const abi = parseAbi([
-  'function getAgentWallet(uint256 agentId) external view returns (address)'
-]);
-
-const wallet = await publicClient.readContract({
-  address: REGISTRY,
-  abi,
-  functionName: 'getAgentWallet',
-  args: [agentId]
-});
-```text
-
-### Registration with Metadata
-
-```typescript
-const abi = parseAbi([
-  'function register(string agentURI, (string metadataKey, bytes metadataValue)[] metadata) external returns (uint256 agentId)'
-]);
-
-const hash = await walletClient.writeContract({
-  address: REGISTRY,
-  abi,
-  functionName: 'register',
-  args: [
-    'https://my-agent.example.com/.well-known/erc8004.json',
-    [
-      { metadataKey: 'version', metadataValue: '0x' + Buffer.from('1.0.0').toString('hex') }
-    ]
-  ]
-});
-```text
-
-### Reputation Registry (Feedback)
-
-ERC-8004 includes a Reputation Registry for agent feedback:
-
-```typescript
-const reputationAbi = parseAbi([
-  'function giveFeedback(uint256 agentId, int128 value, uint8 valueDecimals, string tag1, string tag2, string endpoint, string feedbackURI, bytes32 feedbackHash) external'
-]);
-
-// Give feedback to an agent (value is fixed-point, e.g., 4.5 = 45 with decimals=1)
-await walletClient.writeContract({
-  address: REPUTATION_REGISTRY,
-  abi: reputationAbi,
-  functionName: 'giveFeedback',
-  args: [
-    agentId,
-    45n,           // value (4.5 as fixed-point)
-    1,             // valueDecimals
-    'quality',     // tag1 (optional)
-    'fast',        // tag2 (optional)
-    '/entrypoints/lookup/invoke',  // endpoint (optional)
-    '',            // feedbackURI (optional, use IPFS)
-    '0x0000000000000000000000000000000000000000000000000000000000000000'  // feedbackHash
-  ]
-});
-```text
-
-**Feedback restrictions:**
-- Agent owner cannot give feedback to their own agent
-- valueDecimals must be 0-18
-
-### Why This Matters
-
-Per ERC-8004 spec:
-- `agentURI` resolves to the agent's **registration file**
-- Other agents use this to discover capabilities, verify identity, and establish trust
-- Inline JSON breaks discoverability - the URI should be fetchable by any client
-- Reputation feedback enables trust scoring across the agent ecosystem
-
-### A2A Extension
-
-```typescript
-import { createAgent } from '@lucid-agents/core';
-import { http } from '@lucid-agents/http';
-import { a2a } from '@lucid-agents/a2a';
-
-const agent = await createAgent({
-  name: 'my-agent',
-  version: '1.0.0',
-})
-  .use(http())
-  .use(a2a())
-  .build();
-
-// Call another agent
-const result = await agent.a2a.client.invoke(
-  'https://other-agent.com',
-  'skillId',
-  { input: 'data' }
-);
-```text
-
-### Streaming Entrypoints
-
-```typescript
-addEntrypoint({
-  key: 'chat',
-  description: 'Chat with AI assistant',
-  input: z.object({ message: z.string() }),
-  streaming: true,
-  async stream(ctx, emit) {
-    const stream = await ai.chat.stream({ messages: [{ role: 'user', content: ctx.input.message }] });
-
-    for await (const chunk of stream) {
-      await emit({
-        kind: 'delta',
-        delta: chunk.delta,
-        mime: 'text/plain',
-      });
-    }
-
-    return {
-      output: { completed: true },
-      usage: { total_tokens: stream.usage.total_tokens },
-    };
-  },
-});
-```text
+- Registration file format & required fields
+- Hosting options (web endpoint, IPFS, on-chain)
+- Icon generation with Gemini
+- Registration & update code examples
+- Agent wallet management
+- Reputation Registry feedback
 
 ## CLI Usage
 
