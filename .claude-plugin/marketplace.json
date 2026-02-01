@@ -83,8 +83,8 @@
       "license": "MIT"
     },
     {
-      "name": "x-outreach-agent",
-      "source": "./plugins/x-outreach-agent",
+      "name": "UGC-creators-tool",
+      "source": "./plugins/UGC-creators-tool",
       "description": "Autonomous UGC creator discovery, multi-channel outreach (X DM + email), and deterministic rate negotiation for sponsorship deals.",
       "version": "1.1.0",
       "author": {
