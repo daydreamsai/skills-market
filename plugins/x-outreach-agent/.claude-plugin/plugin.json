@@ -1,0 +1,139 @@
+{
+  "name": "x-outreach-agent",
+  "description": "Autonomous UGC creator discovery on X (Twitter), multi-channel outreach via DM + email, and deterministic rate negotiation with configurable guardrails.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Calclawd",
+    "email": "calclawd@agentmail.to"
+  },
+  "homepage": "https://github.com/Calclawd/x-outreach-agent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Calclawd/x-outreach-agent"
+  },
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "daydreams",
+    "x-api",
+    "agentmail",
+    "outreach",
+    "negotiation",
+    "ugc-creators",
+    "sponsorship",
+    "creator-discovery",
+    "multi-channel"
+  ],
+  "category": "marketing",
+  "tags": ["creator-economy", "outreach", "negotiation", "x-api", "email"],
+  "skills": "./skills",
+  "entrypoints": [
+    {
+      "name": "x_outreach_bootstrap",
+      "description": "One-shot setup: validate tokens, create AgentMail inbox, register webhooks"
+    },
+    {
+      "name": "discover_leads",
+      "description": "Search X for UGC creators matching campaign criteria (7-day window)"
+    },
+    {
+      "name": "plan_outreach",
+      "description": "Route leads to appropriate channel: X DM (preferred) or email (fallback)"
+    },
+    {
+      "name": "send_outreach",
+      "description": "Send outreach message via X DM or AgentMail"
+    },
+    {
+      "name": "ingest_replies_x",
+      "description": "Poll X DM events for creator replies"
+    },
+    {
+      "name": "agentmail_ingest_event",
+      "description": "Webhook handler for AgentMail message.received events"
+    },
+    {
+      "name": "decide_next",
+      "description": "Deterministic negotiation engine: accept/counter/escalate/clarify"
+    },
+    {
+      "name": "agentmail_send_reply",
+      "description": "Send negotiation response via AgentMail"
+    }
+  ],
+  "requirements": {
+    "runtime": "lucid-agents",
+    "node": ">=20.0.0",
+    "packages": [
+      "zod@^3.24",
+      "svix@^1.15",
+      "ioredis@^5.3"
+    ]
+  },
+  "environmentVariables": {
+    "X_BEARER_TOKEN": {
+      "required": true,
+      "description": "X API bearer token (read access to search/DM)"
+    },
+    "X_USER_ACCESS_TOKEN": {
+      "required": true,
+      "description": "X user OAuth token (for DM operations)"
+    },
+    "AGENTMAIL_API_KEY": {
+      "required": true,
+      "description": "AgentMail API key for email outreach"
+    },
+    "AGENTMAIL_WEBHOOK_SECRET": {
+      "required": true,
+      "description": "Webhook secret for AgentMail message events"
+    },
+    "OPENCLAW_BASE_URL": {
+      "required": true,
+      "description": "OpenClaw VPS base URL for webhooks"
+    },
+    "OPENCLAW_HOOK_TOKEN": {
+      "required": true,
+      "description": "Hook token for OpenClaw callback authentication"
+    },
+    "REDIS_URL": {
+      "required": false,
+      "description": "Redis connection URL (optional, for production state persistence)"
+    }
+  },
+  "installation": {
+    "steps": [
+      "git clone https://github.com/Calclawd/x-outreach-agent",
+      "cd x-outreach-agent",
+      "npm install",
+      "npm run build",
+      "# Fill in .env with your API keys",
+      "# Deploy webhook adapter to accessible URL",
+      "# Bootstrap the agent via Lucid entrypoint"
+    ]
+  },
+  "workflow": {
+    "steps": [
+      "Bootstrap → Initialize X, AgentMail, webhooks",
+      "Discover → Search X for creators matching criteria",
+      "Route → Determine best outreach channel (X DM or email)",
+      "Send → Execute outreach message",
+      "Ingest → Monitor replies (real-time webhooks + polling)",
+      "Negotiate → Deterministic decision engine with guardrails",
+      "Reply → Send counter-offer or escalate"
+    ]
+  },
+  "economics": {
+    "costs": {
+      "x_api": "Depends on bearer token plan",
+      "agentmail": "~$0.10-0.50 per email",
+      "compute": "Negligible"
+    },
+    "revenue": "Variable — depends on deal closure rate and deal size"
+  },
+  "support": {
+    "documentation": "https://github.com/Calclawd/x-outreach-agent",
+    "issues": "https://github.com/Calclawd/x-outreach-agent/issues",
+    "x_docs": "https://developer.x.com/en/docs",
+    "agentmail_docs": "https://docs.agentmail.to"
+  }
+}
