@@ -5,68 +5,98 @@
     "email": "ponderingdemocritus@protonmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for working with Daydreams AI infrastructure",
-    "version": "1.0.0",
+    "description": "Claude Code skills for building paid Lucid Agents with x402",
+    "version": "1.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "xgate-server",
-      "source": "./plugins/xgate-server",
-      "description": "Query xgate-server API for X402 services, ERC-8004 agents, and on-chain token transfers",
-      "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["xgate", "x402", "erc-8004", "agents", "blockchain", "api"],
-      "category": "api-tools",
-      "license": "MIT"
-    },
-    {
       "name": "lucid-agents-sdk",
       "source": "./plugins/lucid-agents-sdk",
-      "description": "Skill for working with the Lucid Agents SDK - a TypeScript framework for building and monetizing AI agents",
+      "description": "TypeScript framework for building and monetizing AI agents with x402 payments",
       "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "sdk", "agents", "typescript", "ai", "payments", "identity", "a2a"],
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid-agents", "sdk", "typescript", "payments", "identity", "a2a"],
       "category": "sdk",
       "license": "MIT"
     },
     {
       "name": "lucid-client-api",
       "source": "./plugins/lucid-client-api",
-      "description": "Skill for interacting with the Lucid Client API (multi-agent runtime) - manage agents, invoke entrypoints, handle payments",
+      "description": "Interact with the Lucid Client API - manage agents, invoke entrypoints, handle payments",
       "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-client", "api", "runtime", "agents", "multi-agent"],
-      "category": "api-tools",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid-client", "api", "runtime", "multi-agent"],
+      "category": "sdk",
       "license": "MIT"
     },
     {
       "name": "lucid-agent-creator",
       "source": "./plugins/lucid-agent-creator",
-      "description": "Create Lucid agents with inline JavaScript handler code using the create_lucid_agent MCP tool",
+      "description": "Create Lucid agents with inline JavaScript handlers via MCP",
       "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid", "agent-creator", "create-lucid-agent", "agents", "mcp", "payments", "erc-8004"],
-      "category": "development",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid", "agent-creator", "mcp", "javascript", "handlers"],
+      "category": "sdk",
+      "license": "MIT"
+    },
+    {
+      "name": "xgate-server",
+      "source": "./plugins/xgate-server",
+      "description": "Query xgate-server API for x402 services, ERC-8004 agents, and token transfers",
+      "version": "1.0.0",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["xgate", "x402", "erc-8004", "blockchain", "api"],
+      "category": "api-tools",
+      "license": "MIT"
+    },
+    {
+      "name": "trend-discovery",
+      "source": "./plugins/trend-discovery",
+      "description": "Discover trending topics on X/Twitter and the web for agent opportunities",
+      "version": "1.0.0",
+      "author": { "name": "langoustine69" },
+      "keywords": ["trends", "twitter", "discovery", "research"],
+      "category": "pipeline",
+      "license": "MIT"
+    },
+    {
+      "name": "api-research",
+      "source": "./plugins/api-research",
+      "description": "Research and validate free/public APIs for any topic",
+      "version": "1.0.0",
+      "author": { "name": "langoustine69" },
+      "keywords": ["api", "research", "data-sources", "validation"],
+      "category": "pipeline",
+      "license": "MIT"
+    },
+    {
+      "name": "railway-deploy",
+      "source": "./plugins/railway-deploy",
+      "description": "Deploy Lucid Agents to Railway with proper environment configuration",
+      "version": "1.0.0",
+      "author": { "name": "langoustine69" },
+      "keywords": ["railway", "deployment", "hosting", "infrastructure"],
+      "category": "pipeline",
+      "license": "MIT"
+    },
+    {
+      "name": "agent-factory",
+      "source": "./plugins/agent-factory",
+      "description": "End-to-end pipeline for discovering trends, building paid Lucid Agents, and deploying",
+      "version": "1.0.0",
+      "author": { "name": "langoustine69" },
+      "keywords": ["lucid-agents", "x402", "agent-builder", "deployment", "railway"],
+      "category": "pipeline",
       "license": "MIT"
     },
     {
       "name": "paid-agent",
       "source": "./plugins/paid-agent",
-      "description": "End-to-end Lucid Agent creation, testing, and deployment pipeline with Ralph Wiggum, code review, and automated publishing",
+      "description": "End-to-end Lucid Agent creation, testing, and deployment pipeline",
       "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "deployment", "ralph-wiggum", "code-review", "testing", "railway", "github"],
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid-agents", "deployment", "testing", "railway", "github"],
       "category": "development",
       "license": "MIT"
     },
@@ -75,22 +105,58 @@
       "source": "./plugins/autonomous-lucid",
       "description": "Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents",
       "version": "1.0.0",
-      "author": {
-        "name": "Daydreams AI"
-      },
-      "keywords": ["lucid-agents", "autonomous", "monorepo", "parallel", "agent-factory", "research"],
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid-agents", "autonomous", "monorepo", "parallel", "agent-factory"],
       "category": "development",
+      "license": "MIT"
+    },
+    {
+      "name": "b2a-agents",
+      "source": "./plugins/b2a-agents",
+      "description": "Best practices for building B2A (Business-to-Agent) agents that serve other AI agents via x402",
+      "version": "1.0.0",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["b2a", "agent-to-agent", "x402", "micropayments"],
+      "category": "patterns",
+      "license": "MIT"
+    },
+    {
+      "name": "ascii-art-service",
+      "source": "./plugins/ascii-art-service",
+      "description": "Paid ASCII art generation service with x402 payment integration",
+      "version": "1.0.0",
+      "author": { "name": "jeepengBot" },
+      "keywords": ["ascii", "art", "x402", "payments", "image-processing"],
+      "category": "examples",
+      "license": "MIT"
+    },
+    {
+      "name": "cult-film-curtis",
+      "source": "./plugins/cult-film-curtis",
+      "description": "Cult film recommendation Lucid Agent with x402 micropayments",
+      "version": "1.0.0",
+      "author": { "name": "SecretiveBot" },
+      "keywords": ["cult-films", "movies", "recommendations", "entertainment", "x402"],
+      "category": "examples",
+      "license": "MIT"
+    },
+    {
+      "name": "moltbook-promotion",
+      "source": "./plugins/moltbook-promotion",
+      "description": "Strategic promotion of daydreamsai stack on Moltbook - pattern-based engagement",
+      "version": "1.0.0",
+      "author": { "name": "Calclawd" },
+      "keywords": ["moltbook", "promotion", "community", "social"],
+      "category": "marketing",
       "license": "MIT"
     },
     {
       "name": "tig-innovator",
       "source": "./plugins/tig-innovator",
-      "description": "AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.",
+      "description": "AI-powered algorithm optimization agent for The Innovation Game protocol",
       "version": "1.0.0",
-      "author": {
-        "name": "Calclawd"
-      },
-      "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency", "earnings", "ai-agent"],
+      "author": { "name": "OpenClaw" },
+      "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency"],
       "category": "productivity",
       "license": "MIT"
     }
