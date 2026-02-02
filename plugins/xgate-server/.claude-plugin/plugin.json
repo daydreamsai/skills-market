@@ -1,7 +1,7 @@
 {
   "name": "xgate-server",
   "description": "Query xgate-server API for X402 services, ERC-8004 agents, and on-chain token transfers",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
