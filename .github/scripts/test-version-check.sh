@@ -299,26 +299,85 @@ else
 fi
 
 # ============================================
-# TEST 8: New plugin added
+# TEST 8: Plugin added without marketplace version bump
 # ============================================
-log_test "New plugin added to marketplace"
+log_test "Plugin added without marketplace version bump (should warn)"
 
 setup_repo "test8"
 create_plugin "plugin-a" "1.0.0"
 create_marketplace "1.0.0" "plugin-a:1.0.0"
 git add -A && git commit -q -m "Initial"
 
-# Add new plugin
+# Add new plugin but DON'T bump marketplace version
 create_plugin "plugin-new" "1.0.0"
-create_marketplace "1.1.0" "plugin-a:1.0.0" "plugin-new:1.0.0"
-git add -A && git commit -q -m "Add new plugin"
+create_marketplace "1.0.0" "plugin-a:1.0.0" "plugin-new:1.0.0"
+git add -A && git commit -q -m "Add new plugin without version bump"
 
 OUTPUT=$("$VERSION_CHECK" HEAD~1 HEAD 2>&1)
 
-if echo "$OUTPUT" | grep -q "All plugins.*are listed"; then
-    log_pass "All plugins listed after addition"
+if echo "$OUTPUT" | grep -q "Plugin Count Change"; then
+    log_pass "Detects plugin count change"
 else
-    log_fail "Should show all plugins listed" "All plugins listed" "$OUTPUT"
+    log_fail "Should detect plugin count change" "Plugin Count Change section" "$OUTPUT"
+fi
+
+if echo "$OUTPUT" | grep -qi "plugin.*added.*metadata.version.*unchanged"; then
+    log_pass "Warns about unchanged marketplace version on plugin add"
+else
+    log_fail "Should warn about unchanged marketplace version" "Warning about metadata.version unchanged" "$OUTPUT"
+fi
+
+# ============================================
+# TEST 9: Plugin added with marketplace version bump
+# ============================================
+log_test "Plugin added with marketplace version bump (should pass)"
+
+setup_repo "test9"
+create_plugin "plugin-a" "1.0.0"
+create_marketplace "1.0.0" "plugin-a:1.0.0"
+git add -A && git commit -q -m "Initial"
+
+# Add new plugin AND bump marketplace version
+create_plugin "plugin-new" "1.0.0"
+create_marketplace "1.1.0" "plugin-a:1.0.0" "plugin-new:1.0.0"
+git add -A && git commit -q -m "Add new plugin with version bump"
+
+OUTPUT=$("$VERSION_CHECK" HEAD~1 HEAD 2>&1)
+
+if echo "$OUTPUT" | grep -q "Marketplace version bumped.*1.0.0.*1.1.0"; then
+    log_pass "Detects marketplace version bump on plugin add"
+else
+    log_fail "Should detect marketplace version bump" "Marketplace version bumped message" "$OUTPUT"
+fi
+
+if echo "$OUTPUT" | grep -q "1.*2"; then
+    log_pass "Shows plugin count change (1 → 2)"
+else
+    log_fail "Should show plugin count" "Plugin count 1 → 2" "$OUTPUT"
+fi
+
+# ============================================
+# TEST 10: Plugin removed without marketplace version bump
+# ============================================
+log_test "Plugin removed without marketplace version bump (should warn)"
+
+setup_repo "test10"
+create_plugin "plugin-a" "1.0.0"
+create_plugin "plugin-b" "1.0.0"
+create_marketplace "1.0.0" "plugin-a:1.0.0" "plugin-b:1.0.0"
+git add -A && git commit -q -m "Initial"
+
+# Remove plugin-b from marketplace but DON'T bump version
+rm -rf plugins/plugin-b
+create_marketplace "1.0.0" "plugin-a:1.0.0"
+git add -A && git commit -q -m "Remove plugin without version bump"
+
+OUTPUT=$("$VERSION_CHECK" HEAD~1 HEAD 2>&1)
+
+if echo "$OUTPUT" | grep -qi "plugin.*removed.*metadata.version.*unchanged"; then
+    log_pass "Warns about unchanged marketplace version on plugin removal"
+else
+    log_fail "Should warn about unchanged marketplace version" "Warning about metadata.version unchanged" "$OUTPUT"
 fi
 
 # ============================================

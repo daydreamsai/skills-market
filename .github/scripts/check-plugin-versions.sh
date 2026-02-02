@@ -69,6 +69,20 @@ get_changed_plugins() {
         cut -d'/' -f2 | sort -u
 }
 
+# Get plugin count from marketplace.json
+get_marketplace_plugin_count() {
+    local ref="$1"
+    git show "$ref:.claude-plugin/marketplace.json" 2>/dev/null | \
+        python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('plugins',[])))" 2>/dev/null || echo "0"
+}
+
+# Get marketplace metadata version
+get_marketplace_meta_version() {
+    local ref="$1"
+    git show "$ref:.claude-plugin/marketplace.json" 2>/dev/null | \
+        python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('metadata',{}).get('version','unset'))" 2>/dev/null || echo "unset"
+}
+
 # Check if marketplace.json changed
 marketplace_changed() {
     git diff --name-only "$BASE_REF" "$HEAD_REF" -- .claude-plugin/marketplace.json | grep -q marketplace.json
@@ -103,6 +117,39 @@ if [ ${#MISSING_FROM_MARKETPLACE[@]} -gt 0 ]; then
     echo ""
 else
     echo ":white_check_mark: All plugins in \`plugins/\` are listed in marketplace.json"
+    echo ""
+fi
+
+# 1b. Check if plugins were added/removed from marketplace
+BASE_PLUGIN_COUNT=$(get_marketplace_plugin_count "$BASE_REF")
+HEAD_PLUGIN_COUNT=$(get_marketplace_plugin_count "$HEAD_REF")
+
+if [ "$BASE_PLUGIN_COUNT" != "$HEAD_PLUGIN_COUNT" ]; then
+    echo "### Plugin Count Change"
+    echo ""
+
+    BASE_MP_META=$(get_marketplace_meta_version "$BASE_REF")
+    HEAD_MP_META=$(get_marketplace_meta_version "$HEAD_REF")
+
+    DIFF=$((HEAD_PLUGIN_COUNT - BASE_PLUGIN_COUNT))
+    if [ $DIFF -gt 0 ]; then
+        ACTION="added"
+        COUNT=$DIFF
+    else
+        ACTION="removed"
+        COUNT=$((-DIFF))
+    fi
+
+    echo "Plugins $ACTION: **$COUNT** ($BASE_PLUGIN_COUNT → $HEAD_PLUGIN_COUNT)"
+    echo ""
+
+    if [ "$BASE_MP_META" == "$HEAD_MP_META" ]; then
+        echo ":warning: Plugin(s) $ACTION but \`metadata.version\` unchanged ($HEAD_MP_META)"
+        WARNINGS+=("marketplace.json: $COUNT plugin(s) $ACTION but metadata.version still $HEAD_MP_META")
+    else
+        echo ":white_check_mark: Marketplace version bumped: $BASE_MP_META → $HEAD_MP_META"
+        OK+=("marketplace.json: $BASE_MP_META → $HEAD_MP_META (plugin count: $BASE_PLUGIN_COUNT → $HEAD_PLUGIN_COUNT)")
+    fi
     echo ""
 fi
 
@@ -156,15 +203,13 @@ else
     echo ""
 fi
 
-# 3. Check marketplace.json version if it changed
-if marketplace_changed; then
+# 3. Check marketplace.json version if it changed (and we didn't already report on plugin count)
+if marketplace_changed && [ "$BASE_PLUGIN_COUNT" == "$HEAD_PLUGIN_COUNT" ]; then
     echo "### Marketplace Version"
     echo ""
 
-    BASE_MP_META=$(git show "$BASE_REF:.claude-plugin/marketplace.json" 2>/dev/null | \
-        python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('metadata',{}).get('version','unset'))" 2>/dev/null || echo "unset")
-    HEAD_MP_META=$(git show "$HEAD_REF:.claude-plugin/marketplace.json" 2>/dev/null | \
-        python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('metadata',{}).get('version','unset'))" 2>/dev/null || echo "unset")
+    BASE_MP_META=$(get_marketplace_meta_version "$BASE_REF")
+    HEAD_MP_META=$(get_marketplace_meta_version "$HEAD_REF")
 
     if [ "$BASE_MP_META" == "$HEAD_MP_META" ]; then
         echo ":warning: marketplace.json changed but \`metadata.version\` unchanged ($HEAD_MP_META)"
