@@ -27,9 +27,11 @@ jobs:
         run: |
           chmod +x .github/scripts/check-plugin-versions.sh
           .github/scripts/check-plugin-versions.sh origin/${{ github.base_ref }} HEAD > version-report.md
-          echo "report<<EOF" >> $GITHUB_OUTPUT
-          cat version-report.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "report<<EOF"
+            cat version-report.md
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Comment on PR
         uses: actions/github-script@v7
