@@ -121,16 +121,6 @@
       "license": "MIT"
     },
     {
-      "name": "ascii-art-service",
-      "source": "./plugins/ascii-art-service",
-      "description": "Paid ASCII art generation service with x402 payment integration",
-      "version": "1.1.0",
-      "author": { "name": "jeepengBot" },
-      "keywords": ["ascii", "art", "x402", "payments", "image-processing"],
-      "category": "examples",
-      "license": "MIT"
-    },
-    {
       "name": "cult-film-curtis",
       "source": "./plugins/cult-film-curtis",
       "description": "Cult film recommendation Lucid Agent with x402 micropayments",
@@ -144,7 +134,7 @@
       "name": "moltbook-promotion",
       "source": "./plugins/moltbook-promotion",
       "description": "Strategic promotion of daydreamsai stack on Moltbook - pattern-based engagement",
-      "version": "1.1.0",
+      "version": "0.1.0-beta",
       "author": { "name": "Calclawd" },
       "keywords": ["moltbook", "promotion", "community", "social"],
       "category": "marketing",
@@ -154,7 +144,7 @@
       "name": "tig-innovator",
       "source": "./plugins/tig-innovator",
       "description": "AI-powered algorithm optimization agent for The Innovation Game protocol",
-      "version": "1.1.0",
+      "version": "0.1.0-beta",
       "author": { "name": "OpenClaw" },
       "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency"],
       "category": "productivity",
