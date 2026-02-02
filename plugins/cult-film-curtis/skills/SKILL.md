@@ -58,6 +58,9 @@ import { payments, paymentsFromEnv } from '@lucid-agents/payments';
 import { z } from 'zod';
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
+if (!TMDB_API_KEY) {
+  throw new Error('TMDB_API_KEY environment variable is required');
+}
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 
 // Cult film keyword IDs from TMDB
