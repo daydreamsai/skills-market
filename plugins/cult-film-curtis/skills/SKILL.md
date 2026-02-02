@@ -88,24 +88,51 @@ async function fetchWithCache<T>(key: string, fetcher: () => Promise<T>): Promis
 }
 
 async function fetchCultFilms(page = 1): Promise<TMDBMovie[]> {
-  const keywordId = CULT_KEYWORDS[Math.floor(Math.random() * CULT_KEYWORDS.length)];
-  const url = `${TMDB_BASE}/discover/movie?api_key=${TMDB_API_KEY}&with_keywords=${keywordId}&sort_by=vote_count.desc&page=${page}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.results || [];
+  try {
+    const keywordId = CULT_KEYWORDS[Math.floor(Math.random() * CULT_KEYWORDS.length)];
+    const url = `${TMDB_BASE}/discover/movie?api_key=${TMDB_API_KEY}&with_keywords=${keywordId}&sort_by=vote_count.desc&page=${page}`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`TMDB discover failed: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data = await res.json();
+    return data.results || [];
+  } catch (err) {
+    console.error('fetchCultFilms error:', err);
+    return [];
+  }
 }
 
-async function fetchMovieDetails(movieId: number) {
-  const url = `${TMDB_BASE}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=credits,keywords`;
-  const res = await fetch(url);
-  return res.json();
+async function fetchMovieDetails(movieId: number): Promise<Record<string, any> | null> {
+  try {
+    const url = `${TMDB_BASE}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=credits,keywords`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`TMDB movie details failed: ${res.status} ${res.statusText}`);
+      return null;
+    }
+    return await res.json();
+  } catch (err) {
+    console.error('fetchMovieDetails error:', err);
+    return null;
+  }
 }
 
 async function searchCultFilms(query: string): Promise<TMDBMovie[]> {
-  const url = `${TMDB_BASE}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.results || [];
+  try {
+    const url = `${TMDB_BASE}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`TMDB search failed: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data = await res.json();
+    return data.results || [];
+  } catch (err) {
+    console.error('searchCultFilms error:', err);
+    return [];
+  }
 }
 
 // Create agent with extensions
@@ -167,6 +194,10 @@ addEntrypoint({
     const page = ctx.input.page || Math.ceil(Math.random() * 5);
     const films = await fetchWithCache(`films:${page}`, () => fetchCultFilms(page));
 
+    if (films.length === 0) {
+      return { output: { error: 'No films available', fetchedAt: new Date().toISOString() } };
+    }
+
     let selection = films;
     if (ctx.input.mood) {
       const mood = ctx.input.mood.toLowerCase();
@@ -204,6 +235,10 @@ addEntrypoint({
     const details = await fetchWithCache(`details:${ctx.input.movieId}`, () =>
       fetchMovieDetails(ctx.input.movieId)
     );
+
+    if (!details) {
+      return { output: { error: 'Movie not found', movieId: ctx.input.movieId, fetchedAt: new Date().toISOString() } };
+    }
 
     return {
       output: {
