@@ -1,8 +1,9 @@
 ---
 name: railway-deploy
 description: |
-  Deploy Lucid Agents to Railway. Handles GitHub repo creation, Railway service 
-  setup, environment variables, and domain configuration.
+  Deploys Lucid Agents to Railway. Handles GitHub repo creation, Railway service
+  setup, environment variables, and domain configuration. Use when shipping an
+  agent to production on Railway.
 ---
 
 # Railway Deploy

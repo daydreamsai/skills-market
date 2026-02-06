@@ -1,6 +1,9 @@
 ---
 name: tig-innovator
-description: AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.
+description: |
+  AI-powered algorithm optimization agent for The Innovation Game protocol. Earns
+  cryptocurrency by optimizing Rust algorithms. Use when optimizing TIG challenge
+  algorithms or submitting solutions to the TIG network.
 allowed-tools: [Bash, Read, Write]
 ---
 

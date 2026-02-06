@@ -1,6 +1,8 @@
 ---
 name: autonomous-lucid
-description: Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents
+description: |
+  Autonomous agent factory that researches a domain and generates a monorepo of
+  10 production Lucid Agents. Use when batch-creating agents for a new vertical.
 allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion, TodoWrite]
 ---
 

@@ -1,6 +1,8 @@
 ---
 name: xgate-server
-description: Query xgate-server API for services, agents, and on-chain data
+description: |
+  Queries the xgate-server API for services, agents, and on-chain data. Use when
+  looking up x402 services, ERC-8004 agents, or token transfer history.
 allowed-tools: [Bash, Read]
 ---
 

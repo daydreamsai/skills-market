@@ -1,7 +1,7 @@
 ---
 name: b2a-agents
 description: |
-  Build agents that serve other AI agents (B2A). Use when: designing x402 agents
+  Builds agents that serve other AI agents (B2A). Use when designing x402 agents
   for agent-to-agent data sales, evaluating if a data niche is suitable for agents,
   or when asked to "build something agents would pay for".
 ---

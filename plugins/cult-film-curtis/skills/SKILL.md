@@ -1,7 +1,7 @@
 ---
 name: cult-film-curtis
 description: |
-  Build a cult film recommendation agent with x402 payments. Use when: creating
+  Builds a cult film recommendation agent with x402 payments. Use when creating
   entertainment-focused paid agents, building TMDB API integrations, or designing
   recommendation systems with micropayments.
 ---

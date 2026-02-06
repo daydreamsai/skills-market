@@ -3,6 +3,18 @@
 > Full reference documentation for ERC-8004 agent identity registration.
 > See [ERC-8004 Specification](https://eips.ethereum.org/EIPS/eip-8004) for the complete standard.
 
+## Contents
+
+- Registration File Format
+- Hosting the Registration File
+- Generating Agent Icons
+- Registration Code
+- Agent Wallet
+- Reputation Registry
+- ERC-8004 Registries
+- A2A Agent Card vs ERC-8004 Registration File
+- Resources
+
 ## Registration File Format
 
 The `agentURI` MUST resolve to a registration file with this structure:

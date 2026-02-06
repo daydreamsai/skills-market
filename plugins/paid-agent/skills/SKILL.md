@@ -1,7 +1,7 @@
 ---
 name: paid-agent
 description: |
-  Build and deploy a production-ready paid Lucid Agent from user requirements.
+  Builds and deploys a production-ready paid Lucid Agent from user requirements.
   Scaffolds with CLI, implements entrypoints, reviews code, tests, publishes to GitHub, and deploys to Railway.
   Use when: "create a paid agent for X", "build and deploy an agent", "make a monetized agent".
   Not for: automated topic discovery (agent-factory) or platform-hosted JS handlers (lucid-agent-creator).

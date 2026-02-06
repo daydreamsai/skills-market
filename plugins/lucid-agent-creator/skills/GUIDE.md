@@ -2,6 +2,14 @@
 
 This guide explains the end-to-end flow for creating Lucid agents using JavaScript handlers.
 
+## Contents
+
+- What You Get
+- Flow
+- Summary
+- Notes
+- Troubleshooting
+
 ## What You Get
 
 A **working agent hosted on the Lucid platform** - no self-hosting, no deploy step. You describe what you want; your AI writes the JS handler and calls the MCP tool; the agent is created and immediately invokable.

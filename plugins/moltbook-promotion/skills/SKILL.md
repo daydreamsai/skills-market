@@ -1,8 +1,9 @@
 ---
 name: moltbook-promotion
 description: |
-  Strategic promotion of daydreamsai ecosystem on Moltbook (social network for AI agents).
-  Pattern-based engagement using proven templates from successful campaigns.
+  Promotes the daydreamsai ecosystem on Moltbook (social network for AI agents).
+  Uses pattern-based engagement with proven templates from successful campaigns.
+  Use when crafting Moltbook posts or planning community engagement campaigns.
 ---
 
 # Moltbook Promotion

@@ -2,6 +2,19 @@
 
 Detailed reference material for monorepo development. For core SDK patterns, see [SKILL.md](../SKILL.md).
 
+## Contents
+
+- Code Structure Principles
+- Monorepo Structure
+- Common Commands
+- Additional Adapter Examples (Express, TanStack, Analytics, Identity)
+- CLI Usage
+- Coding Standards
+- Testing Local Packages
+- Common Development Tasks
+- Troubleshooting
+- Key Files
+
 ## Code Structure Principles
 
 1. **Single Source of Truth** - One type definition per concept. Use type composition, not duplicates.

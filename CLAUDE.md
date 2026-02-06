@@ -18,6 +18,27 @@ Instructions the agent follows when invoked...
 - `name` becomes the `/slash-command`
 - `description` determines when the skill auto-loads
 
+### Description Rules
+
+Descriptions are injected into the system prompt. Follow these rules:
+
+1. **Third person only** -- Descriptions must use third-person voice, not imperative
+   - Good: "Discovers trending topics on X/Twitter..."
+   - Bad: "Discover trending topics on X/Twitter..."
+2. **Include "Use when" trigger** -- Every description must state when to activate
+   - Good: "...Use when starting any agent creation workflow."
+   - Bad: "...Critical step before building agents." (no explicit trigger)
+3. **Be specific** -- Include key terms that match natural language queries
+4. **Max 1024 characters**
+
+### Reference File Rules
+
+Reference files linked from SKILL.md must follow these rules:
+
+1. **One level deep** -- All references link directly from SKILL.md (no nested references)
+2. **Table of contents required** -- Any reference file over 100 lines must include a `## Contents` section at the top listing all headings
+3. **Descriptive names** -- Use `form_validation_rules.md`, not `doc2.md`
+
 ## Frontmatter Reference
 
 | Field | Type | Description |
@@ -158,7 +179,10 @@ Good: API endpoint table with tested URLs
 - [ ] Has `SKILL.md` with valid frontmatter (`name`, `description`)
 - [ ] Has `.claude-plugin/plugin.json` with all required fields
 - [ ] `author` in plugin.json is an object, not a string
+- [ ] `description` is third-person voice (not imperative)
+- [ ] `description` includes a "Use when" trigger
 - [ ] `SKILL.md` is under 500 lines
+- [ ] Reference files >100 lines have a `## Contents` TOC
 - [ ] Uses Zod v4, modern SDK imports
 - [ ] No bloat or redundant explanations
 - [ ] Adds value for paid agent creation

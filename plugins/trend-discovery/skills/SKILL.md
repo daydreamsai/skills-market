@@ -1,7 +1,7 @@
 ---
 name: trend-discovery
 description: |
-  Discover trending topics on X/Twitter and the web. Find opportunities where 
+  Discovers trending topics on X/Twitter and the web. Finds opportunities where
   people need data/APIs. Use when starting any agent creation workflow.
 ---
 
