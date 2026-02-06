@@ -16,6 +16,43 @@ Query the xgate-server API for X402 services, ERC-8004 agents, and on-chain toke
 - "Get token transfers for address"
 - "Search xgate agents"
 - "List services on xgate-server"
+- "Set up xgate MCP"
+- "Connect xgate to Claude"
+- "How do I use x402 tools in Claude?"
+
+## MCP Setup
+
+The xgate MCP lets Claude call x402 APIs directly with automatic micropayments. **The human must authenticate** — the agent cannot do this step.
+
+### Tell the human:
+
+1. **Go to [xgate.run](https://xgate.run)** and connect their wallet to generate an MCP connector URL
+2. **Add to Claude** — paste the URL into their Claude config:
+
+**Claude Code:**
+```bash
+claude mcp add xgate --transport http https://xgate.run/user/<walletSlug>/mcp?token=<token>
+```
+
+**Claude Desktop** (`Settings → Developer → Edit Config`):
+```json
+{
+  "mcpServers": {
+    "xgate": {
+      "url": "https://xgate.run/user/<walletSlug>/mcp",
+      "headers": { "Authorization": "Bearer <token>" }
+    }
+  }
+}
+```
+
+### Once connected, the agent can:
+
+- **Search resources:** ask Claude to call `xgate_search({ query: "weather" })`
+- **Add tools:** `xgate_add_resource({ url: "..." })` to add x402 APIs to the toolset
+- **Use tools:** call discovered APIs directly — payments settle automatically via server wallet
+
+> **Important:** If MCP tools aren't available, prompt the human to complete auth first. The agent cannot generate the connector URL — it requires wallet signing.
 
 ## CLI Usage
 
