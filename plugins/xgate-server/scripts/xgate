@@ -4,7 +4,7 @@
 
 set -e
 
-XGATE_URL="${XGATE_URL:-https://xgate.run}"
+XGATE_URL="${XGATE_URL:-https://api.xgate.run}"
 
 usage() {
     cat << EOF
@@ -55,7 +55,7 @@ Examples:
   xgate resource-transfers 0x1234... -c 1
 
 Environment:
-  XGATE_URL    API base URL (default: https://xgate.run)
+  XGATE_URL    API base URL (default: https://api.xgate.run)
 EOF
 }
 
@@ -78,7 +78,7 @@ services() {
         esac
     done
 
-    local url="$XGATE_URL/services/?limit=$limit&offset=$offset"
+    local url="$XGATE_URL/services?limit=$limit&offset=$offset"
     [[ -n "$query" ]] && url+="&q=$(printf '%s' "$query" | jq -sRr @uri)"
     [[ -n "$network" ]] && url+="&network=$network"
     [[ -n "$asset" ]] && url+="&asset=$asset"
@@ -110,7 +110,7 @@ agents() {
         esac
     done
 
-    local url="$XGATE_URL/agents/?limit=$limit&offset=$offset"
+    local url="$XGATE_URL/agents?limit=$limit&offset=$offset"
     [[ -n "$query" ]] && url+="&q=$(printf '%s' "$query" | jq -sRr @uri)"
     [[ -n "$chain" ]] && url+="&chain_id=$chain"
     [[ -n "$protocols" ]] && url+="&protocols=$protocols"
