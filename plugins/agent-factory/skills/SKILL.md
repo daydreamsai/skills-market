@@ -2,7 +2,7 @@
 name: agent-factory
 description: |
   Meta-skill that orchestrates the full agent creation pipeline. Composes:
-  trend-discovery → api-research → lucid-builder → railway-deploy.
+  trend-discovery → api-research → lucid-agents-sdk → railway-deploy.
   Use when creating new monetized agents from scratch.
 ---
 
@@ -23,21 +23,9 @@ This meta-skill orchestrates:
 
 ## Prerequisites
 
-Install all required tools:
+Requires: Bun, Railway CLI, GitHub CLI (`gh`), Bird CLI (optional for X/Twitter).
 
 ```bash
-# Runtime
-curl -fsSL https://bun.sh/install | bash
-
-# CLIs
-npm install -g @railway/cli @anthropics/bird
-brew install gh  # or apt install gh
-
-# Authenticate
-gh auth login
-railway login
-
-# Set credentials
 export RAILWAY_TOKEN="<your-token>"
 export PAYMENTS_RECEIVABLE_ADDRESS="<your-wallet>"
 export AUTH_TOKEN="<twitter-auth-token>"  # optional

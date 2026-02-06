@@ -1,5 +1,14 @@
 {
   "name": "b2a-agents",
+  "description": "Best practices for building B2A (Business-to-Agent) agents that serve other AI agents via x402 micropayments.",
   "version": "1.1.0",
-  "description": "Best practices for building B2A (Business-to-Agent) agents that serve other AI agents via x402 micropayments."
+  "author": {
+    "name": "Daydreams AI",
+    "email": "ponderingdemocritus@protonmail.com"
+  },
+  "homepage": "https://github.com/daydreamsai/skills-market",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "b2a", "x402", "micropayments", "agent-to-agent", "data-infrastructure"],
+  "skills": "./skills"
 }

@@ -108,4 +108,4 @@ Provide:
 
 ## Next Step
 
-→ Use **lucid-builder** skill to create the agent code
+→ Use **lucid-agents-sdk** skill to create the agent code

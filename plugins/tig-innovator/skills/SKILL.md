@@ -1,7 +1,7 @@
 ---
 name: tig-innovator
 description: AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.
-allowed-tools: [Bash, Read, Write, Exec]
+allowed-tools: [Bash, Read, Write]
 ---
 
 # TIG Innovator Skill
@@ -18,6 +18,10 @@ TIG is a protocol that incentivizes algorithmic innovation. Innovators submit al
 3. Test locally to verify improvement (free)
 4. Submit only when competitive (costs 10 TIG ≈ $1)
 5. Earn recurring rewards if adopted
+
+## Ecosystem Integration
+
+This skill can be wrapped as a paid Lucid Agent service -- offering algorithm optimization-as-a-service via x402 micropayments. Use `lucid-agents-sdk` to expose TIG optimization as paid entrypoints (e.g., `analyze`, `optimize`, `benchmark`).
 
 ## Quick Start
 
