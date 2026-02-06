@@ -1,7 +1,7 @@
 {
   "name": "paid-agent",
-  "description": "End-to-end Lucid Agent creation, testing, and deployment pipeline",
-  "version": "1.1.0",
+  "description": "Build and deploy production-ready paid Lucid Agents from user requirements",
+  "version": "1.2.0",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
@@ -9,6 +9,6 @@
   "homepage": "https://github.com/daydreamsai/skills-market",
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
-  "keywords": ["lucid-agents", "deployment", "ralph-wiggum", "code-review", "testing", "railway", "github", "claude-code"],
+  "keywords": ["lucid-agents", "deployment", "code-review", "testing", "railway", "github", "claude-code"],
   "skills": "./skills"
 }
