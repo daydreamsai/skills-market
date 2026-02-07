@@ -17,9 +17,10 @@ This meta-skill orchestrates:
 | Step | Skill | Purpose |
 |------|-------|---------|
 | 1 | **trend-discovery** | Find trending topics with monetization potential |
-| 2 | **api-research** | Validate free/public data APIs |
-| 3 | **lucid-agents-sdk** | Build agent with x402 payments |
-| 4 | **railway-deploy** | Deploy to Railway with proper config |
+| 2 | *(dedup check)* | Verify no existing skill in the market covers this topic |
+| 3 | **api-research** | Validate free/public data APIs |
+| 4 | **lucid-agents-sdk** | Build agent with x402 payments |
+| 5 | **railway-deploy** | Deploy to Railway with proper config |
 
 ## Prerequisites
 
@@ -50,7 +51,32 @@ bird search "need API for" --limit 50
 - Target audience
 - Potential data sources
 
-### Step 2: Research APIs
+### Step 2: Check Skills Market for Duplicates
+
+Before building, review the skills-market repo to confirm you aren't recreating an agent that already exists.
+
+1. List all existing plugins:
+   ```bash
+   ls plugins/
+   ```
+2. For each plugin, read its description:
+   ```bash
+   for d in plugins/*/; do echo "=== $(basename $d) ==="; head -10 "$d/skills/SKILL.md" 2>/dev/null; echo; done
+   ```
+3. Compare your chosen topic against existing skills. Check for overlap in:
+   - **Topic/domain** — does a skill already cover this subject area?
+   - **Data sources** — does an existing agent already consume the same APIs?
+   - **Endpoints** — would your planned endpoints duplicate what's already deployed?
+
+**If a match is found:**
+- If the existing skill fully covers your topic → go back to Step 1 and pick a different topic.
+- If there's partial overlap → narrow your agent's scope to cover only the gap, or pick a different angle that adds unique value.
+
+**Output needed:**
+- List of existing skills reviewed
+- Confirmation that no duplicate exists (or description of how your agent differs)
+
+### Step 3: Research APIs
 
 **Use skill: `api-research`**
 
@@ -66,7 +92,7 @@ curl -s "<api_endpoint>" | head -c 500
 - 6 endpoint designs (1 free + 5 paid)
 - Data mapping
 
-### Step 3: Build Agent
+### Step 4: Build Agent
 
 **Use skill: `lucid-agents-sdk`**
 
@@ -77,7 +103,7 @@ Create the agent with 6 endpoints (1 free + 5 paid). Test locally before deployi
 - All return real data
 - All return `status: "succeeded"`
 
-### Step 4: Deploy
+### Step 5: Deploy
 
 **Use skill: `railway-deploy`**
 
@@ -95,7 +121,7 @@ railway domain --service <agent-name>
 - Railway URL
 - Health check passing
 
-### Step 5: Announce
+### Step 6: Announce
 
 Update portfolio and compose tweet:
 
@@ -118,6 +144,10 @@ Built with @daydreamsagents
 - [ ] Topic selected with score ≥ 7
 - [ ] Target audience identified
 - [ ] Data sources proposed
+
+### Dedup Check
+- [ ] Existing skills-market plugins reviewed
+- [ ] No topic/API/endpoint overlap with existing skills
 
 ### Research
 - [ ] API endpoints validated (curl tested)
@@ -147,6 +177,7 @@ Built with @daydreamsagents
 
 | Issue | Solution |
 |-------|----------|
+| Topic already covered by existing skill | Pick a different topic or narrow scope to fill a gap |
 | No trending topics found | Try alternative discovery (GitHub, HN, Reddit) |
 | API requires auth | Find alternative or use free tier |
 | Build fails | Check Zod version, fix imports |
