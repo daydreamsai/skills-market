@@ -44,7 +44,7 @@ autonomous-lucid (orchestrator)
     │   └── Output: Workspace structure, shared configs
     │
     └─→ commit (final monorepo commit)
-        └─→ Optional: railway × 10 (deploy all)
+        └─→ Optional: railway-deploy × 10 (deploy all)
 ```
 
 ## Data Flow
@@ -198,7 +198,7 @@ crypto-trading-agents/
 - **Input**: GitHub repository
 - **Process**: Deploy each agent to Railway
 - **Output**: 10 live agent URLs
-- **Skills Used**: railway (10x)
+- **Skills Used**: railway-deploy (10x)
 
 ## Error Recovery
 
@@ -299,7 +299,7 @@ crypto-trading-agents/
 - Bun runtime
 
 ### Optional
-- railway skill (deployment)
+- railway-deploy skill (deployment)
 - Docker (containerization)
 
 ## Security Considerations

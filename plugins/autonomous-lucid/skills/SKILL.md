@@ -242,7 +242,7 @@ If user requested deployment:
 ```bash
 # For each agent in packages/
 for agent in packages/*/; do
-  Skill("railway", args: "deploy $agent")
+  Skill("railway-deploy", args: "deploy $agent")
 done
 ```
 
@@ -326,7 +326,7 @@ This meta-skill orchestrates:
 1. **research-agent** - Domain research and analysis
 2. **paid-agent** (10x) - Complete agent creation pipeline
 3. **commit** - Git operations with proper formatting
-4. **railway** (10x, optional) - Agent deployment
+4. **railway-deploy** (10x, optional) - Agent deployment
 
 ## Key Design Decisions
 
@@ -419,7 +419,7 @@ Auto-generate API docs for each agent
 - commit skill
 - Task tool (for parallel execution)
 - gh CLI (for GitHub operations)
-- Railway CLI (optional, for deployment)
+- railway-deploy skill (optional, for deployment)
 - Bun package manager
 
 ## Performance Estimates
@@ -441,4 +441,4 @@ Auto-generate API docs for each agent
 - `/research-agent` - Domain research and analysis
 - `/paid-agent` - Complete agent creation pipeline
 - `/commit` - Git operations
-- Railway skill - Agent deployment
+- `/railway-deploy` - Agent deployment

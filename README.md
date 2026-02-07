@@ -64,6 +64,14 @@ Skills for building paid Lucid Agents with x402.
 | `lucid-agent-editor` | Edit agents via API |
 | `xgate-server` | x402 service registry |
 
+### Specialized Agents
+| Skill | Purpose |
+|-------|---------|
+| `b2a-agents` | B2A (Business-to-Agent) design patterns for x402 micropayments |
+| `cult-film-curtis` | Cult film recommendation agent with TMDB API and x402 payments |
+| `moltbook-promotion` | Promote daydreamsai ecosystem on Moltbook social network |
+| `tig-innovator` | Algorithm optimization agent for The Innovation Game protocol |
+
 ### Automation
 | Skill | Purpose |
 |-------|---------|
