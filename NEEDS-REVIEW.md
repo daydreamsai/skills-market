@@ -14,17 +14,9 @@ The `hono-runtime-api` skill lives in the `lucid-client` repo (`.claude/skills/h
 
 ---
 
-## C-8: Referenced scripts don't exist at documented paths
+## ~~C-8: Referenced scripts don't exist at documented paths~~ RESOLVED
 
-**File:** `plugins/lucid-agent-creator/skills/SKILL.md` (line 136)
-
-References two scripts in the lucid-client repo:
-- `scripts/create-agent-with-payment-auth.ts`
-- `scripts/test-setup-payment-x402.ts`
-
-Neither script exists. The `scripts/` directory in lucid-client contains only `dev.ts` and `hono-runtime-api.ts`. The closest match is `packages/hono-runtime/scripts/create-agent-x402-test.ts` (different name, different location).
-
-**Decision needed:** Were these scripts moved or deleted? Should the reference be updated to point to `packages/hono-runtime/scripts/create-agent-x402-test.ts`, or should it be removed?
+**Fixed:** Updated `plugins/lucid-agent-creator/skills/SKILL.md` to reference `packages/hono-runtime/scripts/create-agent-x402-test.ts` (the correct script path in lucid-client).
 
 ---
 

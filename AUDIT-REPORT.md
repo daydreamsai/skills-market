@@ -78,10 +78,10 @@ The skill documents an `edit_lucid_agent` MCP tool as Option 1 for editing agent
 
 The skill documents the API base URL as `https://api.xgate.run` (line 87), but the MCP setup URLs all use `https://xgate.run` (lines 31, 36, 44). **Confirmed by server-mcp-auditor:** the MCP server source code uses `https://xgate.run` as the base URL for both `xgate_search` and `agents_search` tools. If `api.xgate.run` is a separate endpoint, this is undocumented; if it is the same, the URL is inconsistent.
 
-### C-8: `lucid-agent-creator` references non-existent scripts in lucid-client
+### C-8: ~~`lucid-agent-creator` references non-existent scripts in lucid-client~~ FIXED
 **File:** `plugins/lucid-agent-creator/skills/SKILL.md` (line 136)
 
-References `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` "in the lucid-client repo." **Confirmed by client-auditor:** neither script exists. The `scripts/` directory in lucid-client contains only `dev.ts` and `hono-runtime-api.ts`. The closest match is `packages/hono-runtime/scripts/create-agent-x402-test.ts` (different name, different location). A developer following the "Option 3" path would be unable to find the referenced examples.
+~~References `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` "in the lucid-client repo."~~ **Fixed:** Updated reference to point to `packages/hono-runtime/scripts/create-agent-x402-test.ts`, which is the actual script that demonstrates custom viem signing for x402 payments.
 
 ### C-9: `lucid-agent-creator` GUIDE.md has wrong API base URL
 **File:** `plugins/lucid-agent-creator/skills/GUIDE.md` (line 68, 80)
@@ -126,10 +126,10 @@ The `see-also` field references:
 
 Same concern as W-3. Cannot verify these URLs are live.
 
-### W-5: `lucid-agent-creator` references scripts in another repo
+### W-5: ~~`lucid-agent-creator` references scripts in another repo~~ FIXED
 **File:** `plugins/lucid-agent-creator/skills/SKILL.md` (line 136)
 
-References `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` "in the lucid-client repo." These scripts cannot be verified from this repository.
+~~References `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` "in the lucid-client repo."~~ **Fixed:** Updated to reference the correct script path (`packages/hono-runtime/scripts/create-agent-x402-test.ts`).
 
 ### W-6: `autonomous-lucid` SKILL.md is verbose (443 lines) and close to 500-line limit
 **File:** `plugins/autonomous-lucid/skills/SKILL.md` (443 lines)

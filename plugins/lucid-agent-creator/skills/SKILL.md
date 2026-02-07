@@ -133,7 +133,7 @@ const agent = await response.json();
 
 ### Option 3: Viem with Custom Signing
 
-Write your own signing logic using viem directly. See `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` in the lucid-client repo for complete examples.
+Write your own signing logic using viem directly. See `packages/hono-runtime/scripts/create-agent-x402-test.ts` in the lucid-client repo for a complete example.
 
 ## JS Handler Code Contract
 
