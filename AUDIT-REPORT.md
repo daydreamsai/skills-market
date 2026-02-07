@@ -11,8 +11,8 @@
 
 The skills-market repository contains 15 plugins (skills) with well-structured documentation. The top-level docs (README.md, CLAUDE.md, AGENTS.md) establish clear guidelines for skill authoring. However, there are several critical issues around cross-repo accuracy, broken references to non-existent skills, a significant network contradiction in `lucid-agent-creator`, and incomplete README coverage. Most skills comply with the stated spec (YAML frontmatter, plugin.json format, description rules), but a few edge cases need attention.
 
-**Total issues found: 26**
-- Critical: 7
+**Total issues found: 28**
+- Critical: 9
 - Warning: 11
 - Info: 8
 
@@ -44,10 +44,10 @@ References to skills that do not exist in the skills-market:
 
 This skill cannot function as documented because its core dependency (`research-agent`) is missing.
 
-### C-3: Broken skill reference in `lucid-agent-editor`
+### C-3: Undocumented cross-repo skill dependency in `lucid-agent-editor`
 **File:** `plugins/lucid-agent-editor/skills/SKILL.md` (line 450)
 
-References `hono-runtime-api` as a related skill: `"- **hono-runtime-api**: Complete API reference for all operations"`. This skill does not exist in the skills-market repository. There is no plugin with that name.
+References `hono-runtime-api` as a related skill: `"- **hono-runtime-api**: Complete API reference for all operations"`. This skill does not exist in the skills-market repository. **Confirmed by client-auditor:** the skill exists in the lucid-client repo at `.claude/skills/hono-runtime-api/SKILL.md`, not in skills-market. This cross-repo dependency is not documented -- a user installing only skills-market would not have access to it.
 
 ### C-4: External skill dependencies not documented
 **Files:** `plugins/paid-agent/skills/SKILL.md` (line 47), `plugins/autonomous-lucid/skills/SKILL.md` (lines 232, 304)
@@ -77,6 +77,16 @@ The skill documents an `edit_lucid_agent` MCP tool as Option 1 for editing agent
 **File:** `plugins/xgate-server/skills/SKILL.md` (line 87 vs lines 31, 36, 44)
 
 The skill documents the API base URL as `https://api.xgate.run` (line 87), but the MCP setup URLs all use `https://xgate.run` (lines 31, 36, 44). **Confirmed by server-mcp-auditor:** the MCP server source code uses `https://xgate.run` as the base URL for both `xgate_search` and `agents_search` tools. If `api.xgate.run` is a separate endpoint, this is undocumented; if it is the same, the URL is inconsistent.
+
+### C-8: `lucid-agent-creator` references non-existent scripts in lucid-client
+**File:** `plugins/lucid-agent-creator/skills/SKILL.md` (line 136)
+
+References `scripts/create-agent-with-payment-auth.ts` and `scripts/test-setup-payment-x402.ts` "in the lucid-client repo." **Confirmed by client-auditor:** neither script exists. The `scripts/` directory in lucid-client contains only `dev.ts` and `hono-runtime-api.ts`. The closest match is `packages/hono-runtime/scripts/create-agent-x402-test.ts` (different name, different location). A developer following the "Option 3" path would be unable to find the referenced examples.
+
+### C-9: `lucid-agent-creator` GUIDE.md has wrong API base URL
+**File:** `plugins/lucid-agent-creator/skills/GUIDE.md` (line 68, 80)
+
+Documents the Lucid API base URL as `https://lucid-dev.daydreams.systems/api` and the invokeUrl as `https://lucid-dev.daydreams.systems/agents/{id}/entrypoints/{key}/invoke`. **Confirmed by client-auditor:** the actual API is on a separate subdomain: `https://api-lucid-dev.daydreams.systems`, NOT a `/api` path on the site URL. The site URL `https://lucid-dev.daydreams.systems` is the frontend, not the API. A developer using the documented URL would get 404 errors or hit the wrong service.
 
 ---
 
