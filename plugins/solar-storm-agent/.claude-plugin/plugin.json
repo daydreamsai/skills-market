@@ -1,0 +1,11 @@
+{
+  "name": "solar-storm-agent",
+  "description": "Builds a space weather monitoring agent using NOAA SWPC API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/solar-storm-agent",
+  "repository": "https://github.com/Calcutatator/solar-storm-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "space-weather", "solar", "noaa"],
+  "skills": "./skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "asteroid-agent",
+  "description": "Builds a near-Earth asteroid tracking agent using NASA NeoWs API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/asteroid-agent",
+  "repository": "https://github.com/Calcutatator/asteroid-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "asteroid", "nasa", "space"],
+  "skills": "./skills"
+}

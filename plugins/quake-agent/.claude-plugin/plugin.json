@@ -1,0 +1,11 @@
+{
+  "name": "quake-agent",
+  "description": "Builds a real-time earthquake monitoring agent using USGS API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/quake-agent",
+  "repository": "https://github.com/Calcutatator/quake-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "earthquake", "seismology", "usgs"],
+  "skills": "./skills"
+}

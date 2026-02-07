@@ -1,0 +1,11 @@
+{
+  "name": "sports-agent",
+  "description": "Builds a live sports scores agent using ESPN API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/sports-agent",
+  "repository": "https://github.com/Calcutatator/sports-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "sports", "espn", "scores"],
+  "skills": "./skills"
+}

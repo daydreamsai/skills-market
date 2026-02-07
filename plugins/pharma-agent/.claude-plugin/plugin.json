@@ -1,0 +1,11 @@
+{
+  "name": "pharma-agent",
+  "description": "Builds a pharmaceutical adverse events agent using openFDA API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/pharma-agent",
+  "repository": "https://github.com/Calcutatator/pharma-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "pharma", "fda", "adverse-events"],
+  "skills": "./skills"
+}

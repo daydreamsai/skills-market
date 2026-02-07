@@ -1,0 +1,11 @@
+{
+  "name": "airquality-agent",
+  "description": "Builds a real-time air quality monitoring agent using Open-Meteo AQ API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/airquality-agent",
+  "repository": "https://github.com/Calcutatator/airquality-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "air-quality", "aqi", "pollution"],
+  "skills": "./skills"
+}

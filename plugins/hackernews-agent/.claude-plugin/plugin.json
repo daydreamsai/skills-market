@@ -1,0 +1,11 @@
+{
+  "name": "hackernews-agent",
+  "description": "Builds a Hacker News feed agent using Firebase API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/hackernews-agent",
+  "repository": "https://github.com/Calcutatator/hackernews-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "hackernews", "tech-news", "ycombinator"],
+  "skills": "./skills"
+}

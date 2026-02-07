@@ -1,0 +1,11 @@
+{
+  "name": "crypto-sentiment-agent",
+  "description": "Builds a crypto market sentiment agent using Fear and Greed Index with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/crypto-sentiment-agent",
+  "repository": "https://github.com/Calcutatator/crypto-sentiment-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "crypto", "sentiment", "fear-greed"],
+  "skills": "./skills"
+}

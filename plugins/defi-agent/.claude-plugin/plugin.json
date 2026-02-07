@@ -1,0 +1,11 @@
+{
+  "name": "defi-agent",
+  "description": "Builds a DeFi analytics agent using DeFiLlama API with x402 payments",
+  "version": "1.0.0",
+  "author": { "name": "Calcutatator", "email": "calcutatator@agentmail.to" },
+  "homepage": "https://github.com/Calcutatator/defi-agent",
+  "repository": "https://github.com/Calcutatator/defi-agent",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "x402", "micropayments", "base", "defi", "tvl", "defillama"],
+  "skills": "./skills"
+}
