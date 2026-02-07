@@ -77,7 +77,9 @@ Plus the rest of the agent object (`name`, `description`, `entrypoints`, etc.). 
 
 ### Lucid API Base URL
 
-The **Lucid API base URL** is hardcoded in the MCP server (defaults to `https://lucid-dev.daydreams.systems/api`). No configuration required; works out of the box. Can be overridden via env `LUCID_API_URL` if needed. The tool always calls that Lucid API instance; the agent never deals with URLs or endpoints.
+The **Lucid API base URL** is configured in the MCP server via the `LUCID_API_URL` env var (defaults to `https://lucid-dev.daydreams.systems/api`). No configuration required from the user; works out of the box. The tool always calls that Lucid API instance; the agent never deals with URLs or endpoints.
+
+> **Note**: The `invokeUrl` returned by the tool strips the `/api` suffix and builds invoke URLs as `https://lucid-dev.daydreams.systems/agents/{id}/entrypoints/{key}/invoke`. The canonical API URL format is under review -- see NEEDS-REVIEW.md for details.
 
 ### Paid Agents
 
@@ -85,7 +87,9 @@ If the agent has paid entrypoints, the **setup fee** is paid from your **server 
 
 ### Network
 
-All agents created via MCP use **Ethereum mainnet**. The server wallet is on Ethereum, so all agents use Ethereum mainnet. Entrypoint-level network fields are not accepted.
+**Via MCP (Option 1):** Agents created via the `create_lucid_agent` MCP tool use **Ethereum mainnet** (`network: "ethereum"`, hardcoded server-side). The server wallet is on Ethereum. Entrypoint-level network fields are not accepted by the MCP tool.
+
+**Via SDK (Option 2):** Agents created with the SDK can use any supported network. Use **Base Sepolia** (chain 84532) for testnet development, or your target production network. The SDK is network-agnostic -- you choose the chain when creating the payment.
 
 ### Identity Registration
 

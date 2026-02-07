@@ -227,7 +227,7 @@ The `create_lucid_agent` tool accepts:
   - `inputSchema` (object, optional): Valid JSON Schema object for input validation
   - `outputSchema` (object, optional): Valid JSON Schema object for output validation
   - `price` (string, optional): Price in smallest unit (e.g., "1000" = 0.001 USDC if 6 decimals)
-  - **Note**: Entrypoint-level `network` field (for payment network) is **not accepted**. All agents use Ethereum mainnet.
+  - **Note**: Entrypoint-level `network` field (for payment network) is **not accepted** by the MCP tool. Agents created via MCP use Ethereum mainnet (hardcoded server-side). Agents created via the SDK (Option 2) can use any supported network (e.g., Base Sepolia for testnet).
 - `identityConfig` (object, optional): ERC-8004 identity configuration:
   - `chainId` (number, optional): Chain ID for ERC-8004 registry (defaults to Ethereum mainnet: 1)
   - `rpcUrl` (string, optional): RPC URL for blockchain connection
@@ -236,18 +236,20 @@ The `create_lucid_agent` tool accepts:
   - `trustModels` (array of strings, optional): Trust models to advertise
   - `trustOverrides` (object, optional): Custom trust config overrides
 
-**Important**: 
+**Important**:
 - Do not include `version` - the backend sets it automatically (defaults to "1.0.0")
 - Do not provide or see the Lucid API base URL - that is MCP config only
-- Entrypoint-level `network` fields are not accepted - all agents use Base network
+- Entrypoint-level `network` fields are not accepted by the MCP tool
 
 ### PaymentsConfig for Paid Agents
 
-When any entrypoint has a `price`, the agent **must** have `paymentsConfig`. The tool builds this automatically:
+When any entrypoint has a `price`, the agent **must** have `paymentsConfig`. The MCP tool builds this automatically:
 
 - `payTo`: Creator's server wallet address (receives invoker payments)
-- `network`: `"ethereum"` (Ethereum mainnet)
+- `network`: `"ethereum"` (hardcoded by MCP server -- Ethereum mainnet for production)
 - `facilitatorUrl`: `"https://facilitator.daydreams.systems"` (hardcoded)
+
+**Network note**: The MCP tool always sets `network: "ethereum"`. If you are using the SDK (Option 2), you set the network yourself -- use `baseSepolia` (chain 84532) for testnet development or your target production network.
 
 **Conflict**: If you create an agent with paid entrypoints but without `paymentsConfig`, the agent will be created but invocations won't charge users. The tool automatically adds `paymentsConfig` when any entrypoint has a price, so this conflict shouldn't occur when using the tool correctly.
 

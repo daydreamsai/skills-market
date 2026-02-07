@@ -10,6 +10,16 @@ allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion, TodoWrite]
 
 Fully autonomous pipeline that researches a domain and generates a complete monorepo of 10 production-ready Lucid Agents.
 
+## Prerequisites
+
+This skill depends on external skills that are **not included** in this marketplace:
+
+- **`research-agent`** -- Domain research and analysis (not available in skills-market)
+- **`commit`** -- Git operations with proper formatting (not available in skills-market)
+- **`feature-dev:code-reviewer`** -- Code review (referenced via `paid-agent`, not available in skills-market)
+
+The `paid-agent` and `railway-deploy` skills **are** included in this marketplace and will be used during agent creation and deployment.
+
 ## When to Use
 
 Activate this skill when the user wants to:

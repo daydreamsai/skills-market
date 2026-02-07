@@ -27,24 +27,7 @@ Use this skill when you need to:
 
 ### Option 1: MCP Tool with Server Wallet (SIWE)
 
-Use the MCP tool with Sign In With Ethereum (SIWE) and your server wallet:
-
-```bash
-# First, ensure you're authenticated via SIWE in your MCP client
-# Your server wallet will be used for authentication
-
-# Then use the MCP tool to edit an agent
-edit_lucid_agent({
-  agentId: "ag_abc123",
-  enabled: false,
-  description: "Updated via MCP"
-})
-```
-
-The MCP tool handles:
-- SIWE authentication with your server wallet
-- x402 payment signature generation
-- API request with PAYMENT-SIGNATURE header
+> **Not yet implemented.** The `edit_lucid_agent` MCP tool does not exist in the xgate MCP server. Only `create_lucid_agent` is currently available. Use Option 2 (SDK) or Option 3 (viem) below to edit agents programmatically, or edit agents through the Lucid platform dashboard.
 
 ### Option 2: SDK as Signer (Your Own Wallet)
 
@@ -447,5 +430,5 @@ See `scripts/edit-agent-with-payment-auth.ts` for a complete working example of 
 
 ## Related Skills
 
-- **hono-runtime-api**: Complete API reference for all operations
 - **lucid-agent-creator**: Creating new agents
+- **lucid-client-api**: Client API reference (the `hono-runtime-api` skill lives in the lucid-client repo, not in this marketplace)

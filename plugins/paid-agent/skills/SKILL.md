@@ -10,6 +10,15 @@ allowed-tools: [Skill, Bash, Read, Write, Edit, AskUserQuestion]
 
 # Paid Agent Pipeline
 
+## Prerequisites
+
+This skill references external skills that are **not included** in this marketplace:
+
+- **`feature-dev:code-reviewer`** -- Code review skill (from your team's internal skills or a separate plugin)
+- **`commit`** -- Git commit skill (from your team's internal skills or a separate plugin)
+
+If these skills are not installed, skip the code review step (Step 5) and use manual git commits instead of `Skill("commit")`.
+
 ## Step 1: Gather Requirements
 
 Ask the user for:
