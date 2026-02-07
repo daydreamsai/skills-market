@@ -11,8 +11,8 @@
 
 The skills-market repository contains 15 plugins (skills) with well-structured documentation. The top-level docs (README.md, CLAUDE.md, AGENTS.md) establish clear guidelines for skill authoring. However, there are several critical issues around cross-repo accuracy, broken references to non-existent skills, a significant network contradiction in `lucid-agent-creator`, and incomplete README coverage. Most skills comply with the stated spec (YAML frontmatter, plugin.json format, description rules), but a few edge cases need attention.
 
-**Total issues found: 24**
-- Critical: 5
+**Total issues found: 26**
+- Critical: 7
 - Warning: 11
 - Info: 8
 
@@ -30,6 +30,8 @@ The documentation states "All agents use Ethereum mainnet" (line 230, 249 in SKI
 - `network: 'eip155:84532'` (line 90)
 
 Meanwhile `paymentsConfig` states `network: "ethereum"`. A new developer following these docs would be confused about which network to use. The code examples and the prose directly contradict each other.
+
+**Confirmed by server-mcp-auditor:** The MCP server hardcodes `network: "ethereum"` in both `lucid-402.ts` and `create-agent.ts`, but the actual payment chain depends on the Lucid platform's server-side 402 response. The ambiguity is genuine -- the docs should clarify which chain payments actually settle on.
 
 ### C-2: Broken skill references in `autonomous-lucid`
 **File:** `plugins/autonomous-lucid/skills/SKILL.md` (lines 101-109, 245, 326, 441)
@@ -65,6 +67,16 @@ Line 240: "Do not provide or see the Lucid API base URL - that is MCP config onl
 Line 249: `network: "ethereum"` (Ethereum mainnet)
 
 But immediately below, line 243 describes `paymentsConfig` as auto-built with `network: "ethereum"`, while the code example at line 90 sends `network: 'eip155:84532'` (Base Sepolia). The entrypoint-level network restriction and the actual network used are contradictory.
+
+### C-6: `lucid-agent-editor` references non-existent `edit_lucid_agent` MCP tool
+**File:** `plugins/lucid-agent-editor/skills/SKILL.md` (line 37)
+
+The skill documents an `edit_lucid_agent` MCP tool as Option 1 for editing agents. **Confirmed by server-mcp-auditor:** this tool does not exist in the xgate MCP server codebase (`apps/xgate-mcp-server/`). Zero matches found. This is either a planned-but-unimplemented feature or a documentation error. A user following this skill's "Option 1" instructions would fail immediately because the MCP tool is not available.
+
+### C-7: `xgate-server` API base URL inconsistency
+**File:** `plugins/xgate-server/skills/SKILL.md` (line 87 vs lines 31, 36, 44)
+
+The skill documents the API base URL as `https://api.xgate.run` (line 87), but the MCP setup URLs all use `https://xgate.run` (lines 31, 36, 44). **Confirmed by server-mcp-auditor:** the MCP server source code uses `https://xgate.run` as the base URL for both `xgate_search` and `agents_search` tools. If `api.xgate.run` is a separate endpoint, this is undocumented; if it is the same, the URL is inconsistent.
 
 ---
 
