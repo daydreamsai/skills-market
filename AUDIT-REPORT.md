@@ -11,9 +11,9 @@
 
 The skills-market repository contains 15 plugins (skills) with well-structured documentation. The top-level docs (README.md, CLAUDE.md, AGENTS.md) establish clear guidelines for skill authoring. However, there are several critical issues around cross-repo accuracy, broken references to non-existent skills, a significant network contradiction in `lucid-agent-creator`, and incomplete README coverage. Most skills comply with the stated spec (YAML frontmatter, plugin.json format, description rules), but a few edge cases need attention.
 
-**Total issues found: 28**
+**Total issues found: 29**
 - Critical: 9
-- Warning: 11
+- Warning: 12
 - Info: 8
 
 ---
@@ -31,7 +31,7 @@ The documentation states "All agents use Ethereum mainnet" (line 230, 249 in SKI
 
 Meanwhile `paymentsConfig` states `network: "ethereum"`. A new developer following these docs would be confused about which network to use. The code examples and the prose directly contradict each other.
 
-**Confirmed by server-mcp-auditor:** The MCP server hardcodes `network: "ethereum"` in both `lucid-402.ts` and `create-agent.ts`, but the actual payment chain depends on the Lucid platform's server-side 402 response. The ambiguity is genuine -- the docs should clarify which chain payments actually settle on.
+**Confirmed by server-mcp-auditor:** The MCP server hardcodes `network: "ethereum"` in both `lucid-402.ts` and `create-agent.ts`, but the actual payment chain depends on the Lucid platform's server-side 402 response. **Confirmed by sdk-auditor:** The SDK is network-agnostic; CLI templates default to Base Sepolia (chain 84532). There is no SDK-side statement that "All agents use Ethereum mainnet" -- the prose in the skills-market docs appears to be the error. The code examples using `baseSepolia` are actually more aligned with SDK defaults than the prose claiming "Ethereum mainnet."
 
 ### C-2: Broken skill references in `autonomous-lucid`
 **File:** `plugins/autonomous-lucid/skills/SKILL.md` (lines 101-109, 245, 326, 441)
@@ -115,7 +115,7 @@ The `see-also` field references:
 - `https://github.com/daydreamsai/lucid-agents/blob/master/AGENTS.md`
 - `https://github.com/daydreamsai/lucid-agents/blob/master/CONTRIBUTING.md`
 
-These are GitHub blob URLs that may break if the default branch changes or files are renamed. Cannot verify these URLs are live.
+These are GitHub blob URLs that may break if the default branch changes or files are renamed. **Confirmed by sdk-auditor:** `AGENTS.md` is current and accurate, but `CONTRIBUTING.md` has stale content (uses old package names like `agent-kit` instead of `core`) -- flagged as critical issue C-9 in the SDK audit report. So this skills-market `see-also` link points to a stale document.
 
 ### W-4: `lucid-client-api` references external URLs without verification
 **File:** `plugins/lucid-client-api/skills/SKILL.md` (lines 12-13)
@@ -166,6 +166,11 @@ Documents a `tig-innovator` CLI tool with commands like `tig-innovator list`, `t
 **File:** `plugins/xgate-server/skills/SKILL.md` (lines 63-81)
 
 CLI examples use `./plugins/xgate-server/scripts/xgate` which assumes the user is in the skills-market root directory. No installation instructions or PATH setup are provided.
+
+### W-12: Stale version pinning for `@lucid-agents/hono`
+**File:** `plugins/lucid-agents-sdk/skills/SKILL.md` (line 89)
+
+Documents `@lucid-agents/hono@0.7.20+` as the critical minimum for Base x402 support. **Confirmed by sdk-auditor:** the current version is `0.9.3`. While `0.7.20` is still a valid minimum threshold, the gap is significant (0.7.20 vs 0.9.3) and could mislead developers into thinking `0.7.20` is recent. The docs should note the current version or use `latest`.
 
 ---
 
