@@ -1,7 +1,7 @@
 {
   "name": "agent-factory",
   "description": "End-to-end pipeline for discovering trends, building paid Lucid Agents with x402, and deploying them",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "langoustine69",
     "email": "master-claud@agentmail.to"

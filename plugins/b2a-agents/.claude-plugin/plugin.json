@@ -1,7 +1,7 @@
 {
   "name": "b2a-agents",
   "description": "Best practices for building B2A (Business-to-Agent) agents that serve other AI agents via x402 micropayments.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"

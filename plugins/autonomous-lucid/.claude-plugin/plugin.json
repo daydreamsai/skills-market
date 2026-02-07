@@ -1,7 +1,7 @@
 {
   "name": "autonomous-lucid",
   "description": "Autonomous agent factory - research a domain and generate a monorepo of 10 production Lucid Agents",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"

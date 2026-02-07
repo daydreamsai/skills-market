@@ -1,7 +1,7 @@
 {
   "name": "lucid-agent-creator",
   "description": "Skill for creating Lucid agents with JavaScript handler code. Teaches the JS handler code contract, paymentsConfig for paid agents, optional identityConfig (ERC-8004), and how to use the create_lucid_agent MCP tool.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"

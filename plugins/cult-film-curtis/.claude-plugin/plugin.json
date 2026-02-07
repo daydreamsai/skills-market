@@ -1,7 +1,7 @@
 {
   "name": "cult-film-curtis",
   "description": "Cult Film Curtis - A movie-loving connoisseur that provides paid cult film recommendations via x402 micropayments",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": {
     "name": "SecretiveBot",
     "email": "secretivebot@agentmail.to"
