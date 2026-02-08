@@ -1,0 +1,290 @@
+:root {
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  color: #1c1c1c;
+  background: radial-gradient(circle at top right, #ffe4bf, #fffdf8 55%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.panel {
+  width: min(860px, 100%);
+  background: #fff;
+  border: 1px solid #f0d8b2;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(95, 61, 16, 0.12);
+}
+
+h1,
+h2 {
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #6d5b44;
+}
+
+.guide {
+  border: 1px solid #f0d8b2;
+  background: #fffaf1;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.guide-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.guide-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.progress-chip {
+  background: #f4e3ca;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b4917;
+}
+
+.setup-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #efd8b4;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.step.done {
+  border-color: #bfddc5;
+  background: #f5fcf6;
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #f2e2c8;
+  color: #6f4d1c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.step-copy {
+  min-width: 0;
+}
+
+.step-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.step-description {
+  margin: 2px 0 0;
+  color: #665848;
+  font-size: 13px;
+}
+
+.step-state {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.step-state.pending {
+  background: #f4e7d2;
+  color: #6d4d1e;
+}
+
+.step-state.done {
+  background: #d9f0de;
+  color: #2e6a3e;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.top-row {
+  margin-bottom: 10px;
+}
+
+.refresh-meta {
+  font-size: 13px;
+  color: #6f604a;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+select,
+input,
+textarea,
+button {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #d9c2a0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+button {
+  width: auto;
+  background: #c15800;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-list {
+  margin: 0 0 16px;
+  padding-left: 18px;
+}
+
+.status-list li {
+  margin: 4px 0;
+}
+
+.warn {
+  color: #825100;
+  font-size: 14px;
+}
+
+.ok {
+  color: #1f6d2c;
+  font-size: 14px;
+}
+
+.token-row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.advanced {
+  margin-bottom: 12px;
+  border: 1px solid #f0d8b2;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fffdf9;
+}
+
+.advanced summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.advanced[open] summary {
+  margin-bottom: 8px;
+}
+
+.hint {
+  color: #6d5b44;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.error {
+  color: #9b1c1c;
+  font-weight: 600;
+}
+
+.result {
+  margin-top: 18px;
+  border-top: 1px solid #f0d8b2;
+  padding-top: 12px;
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f8f5ef;
+  border: 1px solid #efe4d3;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.log-panel {
+  resize: vertical;
+  min-height: 220px;
+  font-family: "SF Mono", Menlo, Monaco, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  background: #f8f5ef;
+  border: 1px solid #efe4d3;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .step-number {
+    width: 22px;
+    height: 22px;
+  }
+
+  .step-state {
+    justify-self: start;
+  }
+
+  .row {
+    flex-wrap: wrap;
+  }
+}

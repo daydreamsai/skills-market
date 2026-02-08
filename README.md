@@ -69,6 +69,14 @@ Skills for building paid Lucid Agents with x402.
 |-------|---------|
 | `paid-agent` | Full agent pipeline with tests |
 | `autonomous-lucid` | Generate 10-agent monorepos |
+| `agent-factory-mac-app` | Build a simple installable macOS launcher for batch `agent-factory` runs |
+
+## App Scaffold
+
+| Path | Purpose |
+|------|---------|
+| `apps/agent-factory-launcher` | Tauri + React starter for local non-dev batch execution of `agent-factory` |
+| `apps/agent-factory-web` | Local web app + backend for non-dev batch execution of `agent-factory` |
 
 ## Contributing
 

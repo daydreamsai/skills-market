@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -98,6 +98,16 @@
       "author": { "name": "langoustine69" },
       "keywords": ["lucid-agents", "x402", "agent-builder", "deployment", "railway"],
       "category": "pipeline",
+      "license": "MIT"
+    },
+    {
+      "name": "agent-factory-mac-app",
+      "source": "./plugins/agent-factory-mac-app",
+      "description": "Simple installable macOS launcher for running Lucid agent-factory in guided batches",
+      "version": "1.0.0",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["lucid-agents", "agent-factory", "conductor", "macos", "railway", "automation"],
+      "category": "development",
       "license": "MIT"
     },
     {

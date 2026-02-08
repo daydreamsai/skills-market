@@ -1,0 +1,122 @@
+:root {
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  color: #1c1c1c;
+  background: radial-gradient(circle at top right, #ffd8a8, #fffdf8 55%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.panel {
+  width: min(760px, 100%);
+  background: #ffffff;
+  border: 1px solid #f0d8b2;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(95, 61, 16, 0.12);
+}
+
+h1,
+h2 {
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #6d5b44;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+select,
+input,
+textarea,
+button {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #d9c2a0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+button {
+  width: auto;
+  background: #c15800;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-list {
+  margin: 0 0 16px;
+  padding-left: 18px;
+}
+
+.status-list li {
+  margin: 4px 0;
+}
+
+.warn {
+  color: #825100;
+  font-size: 14px;
+}
+
+.ok {
+  color: #1f6d2c;
+  font-size: 14px;
+}
+
+.token-row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.error {
+  color: #9b1c1c;
+  font-weight: 600;
+}
+
+.result {
+  margin-top: 18px;
+  border-top: 1px solid #f0d8b2;
+  padding-top: 12px;
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f8f5ef;
+  border: 1px solid #efe4d3;
+  border-radius: 10px;
+  padding: 12px;
+}
