@@ -1,0 +1,25 @@
+{
+  "name": "starknet-wallet",
+  "description": "Agentic StarkNet wallet operations — connect wallets, transfer tokens, stake STRK, and execute transactions via the Consumer App SDK with x402 micropayments",
+  "version": "1.0.0",
+  "author": {
+    "name": "Calcutatator",
+    "email": "calcutatator@agentmail.to"
+  },
+  "homepage": "https://github.com/Calcutatator/starknet-wallet",
+  "repository": "https://github.com/Calcutatator/starknet-wallet",
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "x402",
+    "micropayments",
+    "base",
+    "starknet",
+    "wallet",
+    "staking",
+    "defi",
+    "strk",
+    "erc20"
+  ],
+  "skills": "./skills"
+}
