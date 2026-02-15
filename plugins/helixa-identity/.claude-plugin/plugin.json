@@ -1,0 +1,10 @@
+{
+  "name": "helixa-identity",
+  "description": "Register onchain agent identity on Helixa (ERC-8004 on Base)",
+  "version": "1.0.0",
+  "author": {
+    "name": "Bendr"
+  },
+  "keywords": ["lucid-agents", "erc-8004", "identity", "helixa", "reputation"],
+  "skills": "./skills"
+}
