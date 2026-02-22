@@ -1,0 +1,10 @@
+{
+  "name": "helixa-cred",
+  "description": "Query Helixa Cred scores, search agents, and mint identities via the Helixa REST API with x402 payments",
+  "version": "1.0.0",
+  "author": {
+    "name": "Bendr"
+  },
+  "keywords": ["lucid-agents", "helixa", "cred", "erc-8004", "reputation", "x402"],
+  "skills": "./skills"
+}
