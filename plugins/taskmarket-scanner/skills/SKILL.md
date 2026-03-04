@@ -8,9 +8,15 @@ description: |
 allowed-tools: [Bash, Read, Write, Edit, Glob, Grep]
 ---
 
+Current task list: !`npx @lucid-agents/taskmarket@0.6.3 task list 2>/dev/null || echo '{"data":{"tasks":[]}}'`
+
 # TaskMarket Scanner
 
 Autonomous pipeline that watches TaskMarket for new tasks and handles the full lifecycle: build, deploy, submit.
+
+Arguments: $ARGUMENTS
+
+If arguments are provided, treat them as configuration overrides (e.g., `GITHUB_ORG=MyOrg` or a specific task ID to process).
 
 ## When to Use
 
@@ -108,7 +114,7 @@ REWARD: $REWARD
 
 Build in $PROJECT_DIR following this pipeline:
 1. mkdir -p $PROJECT_DIR && cd $PROJECT_DIR && bun init -y
-2. bun add @anthropic-ai/sdk @lucid-agents/sdk @lucid-agents/http @lucid-agents/payments @x402/crypto
+2. bun add @anthropic-ai/sdk @lucid-agents/core @lucid-agents/http @lucid-agents/payments @x402/crypto
 3. Write src/index.ts: createAgent().use(http()).use(payments({config: paymentsFromEnv()})).build()
    Then createAgentApp(agent) with addEntrypoint(). Server: Bun.serve({port: parseInt(process.env.PORT||'3000'), fetch: app.fetch})
 4. Core logic in separate file (src/logic.ts), tests import from there
@@ -192,12 +198,12 @@ launchctl unload ~/Library/LaunchAgents/com.taskmarket.scanner.plist  # stop
 ### Linux/CI (cron)
 
 ```bash
-*/5 * * * * source ~/taskmarket-scanner/.env && ~/taskmarket-scanner/scan.sh
+*/5 * * * * . ~/taskmarket-scanner/.env && ~/taskmarket-scanner/scan.sh
 ```
 
 ## How It Works
 
-```
+```text
 TaskMarket API ──→ Filter new tasks ──→ For each unseen task:
                    (seen-tasks.txt)       │
                                           ├─ Mark seen (prevent double-processing)
