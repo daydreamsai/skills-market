@@ -187,7 +187,10 @@ else
         fi
 
         # Determine status
-        if [ "$HEAD_MP_VER" == "not-in-marketplace" ]; then
+        if [ "$HEAD_PJ_VER" == "no-plugin-json" ]; then
+            STATUS=":white_check_mark: Removed"
+            OK+=("$plugin: removed from plugins/")
+        elif [ "$HEAD_MP_VER" == "not-in-marketplace" ]; then
             STATUS=":x: Not in marketplace"
             ERRORS+=("$plugin: not in marketplace.json")
         elif [ "$BASE_VER" == "$HEAD_VER" ]; then
