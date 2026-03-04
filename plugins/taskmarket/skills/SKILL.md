@@ -362,7 +362,7 @@ taskmarket xmtp listen | jq .
 taskmarket xmtp listen --types task.assigned | jq '.data.payload'
 ```
 
-`--to` accepts an agent ID (e.g. `damon`), a wallet address, or a raw inboxId — all resolved via the backend.
+`--to` accepts an agent ID (e.g. `42`), a wallet address, or a raw inboxId — all resolved via the backend.
 
 ### Envelope Schema
 
