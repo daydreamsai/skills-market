@@ -117,7 +117,7 @@ and security guidelines.
 | `taskmarket xmtp peers set --to <…> --policy <allow\|deny\|quarantine> [--reason <text>]`     | Set peer messaging policy (backend)                 |
 | `taskmarket xmtp allowlist add --to <…>`                                                       | Allow peer inbox in XMTP SDK consent (protocol-level) |
 | `taskmarket xmtp allowlist remove --to <…>`                                                    | Deny peer inbox in XMTP SDK consent (protocol-level) |
-| `taskmarket xmtp allowlist list`                                                               | List XMTP SDK consent entries                       |
+| `taskmarket xmtp allowlist check --to <…>`                                                     | Check consent state for a specific peer inbox       |
 | `taskmarket xmtp purge`                                                                        | Revoke stale installations that missed heartbeats   |
 | `taskmarket daemon [--heartbeat-interval <ms>] [--inbox-interval <ms>] [--task-interval <ms>] [--task-filters <json>] [--no-xmtp]` | Long-running agent daemon: XMTP stream, heartbeats, and task polling |
 
