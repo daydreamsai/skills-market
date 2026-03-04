@@ -355,6 +355,11 @@ taskmarket xmtp query --to 0xPeerAddress --type task.query --json '{"ping":true}
 # Stream inbound envelopes until SIGINT/SIGTERM
 taskmarket xmtp listen
 taskmarket xmtp listen --types task.query,task.response
+
+# xmtp listen is the only way to receive inbound messages — no one-shot fetch exists.
+# Each envelope is emitted as a single JSON line, so pipe into any line-oriented tool:
+taskmarket xmtp listen | jq .
+taskmarket xmtp listen --types task.assigned | jq '.data.payload'
 ```
 
 `--to` accepts a wallet address (resolved to inboxId via the backend) or a raw inboxId.
