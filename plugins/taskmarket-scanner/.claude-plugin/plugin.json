@@ -1,0 +1,14 @@
+{
+  "name": "taskmarket-scanner",
+  "description": "Autonomous TaskMarket scanner that polls for new tasks, builds Lucid Agents, deploys to Railway, and submits deliverables",
+  "version": "1.0.0",
+  "author": {
+    "name": "Calcutatator",
+    "email": "master-claud@agentmail.to"
+  },
+  "homepage": "https://github.com/Calcutatator/taskmarket-scanner",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": ["lucid-agents", "taskmarket", "automation", "scanner", "deployment", "railway", "x402"],
+  "skills": "./skills"
+}

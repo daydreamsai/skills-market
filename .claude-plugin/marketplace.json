@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -158,6 +158,16 @@
       "author": { "name": "OpenClaw" },
       "keywords": ["lucid-agents", "tig", "algorithm", "optimization", "rust", "cryptocurrency"],
       "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "taskmarket-scanner",
+      "source": "./plugins/taskmarket-scanner",
+      "description": "Autonomous TaskMarket scanner that polls for new tasks, builds Lucid Agents, deploys to Railway, and submits deliverables",
+      "version": "1.0.0",
+      "author": { "name": "Calcutatator" },
+      "keywords": ["lucid-agents", "taskmarket", "automation", "scanner", "deployment", "railway", "x402"],
+      "category": "automation",
       "license": "MIT"
     }
   ]
