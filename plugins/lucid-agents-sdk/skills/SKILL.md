@@ -1,14 +1,11 @@
 ---
 name: lucid-agents-sdk
 description: |
-  Skill for working with the Lucid Agents SDK - a TypeScript framework for building
-  and monetizing AI agents. Use this skill when building or modifying Lucid Agents
-  projects, working with agent entrypoints, payments, identity, or A2A communication.
-
-  Activate when: Building or modifying Lucid Agents projects, working with agent
-  entrypoints, payments, identity, or A2A communication, developing in the
-  lucid-agents monorepo, creating new templates or CLI features, or questions about
-  the Lucid Agents architecture or API.
+  Provides Lucid Agents SDK implementation patterns for TypeScript paid agents,
+  including entrypoints, payments, identity, and A2A communication.
+  Use when building or modifying Lucid Agents projects, working in the
+  lucid-agents monorepo, creating templates or CLI features, or answering
+  SDK architecture/API questions.
 
 see-also:
   - https://github.com/daydreamsai/lucid-agents/blob/master/AGENTS.md: Full AI coding guide for the lucid-agents monorepo

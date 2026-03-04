@@ -1,6 +1,6 @@
 # Lucid Agents SDK Reference
 
-Detailed reference material for monorepo development. For core SDK patterns, see [SKILL.md](../SKILL.md).
+Detailed reference material for monorepo development. For core SDK patterns, see `../SKILL.md`.
 
 ## Contents
 

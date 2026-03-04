@@ -1,10 +1,10 @@
 ---
 name: lucid-agent-editor
 description: |
-  Skill for editing and managing existing Lucid agents via the API.
-  Shows three options: MCP tool with SIWE, SDK with your wallet, or viem with custom signing.
-
-  Activate when: user wants to edit, update, disable, or manage existing agents
+  Edits and manages existing Lucid agents via the API. Covers three options:
+  MCP tool with SIWE, SDK with wallet auth, or viem with custom signing.
+  Use when editing, updating, disabling, or otherwise managing existing
+  Lucid agents.
 
 see-also:
   - lucid-agent-creator: For creating new agents

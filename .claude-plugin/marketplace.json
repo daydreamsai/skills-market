@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -14,7 +14,7 @@
       "name": "lucid-agents-sdk",
       "source": "./plugins/lucid-agents-sdk",
       "description": "TypeScript framework for building and monetizing AI agents with x402 payments",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": { "name": "Daydreams AI" },
       "keywords": ["lucid-agents", "sdk", "typescript", "payments", "identity", "a2a"],
       "category": "sdk",
@@ -24,9 +24,9 @@
       "name": "lucid-client-api",
       "source": "./plugins/lucid-client-api",
       "description": "Interact with the Lucid Client API - manage agents, invoke entrypoints, handle payments",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": { "name": "Daydreams AI" },
-      "keywords": ["lucid-client", "api", "runtime", "multi-agent"],
+      "keywords": ["lucid-agents", "lucid-client", "api", "runtime", "multi-agent"],
       "category": "sdk",
       "license": "MIT"
     },
@@ -34,9 +34,9 @@
       "name": "lucid-agent-creator",
       "source": "./plugins/lucid-agent-creator",
       "description": "Create Lucid agents with inline JavaScript handlers via MCP",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": { "name": "Daydreams AI" },
-      "keywords": ["lucid", "agent-creator", "mcp", "javascript", "handlers"],
+      "keywords": ["lucid-agents", "lucid", "agent-creator", "mcp", "javascript", "handlers"],
       "category": "sdk",
       "license": "MIT"
     },
@@ -44,9 +44,9 @@
       "name": "lucid-agent-editor",
       "source": "./plugins/lucid-agent-editor",
       "description": "Edit and manage existing Lucid agents via the API with wallet or session authentication",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": { "name": "Daydreams AI" },
-      "keywords": ["lucid", "agent-editor", "update", "authentication", "x402"],
+      "keywords": ["lucid-agents", "lucid", "agent-editor", "update", "authentication", "x402"],
       "category": "sdk",
       "license": "MIT"
     },
@@ -54,9 +54,9 @@
       "name": "xgate-server",
       "source": "./plugins/xgate-server",
       "description": "Query xgate-server API for x402 services, ERC-8004 agents, and token transfers",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "author": { "name": "Daydreams AI" },
-      "keywords": ["xgate", "x402", "erc-8004", "blockchain", "api"],
+      "keywords": ["lucid-agents", "xgate", "x402", "erc-8004", "blockchain", "api"],
       "category": "api-tools",
       "license": "MIT"
     },
@@ -64,9 +64,9 @@
       "name": "trend-discovery",
       "source": "./plugins/trend-discovery",
       "description": "Discover trending topics on X/Twitter and the web for agent opportunities",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": { "name": "langoustine69" },
-      "keywords": ["trends", "twitter", "discovery", "research"],
+      "keywords": ["lucid-agents", "trends", "twitter", "discovery", "research"],
       "category": "pipeline",
       "license": "MIT"
     },
@@ -74,9 +74,9 @@
       "name": "api-research",
       "source": "./plugins/api-research",
       "description": "Research and validate free/public APIs for any topic",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": { "name": "langoustine69" },
-      "keywords": ["api", "research", "data-sources", "validation"],
+      "keywords": ["lucid-agents", "api", "research", "data-sources", "validation"],
       "category": "pipeline",
       "license": "MIT"
     },
@@ -84,9 +84,9 @@
       "name": "railway-deploy",
       "source": "./plugins/railway-deploy",
       "description": "Deploy Lucid Agents to Railway with proper environment configuration",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": { "name": "langoustine69" },
-      "keywords": ["railway", "deployment", "hosting", "infrastructure"],
+      "keywords": ["lucid-agents", "railway", "deployment", "hosting", "infrastructure"],
       "category": "pipeline",
       "license": "MIT"
     },
@@ -154,9 +154,9 @@
       "name": "tig-innovator",
       "source": "./plugins/tig-innovator",
       "description": "AI-powered algorithm optimization agent for The Innovation Game protocol",
-      "version": "0.1.1-beta",
+      "version": "0.1.2-beta",
       "author": { "name": "OpenClaw" },
-      "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency"],
+      "keywords": ["lucid-agents", "tig", "algorithm", "optimization", "rust", "cryptocurrency"],
       "category": "productivity",
       "license": "MIT"
     }
