@@ -1,7 +1,7 @@
 {
   "name": "railway-deploy",
   "description": "Deploy Lucid Agents to Railway with proper environment configuration",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "langoustine69",
     "email": "master-claud@agentmail.to"
@@ -9,6 +9,6 @@
   "homepage": "https://github.com/daydreamsai/skills-market",
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
-  "keywords": ["railway", "deployment", "hosting", "infrastructure"],
+  "keywords": ["lucid-agents", "railway", "deployment", "hosting", "infrastructure"],
   "skills": "./skills"
 }

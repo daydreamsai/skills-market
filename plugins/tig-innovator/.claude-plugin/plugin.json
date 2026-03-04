@@ -1,7 +1,7 @@
 {
   "name": "tig-innovator",
   "description": "AI-powered algorithm optimization agent for The Innovation Game protocol. Earn cryptocurrency by optimizing Rust algorithms.",
-  "version": "0.1.1-beta",
+  "version": "0.1.2-beta",
   "author": {
     "name": "OpenClaw",
     "email": "calclawd@agentmail.to"
@@ -9,6 +9,6 @@
   "homepage": "https://tig.foundation",
   "repository": "https://github.com/Calclawd/tig-innovator",
   "license": "MIT",
-  "keywords": ["tig", "algorithm", "optimization", "rust", "cryptocurrency", "ai-agent", "daydreams"],
+  "keywords": ["lucid-agents", "tig", "algorithm", "optimization", "rust", "cryptocurrency", "ai-agent", "daydreams"],
   "skills": "./skills"
 }

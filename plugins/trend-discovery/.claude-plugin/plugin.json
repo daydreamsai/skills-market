@@ -1,7 +1,7 @@
 {
   "name": "trend-discovery",
   "description": "Discover trending topics on X/Twitter and the web for agent opportunities",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "langoustine69",
     "email": "master-claud@agentmail.to"
@@ -9,6 +9,6 @@
   "homepage": "https://github.com/daydreamsai/skills-market",
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
-  "keywords": ["trends", "twitter", "discovery", "research", "topics"],
+  "keywords": ["lucid-agents", "trends", "twitter", "discovery", "research", "topics"],
   "skills": "./skills"
 }

@@ -1,12 +1,11 @@
 ---
 name: lucid-agent-creator
 description: |
-  Skill for creating Lucid agents with JavaScript handler code.
-  Shows three options: MCP tool with SIWE, SDK with your wallet, or viem with custom signing.
-  Teaches JS handler code contract, paymentsConfig, and identityConfig.
-
-  Activate when: user wants to create Lucid agents with inline JS handlers
-  (no generate API, no self-hosting). The agent will be hosted on the Lucid platform.
+  Creates Lucid agents with JavaScript handler code. Covers three options:
+  MCP tool with SIWE, SDK with wallet auth, or viem with custom signing.
+  Includes handler code contract, paymentsConfig, and identityConfig.
+  Use when creating Lucid platform-hosted agents with inline JS handlers
+  (no generate API, no self-hosting).
 
 see-also:
   - ./GUIDE.md: Guide for humans and agents (grok-the-flow)
