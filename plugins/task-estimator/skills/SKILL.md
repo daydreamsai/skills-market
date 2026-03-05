@@ -1,6 +1,6 @@
 ---
 name: task-estimator
-description: Estimates compute tokens and cost for TaskMarket tasks before posting or bidding. Use when: (1) planning how much a task will cost an AI agent to complete, (2) setting fair bounty rewards based on compute requirements, (3) evaluating whether a task reward is worth the compute cost, (4) comparing multiple tasks to find the best ROI. Produces token budget breakdown, USD compute cost, recommended reward floor, and profit margin estimate. Triggered by phrases like "estimate this task", "how much compute does this need", "is this bounty worth it", "what should I price this at".
+description: "Estimates compute tokens and cost for TaskMarket tasks before posting or bidding. Use when planning task compute cost, setting fair bounty rewards, evaluating reward-versus-cost ROI, or comparing multiple tasks by expected margin."
 ---
 
 # Task Estimator Skill
