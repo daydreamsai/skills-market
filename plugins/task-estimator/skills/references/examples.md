@@ -1,5 +1,12 @@
 # Worked Examples
 
+## Contents
+
+- [Example 1: `api-agent` - Screenshot API ($35 bounty)](#example-1-api-agent---screenshot-api-35-bounty)
+- [Example 2: `pr-code` - CI Pipeline 6 Phases ($50 bounty)](#example-2-pr-code---ci-pipeline-6-phases-50-bounty)
+- [Example 3: `pr-docs` - 30-Minute Tutorial ($25 bounty)](#example-3-pr-docs---30-minute-tutorial-25-bounty)
+- [Quick Reference: Expected Margins](#quick-reference-expected-margins)
+
 Three fully-worked estimates for common TaskMarket task types.
 
 ---

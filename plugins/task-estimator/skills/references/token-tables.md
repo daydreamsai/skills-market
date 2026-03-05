@@ -1,5 +1,16 @@
 # Token Tables — Per-Phase Scoring
 
+## Contents
+
+- [READ Phase (input tokens only)](#read-phase-input-tokens-only)
+- [PLAN Phase (input + output)](#plan-phase-input--output)
+- [EXECUTE Phase (input + output)](#execute-phase-input--output)
+- [Code Tasks](#code-tasks)
+- [Content / Docs Tasks](#content--docs-tasks)
+- [Tool Call Overhead](#tool-call-overhead)
+- [VERIFY Phase (input + output)](#verify-phase-input--output)
+- [Iteration / Retry Budget](#iteration--retry-budget)
+
 Use these tables to score each phase of a task. Look up the closest match, interpolate for in-between cases.
 
 ---

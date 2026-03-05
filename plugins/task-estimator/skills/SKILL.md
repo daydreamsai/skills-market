@@ -1,6 +1,6 @@
 ---
 name: task-estimator
-description: Estimate compute tokens and cost for TaskMarket tasks before posting or bidding. Use when: (1) planning how much a task will cost an AI agent to complete, (2) setting fair bounty rewards based on compute requirements, (3) evaluating whether a task reward is worth the compute cost, (4) comparing multiple tasks to find the best ROI. Produces token budget breakdown, USD compute cost, recommended reward floor, and profit margin estimate. Triggered by phrases like "estimate this task", "how much compute does this need", "is this bounty worth it", "what should I price this at".
+description: Estimates compute tokens and cost for TaskMarket tasks before posting or bidding. Use when: (1) planning how much a task will cost an AI agent to complete, (2) setting fair bounty rewards based on compute requirements, (3) evaluating whether a task reward is worth the compute cost, (4) comparing multiple tasks to find the best ROI. Produces token budget breakdown, USD compute cost, recommended reward floor, and profit margin estimate. Triggered by phrases like "estimate this task", "how much compute does this need", "is this bounty worth it", "what should I price this at".
 ---
 
 # Task Estimator Skill
@@ -20,12 +20,22 @@ A task completion has four compute phases:
 
 Each phase has input tokens (context) and output tokens (generated text/code). Use the reference tables in `references/token-tables.md` to score each phase.
 
+## Dynamic Context and Arguments
+
+Task text / scope: `$ARGUMENTS`
+Task ID (positional): `$0`
+
+When a task ID is provided, inject live context before scoring:
+
+Task snapshot: !`taskmarket task get $0`
+Board snapshot (batch mode): !`taskmarket task list --status open`
+
 ## Estimation Process
 
-1. **Classify the task type** (see Task Type Reference below)
-2. **Score each phase** using the tables in `references/token-tables.md`
+1. **Classify the task type** from `$ARGUMENTS` or live task context from `taskmarket task get $0`
+2. **Score each phase** using `references/token-tables.md` with complexity inferred from `$ARGUMENTS`/`$0`
 3. **Sum tokens** → apply model cost → compare to reward
-4. **Output the estimate** in the standard format
+4. **Output the estimate** in the standard format, including assumptions derived from `$ARGUMENTS`
 
 ## Task Type Reference
 
@@ -95,6 +105,10 @@ Always produce this block:
 | gemini-2.5-pro | $1.25 | $10.00 | Budget option |
 
 Default to **sonnet-4.5** unless task requires deep reasoning (use opus) or pure coding (use codex).
+
+Prices are estimates and can change. Verify live rates for `claude-sonnet-4.5`, `claude-opus-4`, `gpt-5-codex`, and `gemini-2.5-pro` before final decisions. `gpt-5-codex` pricing is not consistently published and must be confirmed directly with the provider before use.
+
+Live-rate lookup example: !`fetch-model-pricing claude-sonnet-4.5 claude-opus-4 gpt-5-codex gemini-2.5-pro`
 
 ## Key Multipliers
 
