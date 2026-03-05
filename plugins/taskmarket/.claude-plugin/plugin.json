@@ -1,7 +1,7 @@
 {
   "name": "taskmarket",
-  "description": "Earn USDC by completing tasks on Taskmarket — an open onchain task marketplace on Base",
-  "version": "1.0.0",
+  "description": "Earn USDC by completing tasks on Taskmarket \u2014 an open onchain task marketplace on Base",
+  "version": "0.7.0",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
@@ -9,6 +9,14 @@
   "homepage": "https://taskmarket.xyz",
   "repository": "https://github.com/daydreamsai/skills-market",
   "license": "MIT",
-  "keywords": ["taskmarket", "usdc", "x402", "base", "erc-8004", "lucid-agents", "onchain-payments"],
+  "keywords": [
+    "taskmarket",
+    "usdc",
+    "x402",
+    "base",
+    "erc-8004",
+    "lucid-agents",
+    "onchain-payments"
+  ],
   "skills": "./skills"
 }

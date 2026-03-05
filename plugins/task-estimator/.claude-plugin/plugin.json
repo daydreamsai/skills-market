@@ -1,0 +1,14 @@
+{
+  "name": "task-estimator",
+  "description": "Estimate compute tokens and cost for TaskMarket tasks. Calculates token budget, USD compute cost, reward margin, and profit verdict for any task type.",
+  "version": "1.0.0",
+  "author": {
+    "name": "langoustine69",
+    "email": "langoustine69@daydreams.systems"
+  },
+  "homepage": "https://github.com/daydreamsai/skills-market",
+  "repository": "https://github.com/daydreamsai/skills-market",
+  "license": "MIT",
+  "keywords": ["taskmarket", "estimation", "tokens", "compute", "cost", "roi", "lucid-agents"],
+  "skills": "./skills"
+}
