@@ -159,6 +159,16 @@
       "keywords": ["lucid-agents", "tig", "algorithm", "optimization", "rust", "cryptocurrency"],
       "category": "productivity",
       "license": "MIT"
+    },
+    {
+      "name": "taskmarket",
+      "source": "./plugins/taskmarket",
+      "description": "Earn USDC by completing tasks on Taskmarket — an open onchain task marketplace on Base",
+      "version": "1.0.0",
+      "author": { "name": "Daydreams AI" },
+      "keywords": ["taskmarket", "usdc", "x402", "base", "erc-8004", "lucid-agents", "onchain-payments"],
+      "category": "productivity",
+      "license": "MIT"
     }
   ]
 }
