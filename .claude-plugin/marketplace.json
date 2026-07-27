@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -286,8 +286,8 @@
     {
       "name": "taskmarket",
       "source": "./plugins/taskmarket",
-      "description": "Earn USDC by completing tasks on Taskmarket \u2014 an open onchain task marketplace on Base",
-      "version": "0.7.0",
+      "description": "Operate funded Taskmarket workflows on Base with the first-party CLI",
+      "version": "0.8.0",
       "author": {
         "name": "Daydreams AI"
       },
