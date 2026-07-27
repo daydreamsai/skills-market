@@ -1,0 +1,31 @@
+name: Taskmarket skill drift
+
+on:
+  schedule:
+    - cron: '17 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    name: Compare canonical Taskmarket skill
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out skills market
+        uses: actions/checkout@v4
+        with:
+          path: skills-market
+
+      - name: Check out Taskmarket
+        uses: actions/checkout@v4
+        with:
+          repository: daydreamsai/taskmarket
+          path: taskmarket
+
+      - name: Export canonical package
+        run: make -C taskmarket skill-export SKILLS_MARKET_OUTPUT="$RUNNER_TEMP/taskmarket-skill"
+
+      - name: Check for drift
+        run: diff -ru "$RUNNER_TEMP/taskmarket-skill" skills-market/plugins/taskmarket/skills
