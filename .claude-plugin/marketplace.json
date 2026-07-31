@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -227,6 +227,29 @@
         "compute",
         "cost",
         "roi"
+      ],
+      "category": "taskmarket",
+      "license": "MIT"
+    },
+    {
+      "name": "proxies-sx-egress",
+      "source": "./plugins/proxies-sx-egress",
+      "description": "Clean mobile/residential web egress for worker agents, paid per task with x402/USDC on Base (no account). For geo-specific, bot-protected, or residential-IP web access.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Proxies.sx"
+      },
+      "keywords": [
+        "x402",
+        "proxy",
+        "egress",
+        "web-scraping",
+        "residential",
+        "mobile",
+        "usdc",
+        "base",
+        "geo-targeting",
+        "taskmarket"
       ],
       "category": "taskmarket",
       "license": "MIT"
