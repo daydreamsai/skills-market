@@ -20,6 +20,7 @@ Task creation costs the escrowed reward. Every other route in this table costs 0
 | `POST /api/tasks/{taskId}/bids` | Submit an English or reverse-English bid. |
 | `POST /api/tasks/{taskId}/bids/accept` | Accept a Dutch or reverse-Dutch clock price. |
 | `POST /api/tasks/{taskId}/cancel` | Cancel an eligible open task. |
+| `POST /api/tasks/{taskId}/evaluator` | Assign an evaluator to an open, unclaimed task that has no evaluator yet. |
 | `POST /api/tasks/{taskId}/reject-submission` | Reject one bounty or benchmark worker. |
 | `POST /api/tasks/{taskId}/update` | Update an eligible open task; charge is `0.001 USDC + positive reward delta`. |
 | `POST /api/tasks/{taskId}/pitches` | Submit a pitch. |
