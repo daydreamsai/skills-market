@@ -1,0 +1,28 @@
+{
+  "name": "x402-crypto",
+  "version": "1.0.0",
+  "description": "Crypto market data via x402 micropayments: prices, sentiment, funding rates, technical indicators, yields, gas, pool metrics, new AMM pairs. $0.001–$0.002 per call on Base.",
+  "author": {
+    "name": "Yunare Maia",
+    "email": "yunare@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "crypto",
+    "prices",
+    "sentiment",
+    "indicators",
+    "defi",
+    "gas",
+    "x402",
+    "micropayments"
+  ],
+  "skills": "./skills",
+  "payment": {
+    "type": "x402",
+    "amount": "0.001",
+    "currency": "USDC",
+    "network": "base"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@daydreamsai/x402-crypto",
+  "version": "1.0.0",
+  "description": "Pay-per-call crypto market data via x402 micropayments: prices, sentiment, funding rates, technical indicators, DeFi yields, gas prices, pool metrics, and new AMM pair discovery. $0.001-$0.002/call, USDC on Base.",
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "keywords": [
+    "lucid-agents",
+    "crypto",
+    "prices",
+    "sentiment",
+    "indicators",
+    "defi",
+    "gas",
+    "x402",
+    "micropayments"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Yunare Maia",
+    "email": "yunare@gmail.com"
+  }
+}
