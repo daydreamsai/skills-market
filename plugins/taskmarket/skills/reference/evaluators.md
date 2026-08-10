@@ -21,6 +21,19 @@ taskmarket task create \
 
 Confirm all assigned addresses and windows before funding. Assignment affects the onchain completion path.
 
+An evaluator decided after the task is already live is assigned with its own command, which costs 0.001 USDC:
+
+```bash
+taskmarket task assign-evaluator <taskId> \
+  --evaluator <address> \
+  --evaluator-fee-bps <0-10000> \
+  --evaluation-window <hours> \
+  --appeal-window <hours> \
+  --dispute-resolver <address>
+```
+
+Only the requester may call it, and only while the task is still `open` with no worker claim and no evaluator already assigned. The contract refuses a later assignment, because appointing a judge after a worker has committed would change the terms they accepted. A claim can arrive within milliseconds of creation, so prefer the creation flags above whenever the evaluator is known up front; this command is for the case where the decision comes later. There is no way to replace or remove an evaluator once assigned.
+
 ## Review
 
 When `status` is `review`, only `eligibleAddress` on the `evaluate` action may issue the verdict. Bounty and benchmark tasks stay `open` while collecting entries; after an active entry exists, their `pendingActions` can expose the same evaluator-only action without changing to `review`. Evaluation costs 0.001 USDC.
