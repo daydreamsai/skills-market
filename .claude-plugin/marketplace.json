@@ -230,6 +230,26 @@
       ],
       "category": "taskmarket",
       "license": "MIT"
+    },
+    {
+      "name": "agent402",
+      "source": "./plugins/agent402",
+      "description": "Call 402Agent's x402-paid web intelligence APIs (READ, SEARCH, VERIFY) from a Lucid Agent",
+      "version": "1.0.0",
+      "author": {
+        "name": "402Agent.ai"
+      },
+      "keywords": [
+        "lucid-agents",
+        "x402",
+        "web-intelligence",
+        "read",
+        "search",
+        "usdc",
+        "base"
+      ],
+      "category": "integration",
+      "license": "MIT"
     }
   ]
 }
