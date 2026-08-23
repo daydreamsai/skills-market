@@ -1,0 +1,22 @@
+{
+  "name": "agent402",
+  "description": "Call 402Agent's x402-paid web intelligence APIs (READ, SEARCH, VERIFY) from a Lucid Agent",
+  "version": "1.0.0",
+  "author": {
+    "name": "402Agent.ai",
+    "email": "kbcrypto2022@gmail.com"
+  },
+  "homepage": "https://402agent.ai/agent402/docs/buyer",
+  "repository": "https://github.com/kbcrypto2022-a11y/402agent",
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "x402",
+    "web-intelligence",
+    "read",
+    "search",
+    "usdc",
+    "base"
+  ],
+  "skills": "./skills"
+}
