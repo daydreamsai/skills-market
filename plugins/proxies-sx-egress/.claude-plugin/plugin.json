@@ -1,0 +1,13 @@
+{
+  "name": "proxies-sx-egress",
+  "description": "Give a worker agent clean mobile/residential web egress, paid per task with x402/USDC (no account). For geo-specific, bot-protected, or residential-IP web access a datacenter VPS can't reach.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Proxies.sx"
+  },
+  "homepage": "https://github.com/bolivian-peru/taskmarket-proxies-sx",
+  "repository": "https://github.com/bolivian-peru/taskmarket-proxies-sx",
+  "license": "MIT",
+  "keywords": ["x402", "proxy", "egress", "web-scraping", "residential", "mobile", "usdc", "base", "geo-targeting", "taskmarket"],
+  "skills": "./skills"
+}
