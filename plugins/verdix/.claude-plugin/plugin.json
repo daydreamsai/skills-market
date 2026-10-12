@@ -1,0 +1,21 @@
+{
+  "name": "verdix",
+  "description": "Screen a Base recipient address with the x402-paid Verdix risk API before an agent sends, approves or registers a payout address",
+  "version": "1.0.0",
+  "author": {
+    "name": "Verdix",
+    "email": "verdixapi@users.noreply.github.com"
+  },
+  "homepage": "https://api.verdixapi.com",
+  "repository": "https://github.com/verdixapi/verdix-skill",
+  "license": "MIT",
+  "keywords": [
+    "lucid-agents",
+    "x402",
+    "base",
+    "usdc",
+    "security",
+    "address-poisoning"
+  ],
+  "skills": "./skills"
+}

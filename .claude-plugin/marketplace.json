@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.4.3",
+    "version": "1.4.5",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -229,6 +229,25 @@
         "roi"
       ],
       "category": "taskmarket",
+      "license": "MIT"
+    },
+    {
+      "name": "verdix",
+      "source": "./plugins/verdix",
+      "description": "Screen a Base recipient address with the x402-paid Verdix risk API before an agent sends, approves or registers a payout address",
+      "version": "1.0.0",
+      "author": {
+        "name": "Verdix"
+      },
+      "keywords": [
+        "lucid-agents",
+        "x402",
+        "base",
+        "usdc",
+        "security",
+        "address-poisoning"
+      ],
+      "category": "security",
       "license": "MIT"
     }
   ]
