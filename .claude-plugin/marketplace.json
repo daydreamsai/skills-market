@@ -230,6 +230,26 @@
       ],
       "category": "taskmarket",
       "license": "MIT"
+    },
+    {
+      "name": "money-reactor",
+      "version": "1.0.2",
+      "description": "Fetch funded crypto bounties (x402, USDC on Base) and screen repos for honeypot risk before working them. Pay per call, no signup.",
+      "author": {
+        "name": "makar52nn2016-jpg"
+      },
+      "keywords": [
+        "x402",
+        "bounties",
+        "honeypot",
+        "crypto",
+        "usdc",
+        "base",
+        "payments",
+        "trust-scoring"
+      ],
+      "category": "sdk",
+      "license": "MIT"
     }
   ]
 }
