@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code skills for building paid Lucid Agents with x402",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -196,7 +196,7 @@
       "name": "taskmarket",
       "source": "./plugins/taskmarket",
       "description": "Operate funded Taskmarket workflows on Base and Tempo with the first-party CLI",
-      "version": "0.9.0",
+      "version": "0.9.1",
       "author": {
         "name": "Daydreams AI"
       },
