@@ -2,30 +2,90 @@ name: Taskmarket skill drift
 
 on:
   schedule:
-    - cron: '17 8 * * 1'
+    - cron: '17 8 * * *'
   workflow_dispatch:
 
+concurrency:
+  group: taskmarket-skill-drift
+  cancel-in-progress: false
+
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
-  compare:
-    name: Compare canonical Taskmarket skill
+  sync:
+    name: Sync canonical Taskmarket skill
     runs-on: ubuntu-latest
     steps:
       - name: Check out skills market
         uses: actions/checkout@v4
         with:
-          path: skills-market
+          fetch-depth: 0
 
-      - name: Check out Taskmarket
-        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          repository: daydreamsai/taskmarket
-          path: taskmarket
+          node-version: '22'
 
-      - name: Export canonical package
-        run: make -C taskmarket skill-export SKILLS_MARKET_OUTPUT="$RUNNER_TEMP/taskmarket-skill"
+      - name: Fetch and apply canonical Taskmarket skill
+        id: sync
+        run: node .github/scripts/sync-taskmarket-skill.mjs --apply
 
-      - name: Check for drift
-        run: diff -ru "$RUNNER_TEMP/taskmarket-skill" skills-market/plugins/taskmarket/skills
+      - name: Commit and verify plugin versions
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          SKILL_VERSION: ${{ steps.sync.outputs.skill_version }}
+          PLUGIN_VERSION: ${{ steps.sync.outputs.plugin_version }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b taskmarket/auto-sync-skill
+          git add plugins/taskmarket .claude-plugin/marketplace.json
+          git commit -m "taskmarket: sync skill bundle (${SKILL_VERSION}, v${PLUGIN_VERSION})"
+          chmod +x .github/scripts/check-plugin-versions.sh
+          .github/scripts/check-plugin-versions.sh origin/main HEAD > version-report.md
+          cat version-report.md
+          grep -q "All checks passed!" version-report.md
+
+      - name: Push branch and open or update PR
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKILL_VERSION: ${{ steps.sync.outputs.skill_version }}
+          PLUGIN_VERSION: ${{ steps.sync.outputs.plugin_version }}
+          MARKETPLACE_VERSION: ${{ steps.sync.outputs.marketplace_version }}
+          ADDED_COUNT: ${{ steps.sync.outputs.added_count }}
+          MODIFIED_COUNT: ${{ steps.sync.outputs.modified_count }}
+          REMOVED_COUNT: ${{ steps.sync.outputs.removed_count }}
+        run: |
+          set -euo pipefail
+          BRANCH="taskmarket/auto-sync-skill"
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            if [ -n "$EXISTING_PR" ] && git diff --quiet "origin/$BRANCH" HEAD -- plugins/taskmarket/skills; then
+              echo "Open PR #${EXISTING_PR} already matches fetched skill bundle; skipping push."
+              exit 0
+            fi
+            git push --force-with-lease="refs/heads/$BRANCH" origin "HEAD:$BRANCH"
+          else
+            git push origin "HEAD:$BRANCH"
+          fi
+
+          TITLE="taskmarket: sync skill bundle (${SKILL_VERSION}, v${PLUGIN_VERSION})"
+          BODY="$(printf '%s\n' \
+            'Automated sync of `plugins/taskmarket/skills/` from `https://taskmarket.dev` (`reference/skill-manifest.txt`).' \
+            '' \
+            "- **Skill version:** \`${SKILL_VERSION}\`" \
+            "- **Plugin version:** \`${PLUGIN_VERSION}\`" \
+            "- **Marketplace version:** \`${MARKETPLACE_VERSION}\`" \
+            "- **File diff:** +${ADDED_COUNT} added, ~${MODIFIED_COUNT} updated, -${REMOVED_COUNT} removed")"
+
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" --title "$TITLE" --body "$BODY"
+          else
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body "$BODY"
+          fi
