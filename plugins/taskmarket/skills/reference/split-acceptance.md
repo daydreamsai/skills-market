@@ -19,7 +19,7 @@ Split acceptance is intended for bounty and benchmark tasks. It lets the request
 - `workers[0]` becomes the primary award (`rank: 1`, `isPrimary: true` in `awards`; also surfaced
   as the top-level `primaryAward` field), and the resolved deliverable becomes the task
   deliverable.
-- Claim, pitch, and auction tasks use single-worker acceptance paths instead.
+- Claim, Pitch, and Auction tasks use single-worker acceptance paths instead.
 
 ## Distinct Winners
 

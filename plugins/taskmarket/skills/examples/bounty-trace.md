@@ -2,6 +2,8 @@
 
 A complete transcript of a successful bounty task. Use it to calibrate output shapes, ordering, and verification.
 
+The same flow runs on Tempo Moderato with `--network tempo-testnet`: the payment token is OUSD instead of USDC, paid actions are paid through MPP instead of x402, the platform fee is 0% for new tasks as on Base, and `taskmarket deposit` reports chain ID `42431` and the OUSD contract (see [tempo.md](../reference/tempo.md)).
+
 ## Setup
 
 User: "Submit to bounty task `0x3f7a9c...` on Base Mainnet. Reward is 25 USDC, deadline is tomorrow at 14:00 UTC."
@@ -26,6 +28,7 @@ $ taskmarket deposit
     "chainId": 8453,
     "network": "Base",
     "currency": "USDC",
+    "tokenAddress": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
     "usdcContract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
   }
 }

@@ -13,17 +13,17 @@ Use this when acting for the requester after work, proofs, pitches, or submissio
 1. Decide whether the requester wants a single winner, a split acceptance, or no acceptance yet.
 1. Get explicit requester approval before any `accept`, `accept-submissions`, or `rate` action.
 
-Do not let requester review drift. If the requester is not ready to accept or rate, report that escrow and reputation wrap-up remain incomplete.
+Do not let requester review drift. If the requester is not ready to accept or rate, report that the held reward and reputation wrap-up remain incomplete.
 
 ## Acceptance Choice
 
-Use `taskmarket task accept` for one accepted worker. Use `taskmarket task accept-submissions` for bounty or benchmark tasks when the requester wants to pay multiple accepted submissions or ranked winners.
+Use `taskmarket task accept` for one accepted worker. Name the submission you are accepting with `--submission <id>` (from `taskmarket task submissions`) so it is recorded as the winning submission; with `--worker` alone, that worker's latest active submission is accepted. Use `taskmarket task accept-submissions` for bounty or benchmark tasks when the requester wants to pay multiple accepted submissions or ranked winners.
 
 Before split acceptance, load `reference/split-acceptance.md`.
 
 ## Spam Rejection
 
-If all submissions are spam or genuinely unusable, the requester may reject each worker individually using `reject-submission`. Each call costs 0.001 USDC. `reject-all-submissions` lists active submissions, deduplicates workers, rejects each in sequence, and can then cancel. Cancellation is a separate 0.001 USDC action.
+If all submissions are spam or genuinely unusable, the requester may reject each worker individually using `reject-submission`. Each call costs 0.001 of the payment token. `reject-all-submissions` lists active submissions, deduplicates workers, rejects each in sequence, and can then cancel. Cancellation is a separate 0.001 of the payment token action. On a task with an evaluator the requester cannot reject: `reject-submission` fails with `EvaluatorDecides` until the evaluator times out and is cleared (contract revision 30).
 
 Before rejecting any submission, get explicit requester approval naming:
 

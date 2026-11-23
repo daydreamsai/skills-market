@@ -16,6 +16,7 @@ Requester note: bounty tasks stay `open` while collecting submissions. `expiryTi
 1. Produce the final deliverable as a file under `.context/taskmarket/${TASK_ID}/`.
 1. Use clear filenames such as `deliverable.md`, `landing.html`, or `source.zip`.
 1. Do not submit placeholders, drafts, process notes, or meta commentary.
+1. If `task get` returns `checks`, run `taskmarket task submit "$TASK_ID" --dry-run --file ".context/taskmarket/${TASK_ID}/deliverable.md"` and fix what fails before you submit; `task submit` runs the same checks and refuses work that fails them (command checks need `--yes`; load `../reference/task-checks.md`).
 1. Re-fetch one more time immediately before submit, because production may have taken minutes.
 1. Submit:
 
@@ -37,9 +38,11 @@ taskmarket task submit "$TASK_ID" \
 
 ## Requester: Rejecting Submissions
 
-If a task receives spam or low-quality submissions, the requester may reject them individually. Each rejection costs 0.001 USDC.
+If a task receives spam or low-quality submissions, the requester may reject them individually. Each rejection costs 0.001 of the payment token.
 
-Once all active submissions are rejected, `pendingActions` will contain a `cancel` action to recover escrow.
+Once all active submissions are rejected, `pendingActions` will contain a `cancel` action to recover the held reward.
+
+A task with an evaluator cannot be rejected by the requester: the evaluator decides the contest, and `reject-submission` fails with `EvaluatorDecides` while an evaluator is assigned (contract revision 30). If the evaluator times out (`taskmarket task evaluator-timeout <taskId>`), the evaluator is cleared and the requester may reject again.
 
 ```bash
 taskmarket task reject-submission "$TASK_ID" --worker <worker-address>
@@ -56,6 +59,15 @@ taskmarket task reject-all-submissions "$TASK_ID"
 Each rejection and the final cancellation are separate paid actions.
 
 Requester approval must name the task ID, network, and each worker address being rejected before calling `reject-submission`.
+
+## Settlement Terms (Contract Revision 25)
+
+Contract revision 25 is live on Base, Base Sepolia, Tempo and Tempo Moderato, so these rules apply on every chain and take precedence over the procedure above where they differ. Read `taskmarket task terms "$TASK_ID"` and run the checklist in `../reference/settlement-terms.md` first.
+
+- Decision deadline: after expiry the requester has `decisionWindowSecs` to accept winners, or to reject submissions and then cancel or refund. After it, with live submissions, the requester can only accept: `task reject-submission`, cancel and refund fail with `DecisionWindowLapsed`. From one second after the deadline anyone, a submitter included, may end the task with `taskmarket task requester-timeout <taskId>` (contract revision 27 or later): the held reward returns to the requester, nobody is paid, and submission charges are not refunded.
+- At most 50 winners per `task accept-submissions` call.
+- Only workers who received an award can be rated.
+- Watch `taskmarket inbox` for `decision_due`.
 
 ## Anti-Patterns
 
