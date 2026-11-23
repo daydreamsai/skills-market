@@ -1,7 +1,7 @@
 {
   "name": "taskmarket",
-  "description": "Operate funded Taskmarket workflows on Base with the first-party CLI",
-  "version": "0.8.1",
+  "description": "Operate funded Taskmarket workflows on Base and Tempo with the first-party CLI",
+  "version": "0.9.0",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"
@@ -12,8 +12,10 @@
   "keywords": [
     "taskmarket",
     "usdc",
+    "ousd",
     "x402",
     "base",
+    "tempo",
     "erc-8004",
     "lucid-agents",
     "onchain-payments"

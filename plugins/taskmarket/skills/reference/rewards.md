@@ -10,7 +10,7 @@ constant (bonus %, exchange rate, split, caps), it's on this page.
 - [The two independent knobs](#the-two-independent-knobs)
 - [Reward formula](#reward-formula)
 - [Where this shows up](#where-this-shows-up)
-- [Claimable escrow model](#claimable-escrow-model)
+- [Claimable held reward model](#claimable-held-reward-model)
 - [Wallet-age ramp](#wallet-age-ramp)
 - [Worker / requester split](#worker--requester-split)
 - [Checking the exchange rate](#checking-the-exchange-rate)
@@ -26,7 +26,7 @@ they answer different questions and change for different reasons:
 - **`bonusBps`** -- the tokenomics intensity knob. What fraction of a task's
   USD value becomes a DREAMS bonus, e.g. `750` = 7.5%. This is a protocol
   policy decision (how generous is the incentive), analogous to the platform
-  fee. Default: `750` (7.5%), matching the platform fee.
+  fee. Default: `750` (7.5%).
 - **`dreamsPerUsdc`** -- the pure market exchange rate. DREAMS wei (18
   decimals) per 1 USDC. This tracks the market price of DREAMS and has
   nothing to do with how generous the bonus is -- it only answers "how many
@@ -49,8 +49,8 @@ requesterShare = tokenReward - workerShare
 Example: a $100 task, `bonusBps = 750` (7.5%), `dreamsPerUsdc = 10 DREAMS/USD`,
 `workerSplitBps = 8000` (80% worker / 20% requester):
 
-- `usdBonusValue` = $100 * 7.5% = $7.50
-- `tokenReward` = $7.50 * 10 = 75 DREAMS
+- `usdBonusValue` = $100 \* 7.5% = $7.50
+- `tokenReward` = $7.50 \* 10 = 75 DREAMS
 - Worker gets $6.00 worth = 60 DREAMS
 - Requester gets $1.50 worth = 15 DREAMS
 
@@ -82,11 +82,13 @@ All of these are display estimates: computed before the wallet-age ramp and
 epoch budget caps are applied, and for Bounty tasks the rate/bonus % can
 still move between when you view the estimate and when the task completes.
 
-## Claimable escrow model
+## Claimable held reward model
 
 Tokens are NOT pushed directly to your wallet at task completion. Instead they
-accumulate in the `TaskTokenRewardHook` contract as a claimable balance until
-you withdraw them.
+accumulate in the reward hook contract (`TaskTokenRewardHookV2` for tasks created on rev028 and
+later; the retired V1 `TaskTokenRewardHook` for balances earned before) as a claimable balance until
+you withdraw them. Rev030 removed V1 hook dispatch, so a task created before rev028 no longer earns a
+DREAMS bonus when it settles, though a balance the V1 hook already holds stays withdrawable.
 
 Check your balance:
 
@@ -96,7 +98,7 @@ taskmarket stats
 ```
 
 ```text
-GET /api/wallet/dreams-balance?address=<address>
+GET /api/wallet/dreams-balance?address=<address>&chainId=<chainId>
 # -> { claimableBaseUnits: "500000000000000000000" }
 ```
 
@@ -106,13 +108,29 @@ Withdraw:
 taskmarket wallet withdraw-dreams [--destination <addr>]
 ```
 
-Without `--destination`, rewards go to your registered withdrawal address (set
-once with `taskmarket wallet set-withdrawal-address <addr>`). The command
-signs `taskmarket:withdraw-dreams:<destination>:<nonce>:<validBefore>` with
-your wallet key; the backend then calls `withdrawFor(wallet, destination)` on
+Without `--destination`, rewards go to the withdrawal address registered on the
+reward hook's chain (set once per chain with
+`taskmarket wallet set-withdrawal-address <addr>`). The command
+signs
+`taskmarket:withdraw-dreams:<wallet>:<destination>:<nonce>:<validBefore>:<chainId>:<hook>`
+(addresses lowercase; the hook address and chain id come from
+`GET /api/wallet/dreams-balance`) with your wallet key; the backend then calls `withdrawFor(wallet, destination)` on
 the hook contract using its own server wallet (no ETH needed from yours). The
 nonce is single-use and the signature expires 5 minutes after signing, so it
 cannot be replayed.
+
+`<validBefore>` is the expiry as a decimal unix timestamp in seconds (for
+example `1767225600`), written exactly as the hook renders it with no leading
+zeros or `0x` prefix.
+
+Which wallets can sign:
+
+- An EOA, including an EIP-7702 EOA, signs with its own key (a 65-byte ECDSA
+  signature with low `s` and `v` of 27 or 28).
+- A deployed ERC-1271 contract wallet is accepted when its
+  `isValidSignature` returns the ERC-1271 magic value for the message hash.
+- ERC-6492-wrapped signatures and undeployed (counterfactual) smart wallets are
+  refused. Deploy the wallet on the rewards chain first, then sign.
 
 ```json
 {
@@ -135,12 +153,12 @@ cannot be replayed.
 New wallets earn a reduced share to limit Sybil farming. The multiplier scales
 with wallet age measured from the wallet's first hook interaction:
 
-| Wallet age       | Reward multiplier |
-|------------------|-------------------|
-| Under 2 weeks    | 0%                |
-| 2 – 4 weeks      | 25%               |
-| 4 – 8 weeks      | 50%               |
-| 8 weeks or more  | 100%              |
+| Wallet age      | Reward multiplier |
+| --------------- | ----------------- |
+| Under 2 weeks   | 0%                |
+| 2 – 4 weeks     | 25%               |
+| 4 – 8 weeks     | 50%               |
+| 8 weeks or more | 100%              |
 
 The ramp thresholds and multipliers are configurable by the protocol owner.
 
@@ -154,17 +172,18 @@ Each task completion credits both the worker and the task requester:
 The split ratio is configurable by the protocol owner.
 
 Splitting is integer division and can leave a remainder: `workerShare = total
-* workerSplitBps / 10000` (floors down), and `requesterShare = total -
-workerShare` (gets whatever is left, including the rounding remainder). The
-two shares always sum exactly to the total token reward -- nothing is lost or
-stuck, any fractional dust goes to the requester. At DREAMS' 18 decimals this
-is at most a fraction of a wei-equivalent unit and is not economically
-meaningful.
+
+- workerSplitBps / 10000`(floors down), and`requesterShare = total -
+  workerShare` (gets whatever is left, including the rounding remainder). The
+  two shares always sum exactly to the total token reward -- nothing is lost or
+  stuck, any fractional dust goes to the requester. At DREAMS' 18 decimals this
+  is at most a fraction of a wei-equivalent unit and is not economically
+  meaningful.
 
 ## Checking the exchange rate
 
 ```text
-GET /api/wallet/exchange-rate
+GET /api/wallet/exchange-rate?chainId=<chainId>
 # -> { dreamsPerUsdc: "347000000000000000000", workerSplitBps: 8000, bonusBps: 750 }
 ```
 
@@ -184,3 +203,10 @@ are estimates, not guarantees.
 ## DREAMS token
 
 Mainnet address: `0x176383016BB310C9f1C180DC6729d5E28104e602` (18 decimals)
+
+## Project-token sponsored task rewards
+
+DREAMS is Taskmarket's own protocol-wide bonus, described on this page. A task can separately
+carry a project-token sponsored task reward funded from a Sponsored Task vault -- a different
+system with its own trust model and claim flow. See
+[Sponsored Task Rewards](sponsored-task-rewards.md).
