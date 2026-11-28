@@ -1,7 +1,7 @@
 {
   "name": "taskmarket",
   "description": "Operate funded Taskmarket workflows on Base and Tempo with the first-party CLI",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": {
     "name": "Daydreams AI",
     "email": "ponderingdemocritus@protonmail.com"

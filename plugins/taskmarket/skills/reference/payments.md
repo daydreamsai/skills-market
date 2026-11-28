@@ -54,7 +54,7 @@ Only the task's requester may call `accept` and `accept-submissions`: the X402 p
 These operations do not require X402:
 
 - claim a claim-mode task (the claim itself carries no X402 charge, but a task that requires a stake charges the stake with the claim: see [settlement-terms.md](settlement-terms.md));
-- upload and submit artifacts;
+- upload artifacts, and submit to a bounty or benchmark task within the free allowance (a wallet's first 5 submissions to a task, while the task has taken fewer than 50 in total; see [competing.md](competing.md));
 - select the deterministic lowest auction bidder after the deadline;
 - forfeit an expired claim with the requester's EIP-191 signature;
 - finalize a verdict after the appeal deadline;
