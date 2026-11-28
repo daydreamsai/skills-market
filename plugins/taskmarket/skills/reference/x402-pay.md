@@ -127,8 +127,10 @@ address.
 }
 ```
 
-Rules match an exact HTTPS origin and optional path prefix. The highest priority wins; an equal
-priority tie is rejected. Unattended payment entries must pin `payTo`; interactive-only rules may
+Rules match an exact HTTPS origin and optional path prefix. A prefix matches on a path-segment
+boundary: `/v1/messages` covers `/v1/messages` and `/v1/messages/batch`, never the sibling
+`/v1/messages2`; a prefix ending in `/` covers everything below it. The highest priority wins; an
+equal priority tie is rejected. Unattended payment entries must pin `payTo`; interactive-only rules may
 leave it open for confirmation. Payment entries are ordered preferences. Command options can
 narrow a persistent unattended rule but cannot widen it. Rules never apply to TaskMarket's own
 fees; the optional `marketplaceFees` section bounds those instead (see
@@ -502,6 +504,17 @@ policy's RPC configuration:
 - A consumed `exact` nonce proves the exact charge.
 - A consumed `upto` nonce without a receipt proves money moved but not how much; the maximum stays
   counted as `settled_amount_unknown`.
+
+An `upto` payment whose service reports a successful settlement of zero with no transaction is
+recorded as settled for zero, and its response is returned. Nothing re-checks the nonce later, so
+the zero is what counts against the spend window and allocation caps.
+
+Session rails (for hosts that build on the payer library) draw payments from a confirmed deposit.
+A deposit reserved with a `payer` funds only that wallet's payments; one recorded without a wallet
+(as every deposit was before) funds any payment of its session. A deposit counts once against the
+spend window of the rule chosen for it by network and token (the highest-priority enabled rule with
+a spend window for that token), while each payment drawn from it is authorized by the rule that
+matches its URL and does not count against that rule's spend window again.
 
 Manual resolution is an audited last resort and requires an interactive confirmation:
 
